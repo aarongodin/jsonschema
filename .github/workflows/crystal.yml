@@ -15,6 +15,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Install rsync 📚
+      run: |
+        apt-get update && apt-get install -y rsync
     - name: Install dependencies
       run: shards install
     - name: Build docs
