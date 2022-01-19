@@ -7,14 +7,10 @@
     "type": "number"
   },
   "required": ["firstName"],
-  "maxProperties": 1000,
-  "patternProperties": {
-    "first": {
-      "type": "string"
-    },
-    "last": {
-      "type": "string"
-    }
+  "maxProperties": 100,
+  "minProperties": 2,
+  "propertyNames": {
+    "maxLength": 10
   },
   "properties": {
     "firstName": {
@@ -28,27 +24,9 @@
     },
     "age": {
       "description": "Age in years which must be equal to or greater than zero.",
-      "type": "integer",
+      "type": "number",
       "minimum": 0,
       "maximum": 40
-    },
-    "favorites": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "uniqueItems": true,
-      "minItems": 3
-    },
-    "examples": {
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "number"
-        }
-      ]
     }
   }
 }

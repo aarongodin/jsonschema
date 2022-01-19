@@ -16,9 +16,9 @@ module JSONSchema
   # Captures result of validation, including a status and any number of corresponding errors
   struct ValidationResult
     property status : Symbol
-    property errors : Array(ValidationError) = [] of ValidationError
+    property errors : Array(ValidationError)
 
-    def initialize(@status)
+    def initialize(@status, @errors = [] of ValidationError)
     end
   end
 
@@ -46,8 +46,46 @@ module JSONSchema
     property min_properties : Int32?
     property max_properties : Int32?
 
-    def validate(node : JSON::Any)
-      true
+    def validate(node : JSON::Any, errors = [] of ValidationError)
+      value = node.as_h rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be an object", "boop")])
+
+      unless self.required.nil?
+        self.required.as(Array(String)).each do |required_prop|
+          errors.push(ValidationError.new("Expected required property #{required_prop} to be set", "boop")) unless value.has_key?(required_prop)
+        end
+      end
+
+      unless self.property_names.nil?
+        value.keys.each do |property_name|
+          self.property_names.as(StringValidator).validate(JSON::Any.new(property_name), errors)
+        end
+      end
+
+      unless self.min_properties.nil?
+        unless value.keys.size >= self.min_properties.as(Int32)
+          errors.push(ValidationError.new("Expected object to have at least #{self.min_properties} properties", "boop"))
+        end
+      end
+
+      unless self.max_properties.nil?
+        if value.keys.size > self.max_properties.as(Int32)
+          errors.push(ValidationError.new("Expected object to have at most #{self.max_properties} properties", "boop"))
+        end
+      end
+      
+      self.properties.each do |property_name, property_validator|
+        property_value = value[property_name]?
+
+        unless property_value.nil?
+          property_validator.validate(property_value, errors)
+        end
+      end
+
+      if errors.size > 0
+        return ValidationResult.new(:error, errors)
+      end
+
+      ValidationResult.new(:success)
     end
   end
 
@@ -66,6 +104,9 @@ module JSONSchema
     property max_items : Int32?
     property unique_items = false
 
+    def validate(node : JSON::Any, errors = [] of ValidationError)
+      ValidationResult.new(:success)
+    end
   end
 
   # Validates schema where the `type` is `string`.
@@ -77,6 +118,30 @@ module JSONSchema
     property max_length : Int32?
     property pattern : Regex?
     property format : String?
+
+    def validate(node : JSON::Any, errors = [] of ValidationError)
+      validate(node.as_s, errors)
+    end
+
+    def validate(value : String, errors = [] of ValidationError)
+      unless self.min_length.nil?
+        if self.min_length.as(Int32) >= value.size
+          errors.push(ValidationError.new("Expected string to have minLength #{self.min_length}", "boop"))
+        end
+      end
+
+      unless self.max_length.nil?
+        if value.size > self.max_length.as(Int32)
+          errors.push(ValidationError.new("Expected string to have maxLength #{self.max_length}", "boop"))
+        end
+      end
+
+      if errors.size > 0
+        return ValidationResult.new(:error, errors)
+      end
+
+      ValidationResult.new(:success)
+    end
   end
 
   # Validates schema where the `type` is `number` or `integer`.
@@ -90,6 +155,43 @@ module JSONSchema
     property maximum : Int32?
     property exclusive_minimum : Int32?
     property exclusive_maximum : Int32?
+
+    def validate(node : JSON::Any, errors = [] of ValidationError)
+      validate(node.as_i, errors)
+    end
+
+    def validate(value : Int32 | Float, errors = [] of ValidationError)
+      pp self
+      unless self.minimum.nil?
+        unless self.minimum.as(Int32) <= value
+          errors.push(ValidationError.new("Expected numeric value be greater than or equal to #{self.minimum}", "boop"))
+        end
+      end
+
+      unless self.maximum.nil?
+        unless value <= self.maximum.as(Int32)
+          errors.push(ValidationError.new("Expected numeric value be less than or equal to #{self.maximum}", "boop"))
+        end
+      end
+
+      unless self.exclusive_minimum.nil?
+        unless self.exclusive_minimum.as(Int32) < value
+          errors.push(ValidationError.new("Expected numeric value be greater than #{self.exclusive_minimum}", "boop"))
+        end
+      end
+
+      unless self.exclusive_maximum.nil?
+        unless value < self.exclusive_maximum.as(Int32)
+          errors.push(ValidationError.new("Expected numeric value be less than #{self.exclusive_maximum}", "boop"))
+        end
+      end
+
+      if errors.size > 0
+        return ValidationResult.new(:error, errors)
+      end
+
+      ValidationResult.new(:success)
+    end
   end
 
   # Validates schema where the `type` is `null`.
@@ -97,6 +199,9 @@ module JSONSchema
   # This is a raw `Validator` class that you most likely do not need to use directly.
   # See the `JSONSchema#create_validator` macro for common usage of this shard.
   class NullValidator
+    def validate(node : JSON::Any, errors = [] of ValidationError)
+      ValidationResult.new(:success)
+    end
   end
 
   # Validates schema where the `type` is `boolean`.
@@ -104,6 +209,9 @@ module JSONSchema
   # This is a raw `Validator` class that you most likely do not need to use directly.
   # See the `JSONSchema#create_validator` macro for common usage of this shard.
   class BooleanValidator
+    def validate(node : JSON::Any, errors = [] of ValidationError)
+      ValidationResult.new(:success)
+    end
   end
 
   # Validates schema that has any of the keywords for [composite/compound schema](https://json-schema.org/understanding-json-schema/reference/combining.html)
@@ -116,6 +224,10 @@ module JSONSchema
     property children : Array(Validator)
 
     def initialize(@keyword, @children)
+    end
+
+    def validate(node : JSON::Any, errors = [] of ValidationError)
+      ValidationResult.new(:success)
     end
   end
 

@@ -1,3 +1,4 @@
+require "json"
 require "./src/json_schema"
 
 class Body
@@ -7,6 +8,11 @@ end
 b = Body.new
 
 pp b.validator
+
+object_val = JSON.parse({ "age" => 1000 }.to_json)
+
+puts "Object:"
+puts b.validator.validate(object_val)
 
 
 # require "json"

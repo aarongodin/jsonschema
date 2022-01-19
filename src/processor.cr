@@ -19,7 +19,7 @@ private def define_object_validator(schema : Hash(String, JSON::Any))
   options = {
     "has_disabled_additional_properties" => schema["additionalProperties"]? == false,
     "required" => schema["required"]? || "nil",
-    "property_names" => schema.has_key?("property_names") ? define_schema(schema["property_names"]) : "nil",
+    "property_names" => schema.has_key?("propertyNames") ? define_string_validator(schema["propertyNames"].as_h) : "nil",
     "min_properties" => schema["minProperties"]? || "nil",
     "max_properties" => schema["maxProperties"]? || "nil"
   }
@@ -54,7 +54,7 @@ private def define_object_validator(schema : Hash(String, JSON::Any))
         #{var} = JSONSchema::ObjectValidator.new
         #{properties}
         #{pattern_properties}
-        #{options.join("\n")}
+        #{options_mapped.join("\n")}
         return #{var}
       }).call
     SCH
