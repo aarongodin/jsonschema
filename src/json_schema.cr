@@ -200,6 +200,7 @@ module JSONSchema
   # See the `JSONSchema#create_validator` macro for common usage of this shard.
   class NullValidator
     def validate(node : JSON::Any, errors = [] of ValidationError)
+      node.as_nil rescue return ValidationResult.new(:error, [ValidationError.new("Excepected value to be null", "boop")])
       ValidationResult.new(:success)
     end
   end
@@ -210,6 +211,7 @@ module JSONSchema
   # See the `JSONSchema#create_validator` macro for common usage of this shard.
   class BooleanValidator
     def validate(node : JSON::Any, errors = [] of ValidationError)
+      node.as_bool rescue return ValidationResult.new(:error, [ValidationError.new("Excepected value to be a boolean", "boop")])
       ValidationResult.new(:success)
     end
   end

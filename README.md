@@ -1,4 +1,5 @@
 [![GitHub release](https://img.shields.io/github/release/aarongodin/json-schema-cr.svg)](https://github.com/aarongodin/json-schema-cr/releases)
+[![CI](https://github.com/aarongodin/json-schema-cr/actions/workflows/crystal.yml/badge.svg)](https://github.com/aarongodin/json-schema-cr/actions/workflows/crystal.yml)
 
 # json-schema-cr
 
