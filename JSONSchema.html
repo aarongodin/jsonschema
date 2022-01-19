@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 1.2.2">
+<meta name="crystal_docs.project_version" content="main">
+<meta name="crystal_docs.project_name" content="json-schema-cr">
+
+
+
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/doc.js"></script>
+
+  <meta name="repository-name" content="json-schema-cr">
+  <title>JSONSchema - json-schema-cr main</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="index.html">
+          json-schema-cr
+        </a>
+      </h1>
+
+      <span class="project-version">
+        main
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="json-schema-cr/JSONSchema" data-name="jsonschema">
+      <a href="JSONSchema.html">JSONSchema</a>
+      
+        <ul>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/ArrayValidator" data-name="jsonschema::arrayvalidator">
+      <a href="JSONSchema/ArrayValidator.html">ArrayValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/BooleanValidator" data-name="jsonschema::booleanvalidator">
+      <a href="JSONSchema/BooleanValidator.html">BooleanValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/CompositeValidator" data-name="jsonschema::compositevalidator">
+      <a href="JSONSchema/CompositeValidator.html">CompositeValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/InvalidSchemaError" data-name="jsonschema::invalidschemaerror">
+      <a href="JSONSchema/InvalidSchemaError.html">InvalidSchemaError</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/NullValidator" data-name="jsonschema::nullvalidator">
+      <a href="JSONSchema/NullValidator.html">NullValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/NumberValidator" data-name="jsonschema::numbervalidator">
+      <a href="JSONSchema/NumberValidator.html">NumberValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/ObjectValidator" data-name="jsonschema::objectvalidator">
+      <a href="JSONSchema/ObjectValidator.html">ObjectValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/StringValidator" data-name="jsonschema::stringvalidator">
+      <a href="JSONSchema/StringValidator.html">StringValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/ValidationError" data-name="jsonschema::validationerror">
+      <a href="JSONSchema/ValidationError.html">ValidationError</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/ValidationResult" data-name="jsonschema::validationresult">
+      <a href="JSONSchema/ValidationResult.html">ValidationResult</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/Validator" data-name="jsonschema::validator">
+      <a href="JSONSchema/Validator.html">Validator</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">module</span> JSONSchema
+
+</h1>
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="extended-modules" class="anchor" href="#extended-modules">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Extended Modules
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="JSONSchema.html">JSONSchema</a></li>
+    
+  </ul>
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/4575dfd8b753647e0f972361915969479b0955a3/src/error.cr#L1" target="_blank">
+        error.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/4575dfd8b753647e0f972361915969479b0955a3/src/json_schema.cr#L4" target="_blank">
+        json_schema.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/4575dfd8b753647e0f972361915969479b0955a3/src/processor.cr#L195" target="_blank">
+        processor.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="VERSION">
+        <strong>VERSION</strong> = <code><span class="s">&quot;0.1.0&quot;</span></code>
+      </dt>
+      
+    
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="macro-summary" class="anchor" href="#macro-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Macro Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#create_validator%28filename%29-macro" class="signature"><strong>create_validator</strong>(filename)</a>
+        
+          <div class="summary"><p>Generates code for a <code><a href="JSONSchema/Validator.html">Validator</a></code> object from the JSON schema in <code>filename</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#create_validator_method%28filename%29-macro" class="signature"><strong>create_validator_method</strong>(filename)</a>
+        
+          <div class="summary"><p>Generates code for defining a method that returns a <code><a href="JSONSchema/Validator.html">Validator</a></code> object from the JSON schema in <code>filename</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#create_validator_method%28filename%2Cmethod_name%29-macro" class="signature"><strong>create_validator_method</strong>(filename, method_name)</a>
+        
+          <div class="summary"><p>Generates code for defining a method that returns a <code><a href="JSONSchema/Validator.html">Validator</a></code> object from the JSON schema in <code>filename</code>, with a custom method name.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+<div class="methods-inherited">
+  
+</div>
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="macro-detail" class="anchor" href="#macro-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Macro Detail
+  </h2>
+  
+    <div class="entry-detail" id="create_validator(filename)-macro">
+      <div class="signature">
+        
+        macro <strong>create_validator</strong>(filename)
+
+        <a class="method-permalink" href="#create_validator%28filename%29-macro">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates code for a <code><a href="JSONSchema/Validator.html">Validator</a></code> object from the JSON schema in <code>filename</code>.</p>
+<pre><code class="language-crystal">validator <span class="o">=</span> <span class="t">JSONSchema</span>.create_validator <span class="s">&quot;my_schema.json&quot;</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/4575dfd8b753647e0f972361915969479b0955a3/src/json_schema.cr#L239" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="create_validator_method(filename)-macro">
+      <div class="signature">
+        
+        macro <strong>create_validator_method</strong>(filename)
+
+        <a class="method-permalink" href="#create_validator_method%28filename%29-macro">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates code for defining a method that returns a <code><a href="JSONSchema/Validator.html">Validator</a></code> object from the JSON schema in <code>filename</code>.</p>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">Body</span>
+  <span class="t">JSONSchema</span>.create_validator_method <span class="s">&quot;my_schema.json&quot;</span>
+<span class="k">end</span>
+
+b <span class="o">=</span> <span class="t">Body</span>.<span class="k">new</span>
+b.validator <span class="c"># =&gt; #&lt;JSONSchema::ObjectValidator:...</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/4575dfd8b753647e0f972361915969479b0955a3/src/json_schema.cr#L253" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="create_validator_method(filename,method_name)-macro">
+      <div class="signature">
+        
+        macro <strong>create_validator_method</strong>(filename, method_name)
+
+        <a class="method-permalink" href="#create_validator_method%28filename%2Cmethod_name%29-macro">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates code for defining a method that returns a <code><a href="JSONSchema/Validator.html">Validator</a></code> object from the JSON schema in <code>filename</code>,
+with a custom method name.</p>
+<pre><code class="language-crystal"><span class="k">class</span> <span class="t">Request</span>
+  <span class="t">JSONSchema</span>.create_validator_method <span class="s">&quot;request_schema.json&quot;</span>, <span class="s">&quot;request_body_validator&quot;</span>
+  <span class="t">JSONSchema</span>.create_validator_method <span class="s">&quot;response_schema.json&quot;</span>, <span class="s">&quot;response_body_validator&quot;</span>
+<span class="k">end</span>
+
+r <span class="o">=</span> <span class="t">Request</span>.<span class="k">new</span>
+
+r.request_body_validator <span class="c"># =&gt; #&lt;JSONSchema::ObjectValidator:...</span>
+r.response_body_validator <span class="c"># =&gt; #&lt;JSONSchema::ObjectValidator:...</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/4575dfd8b753647e0f972361915969479b0955a3/src/json_schema.cr#L273" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+</div>
+
+</body>
+</html>
