@@ -1,5 +1,6 @@
 [![GitHub release](https://img.shields.io/github/release/aarongodin/json-schema-cr.svg)](https://github.com/aarongodin/json-schema-cr/releases)
 [![CI](https://github.com/aarongodin/json-schema-cr/actions/workflows/crystal.yml/badge.svg)](https://github.com/aarongodin/json-schema-cr/actions/workflows/crystal.yml)
+![GitHub](https://img.shields.io/github/license/aarongodin/json-schema-cr?style=plastic)
 
 # json-schema-cr
 
@@ -110,8 +111,8 @@ These features of JSON Schema are not yet supported, but will be supported in a 
 
 ### Dialects
 
-The latest revision of this module only supports the latest revision of JSON Schema (2020-12). There is not yet support for using a different dialect.
+The latest revision of this shard only supports the latest revision of JSON Schema (2020-12). There is not yet support for using a different dialect.
 
 ## Acknowledgements
 
-The source for this module is inspired by the `ECR` and `JSON` implementations from the std lib. Thanks to the Crystal team for creating an amazing standard library!
+The source for this shard is inspired by the `ECR` and `JSON` implementations from the std lib. Thanks to the Crystal team for creating an amazing standard library!

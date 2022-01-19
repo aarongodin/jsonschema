@@ -46,38 +46,76 @@ module JSONSchema
     property min_properties : Int32?
     property max_properties : Int32?
 
-    def validate(node : JSON::Any, errors = [] of ValidationError)
+    def validate(node : JSON::Any)
       value = node.as_h rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be an object", "boop")])
 
-      unless self.required.nil?
-        self.required.as(Array(String)).each do |required_prop|
+      errors = [] of ValidationError
+
+      unless @required.nil?
+        @required.as(Array(String)).each do |required_prop|
           errors.push(ValidationError.new("Expected required property #{required_prop} to be set", "boop")) unless value.has_key?(required_prop)
         end
       end
 
-      unless self.property_names.nil?
+      unless @property_names.nil?
         value.keys.each do |property_name|
-          self.property_names.as(StringValidator).validate(JSON::Any.new(property_name), errors)
+          result = @property_names.as(StringValidator).validate(JSON::Any.new(property_name))
+          if result.status == :error
+            errors.concat(result.errors)
+          end
         end
       end
 
-      unless self.min_properties.nil?
-        unless value.keys.size >= self.min_properties.as(Int32)
-          errors.push(ValidationError.new("Expected object to have at least #{self.min_properties} properties", "boop"))
+      unless @min_properties.nil?
+        unless value.keys.size >= @min_properties.as(Int32)
+          errors.push(ValidationError.new("Expected object to have at least #{@min_properties} properties", "boop"))
         end
       end
 
-      unless self.max_properties.nil?
-        if value.keys.size > self.max_properties.as(Int32)
-          errors.push(ValidationError.new("Expected object to have at most #{self.max_properties} properties", "boop"))
+      unless @max_properties.nil?
+        if value.keys.size > @max_properties.as(Int32)
+          errors.push(ValidationError.new("Expected object to have at most #{@max_properties} properties", "boop"))
         end
       end
       
-      self.properties.each do |property_name, property_validator|
+      @properties.each do |property_name, property_validator|
         property_value = value[property_name]?
 
         unless property_value.nil?
-          property_validator.validate(property_value, errors)
+          result = property_validator.validate(property_value)
+          if result.status == :error
+            errors.concat(result.errors)
+          end
+        end
+      end
+
+      @pattern_properties.each do |pattern, pattern_validator|
+        value.each do |k, v|
+          if pattern =~ k
+            result = pattern_validator.validate(v)
+            if result.status == :error
+              errors.concat(result.errors)
+            end
+          end
+        end
+      end
+
+      additional_keys = value.keys.select do |key|
+        !@properties.has_key?(key)
+      end
+
+      if @has_disabled_additional_properties
+        if additional_keys.size > 0
+          errors.push(ValidationError.new("Expected object not to have additional properties", "boop"))
+        end
+      else
+        unless @additional_properties.nil?
+          additional_keys.each do |additional_key|
+            result = @additional_properties.as(Validator).validate(value[additional_key])
+            if result.status == :error
+              errors.concat(result.errors)
+            end
+          end
         end
       end
 
@@ -104,7 +142,7 @@ module JSONSchema
     property max_items : Int32?
     property unique_items = false
 
-    def validate(node : JSON::Any, errors = [] of ValidationError)
+    def validate(node : JSON::Any)
       ValidationResult.new(:success)
     end
   end
@@ -119,20 +157,29 @@ module JSONSchema
     property pattern : Regex?
     property format : String?
 
-    def validate(node : JSON::Any, errors = [] of ValidationError)
-      validate(node.as_s, errors)
+    def validate(node : JSON::Any)
+      value = node.as_s rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be a string", "boop")])
+      validate(value)
     end
 
-    def validate(value : String, errors = [] of ValidationError)
-      unless self.min_length.nil?
-        if self.min_length.as(Int32) >= value.size
-          errors.push(ValidationError.new("Expected string to have minLength #{self.min_length}", "boop"))
+    def validate(value : String)
+      errors = [] of ValidationError
+
+      unless @min_length.nil?
+        if @min_length.as(Int32) >= value.size
+          errors.push(ValidationError.new("Expected string to have minLength #{@min_length}", "boop"))
         end
       end
 
-      unless self.max_length.nil?
-        if value.size > self.max_length.as(Int32)
-          errors.push(ValidationError.new("Expected string to have maxLength #{self.max_length}", "boop"))
+      unless @max_length.nil?
+        if value.size > @max_length.as(Int32)
+          errors.push(ValidationError.new("Expected string to have maxLength #{@max_length}", "boop"))
+        end
+      end
+
+      unless @pattern.nil?
+        if (@pattern =~ value).nil?
+          errors.push(ValidationError.new("Expected string to match pattern /#{@pattern.as(Regex).source}/", "boop"))
         end
       end
 
@@ -156,33 +203,45 @@ module JSONSchema
     property exclusive_minimum : Int32?
     property exclusive_maximum : Int32?
 
-    def validate(node : JSON::Any, errors = [] of ValidationError)
-      validate(node.as_i, errors)
+    def validate(node : JSON::Any)
+      value = node.as_f rescue node.as_i rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be a number", "boop")])
+      validate(value)
     end
 
-    def validate(value : Int32 | Float, errors = [] of ValidationError)
-      pp self
-      unless self.minimum.nil?
-        unless self.minimum.as(Int32) <= value
-          errors.push(ValidationError.new("Expected numeric value be greater than or equal to #{self.minimum}", "boop"))
+    def validate(value : Float64 | Int32)
+      errors = [] of ValidationError
+
+      if @has_integer_constraint && (value % 1 != 0)
+        errors.push(ValidationError.new("Expected numeric value to be an integer", "boop"))
+      end
+
+      unless @minimum.nil?
+        unless @minimum.as(Int32) <= value
+          errors.push(ValidationError.new("Expected numeric value be greater than or equal to #{@minimum}", "boop"))
         end
       end
 
-      unless self.maximum.nil?
-        unless value <= self.maximum.as(Int32)
-          errors.push(ValidationError.new("Expected numeric value be less than or equal to #{self.maximum}", "boop"))
+      unless @maximum.nil?
+        unless value <= @maximum.as(Int32)
+          errors.push(ValidationError.new("Expected numeric value be less than or equal to #{@maximum}", "boop"))
         end
       end
 
-      unless self.exclusive_minimum.nil?
-        unless self.exclusive_minimum.as(Int32) < value
-          errors.push(ValidationError.new("Expected numeric value be greater than #{self.exclusive_minimum}", "boop"))
+      unless @exclusive_minimum.nil?
+        unless @exclusive_minimum.as(Int32) < value
+          errors.push(ValidationError.new("Expected numeric value be greater than #{@exclusive_minimum}", "boop"))
         end
       end
 
-      unless self.exclusive_maximum.nil?
-        unless value < self.exclusive_maximum.as(Int32)
-          errors.push(ValidationError.new("Expected numeric value be less than #{self.exclusive_maximum}", "boop"))
+      unless @exclusive_maximum.nil?
+        unless value < @exclusive_maximum.as(Int32)
+          errors.push(ValidationError.new("Expected numeric value be less than #{@exclusive_maximum}", "boop"))
+        end
+      end
+
+      unless @multiple_of.nil?
+        unless value % multiple_of.as(Int32) == 0
+          errors.push(ValidationError.new("Expected numeric value to be multiple of #{@multiple_of}", "boop"))
         end
       end
 
@@ -199,7 +258,7 @@ module JSONSchema
   # This is a raw `Validator` class that you most likely do not need to use directly.
   # See the `JSONSchema#create_validator` macro for common usage of this shard.
   class NullValidator
-    def validate(node : JSON::Any, errors = [] of ValidationError)
+    def validate(node : JSON::Any)
       node.as_nil rescue return ValidationResult.new(:error, [ValidationError.new("Excepected value to be null", "boop")])
       ValidationResult.new(:success)
     end
@@ -210,7 +269,7 @@ module JSONSchema
   # This is a raw `Validator` class that you most likely do not need to use directly.
   # See the `JSONSchema#create_validator` macro for common usage of this shard.
   class BooleanValidator
-    def validate(node : JSON::Any, errors = [] of ValidationError)
+    def validate(node : JSON::Any)
       node.as_bool rescue return ValidationResult.new(:error, [ValidationError.new("Excepected value to be a boolean", "boop")])
       ValidationResult.new(:success)
     end
@@ -228,7 +287,32 @@ module JSONSchema
     def initialize(@keyword, @children)
     end
 
-    def validate(node : JSON::Any, errors = [] of ValidationError)
+    def validate(node : JSON::Any)
+      results = @children.map do |child|
+        child.validate(node)
+      end
+
+      results_with_errors = results.select {|result| result.status == :error}
+
+      case @keyword
+      when "allOf"
+        if results_with_errors.size > 0
+          return ValidationResult.new(:error, [ValidationError.new("Expected value to match all schemas", "boop")])
+        end
+      when "anyOf"
+        unless results.size - results_with_errors.size > 0
+          return ValidationResult.new(:error, [ValidationError.new("Expected value to match any of the schemas", "boop")])
+        end
+      when "oneOf"
+        unless results.size - results_with_errors.size == 1
+          return ValidationResult.new(:error, [ValidationError.new("Expected value to match only one of the schemas", "boop")])
+        end
+      when "not"
+        unless results.size == results_with_errors.size
+          return ValidationResult.new(:error, [ValidationError.new("Expected value not to match any of the schemas", "boop")])
+        end
+      end
+
       ValidationResult.new(:success)
     end
   end

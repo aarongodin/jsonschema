@@ -16,6 +16,10 @@ end
 private def define_object_validator(schema : Hash(String, JSON::Any))
   var = NextVar.get
 
+  if (schema["additionalProperties"]? == false && !schema["properties"])
+    raise %{Expected "object" schema to define "properties" when "additionalProperties" is false}
+  end
+
   options = {
     "has_disabled_additional_properties" => schema["additionalProperties"]? == false,
     "required" => schema["required"]? || "nil",
@@ -24,7 +28,7 @@ private def define_object_validator(schema : Hash(String, JSON::Any))
     "max_properties" => schema["maxProperties"]? || "nil"
   }
 
-  if (schema.has_key?("additionalProperties") && typeof(schema["additionalProperties"]) == Hash(String, JSON::Any))
+  if (schema.has_key?("additionalProperties") && !schema["additionalProperties"].as_h?.nil?)
     options["additional_properties"] = define_schema(schema["additionalProperties"])
   end
 
