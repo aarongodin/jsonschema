@@ -1,0 +1,9 @@
+name: json-schema-cr
+version: 0.1.0
+
+authors:
+  - Aaron Godin <godinaaweb@gmail.com>
+
+crystal: 1.3.1
+
+license: MIT

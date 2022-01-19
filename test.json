@@ -1,0 +1,54 @@
+{
+  "$id": "https://example.com/person.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Thing",
+  "type": "object",
+  "additionalProperties": {
+    "type": "number"
+  },
+  "required": ["firstName"],
+  "maxProperties": 1000,
+  "patternProperties": {
+    "first": {
+      "type": "string"
+    },
+    "last": {
+      "type": "string"
+    }
+  },
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "description": "The person's first name.",
+      "maxLength": 20
+    },
+    "lastName": {
+      "type": "string",
+      "description": "The person's last name."
+    },
+    "age": {
+      "description": "Age in years which must be equal to or greater than zero.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 40
+    },
+    "favorites": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "minItems": 3
+    },
+    "examples": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        }
+      ]
+    }
+  }
+}
