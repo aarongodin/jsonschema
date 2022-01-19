@@ -87,7 +87,7 @@ The `JSONSchema::ValidationResult` will contain either `:success` or `:error` as
 
 ### Core Types
 
-All JSON Schema types _are_ supported:
+All JSON Schema types _are_ supported!
 
 * `string`
 * `number` and `integer`
@@ -98,7 +98,7 @@ All JSON Schema types _are_ supported:
 
 ### Composite Schema
 
-Composite schemas using `not`, `anyOf`, `allOf`, or `oneOf` _are_ supported.
+Composite schemas using `not`, `anyOf`, `allOf`, or `oneOf` _are_ supported!
 
 ## Unsupported
 
