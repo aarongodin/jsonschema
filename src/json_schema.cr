@@ -1,4 +1,5 @@
 require "json"
+require "./format"
 require "./error"
 
 module JSONSchema
@@ -264,11 +265,21 @@ module JSONSchema
         end
       end
 
+      unless @format.nil?
+        check_string_formats()
+      end
+
       if errors.size > 0
         return ValidationResult.new(:error, errors)
       end
 
       ValidationResult.new(:success)
+    end
+
+    private def check_format(format : String, is_format : Bool, errors : Array(ValidationError))
+      if !is_format
+        errors.push(ValidationError.new(%{Expected string to match format "#{format}"}, "boop"))
+      end
     end
   end
 
@@ -441,5 +452,21 @@ module JSONSchema
     def {{ method_name }} : JSONSchema::Validator
       {{ run("./process", filename) }}
     end
+  end
+end
+
+# Private macro only for reducing amount of source code to manage
+private macro check_string_formats
+  case @format.as(String)
+  {% for format in %w{
+                     date-time time date duration
+                     email idn-email
+                     hostname idn-hostname
+                     ipv4 ipv6
+                     uuid uri uri-reference iri iri-reference
+                     json-pointer relative-json-pointer regex
+                   } %}
+    when {{ format.stringify }} then self.check_format(@format.as(String), Format.is_{{ format.downcase.gsub(/-/, "_").id }}(value), errors)
+  {% end %}
   end
 end

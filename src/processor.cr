@@ -119,9 +119,12 @@ private def define_string_validator(schema : Hash(String, JSON::Any))
     "min_length" => schema["minLength"]? || "nil",
     "max_length" => schema["maxLength"]? || "nil",
     "pattern"    => schema.has_key?("pattern") ? "/#{schema["pattern"]}/" : "nil",
-    "format"     => schema["format"]? || "nil",
   }).map do |prop, value|
     "#{var}.#{prop} = #{value}"
+  end
+
+  if schema.has_key?("format")
+    options.push %{#{var}.format = "#{schema["format"]}"}
   end
 
   return (
