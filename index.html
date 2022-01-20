@@ -187,6 +187,11 @@ r <span class="o">=</span> <span class="t">ExampleRoute</span>.<span class="k">n
 
 r.request_body_validator <span class="c"># =&gt; #&lt;JSONSchema::ObjectValidator:...</span>
 r.response_body_validator <span class="c"># =&gt; #&lt;JSONSchema::ObjectValidator:...</span></code></pre>
+<blockquote>
+<p><strong>Omitting extension</strong>: You can omit the file extension in any of the macros, in which case a file with <code>.json</code> as the extension will be loaded.
+ex:</p>
+<pre><code class="language-crystal"><span class="t">JSONSchema</span>.create_validator <span class="s">&quot;my_schema&quot;</span> <span class="c"># =&gt; Loads &quot;my_schema.json&quot;</span></code></pre>
+</blockquote>
 <h3><a id="validating-json" class="anchor" href="#validating-json">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
@@ -246,6 +251,16 @@ request_body.validator.validate(input_json) <span class="c"># =&gt; JSONSchema::
   </svg>
 </a>Dialects</h3>
 <p>The latest revision of this shard only supports the latest revision of JSON Schema (2020-12). There is not yet support for using a different dialect.</p>
+<h2><a id="roadmap" class="anchor" href="#roadmap">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Roadmap</h2>
+<p>I would like to focus on these features beyond JSON schema that will make this library more useful in a variety of implementations:</p>
+<ol>
+<li><strong>Message customization/i18n</strong>: This module has a list of error messages that should be made customizable.</li>
+<li><strong>Runtime generation</strong>: Some implementations may want to create <code><a href="JSONSchema/Validator.html">JSONSchema::Validator</a></code> instances at runtime, without having to work with the underlying classes themselves.</li>
+</ol>
 <h2><a id="acknowledgements" class="anchor" href="#acknowledgements">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
