@@ -19,6 +19,8 @@ jobs:
       run: shards install
     - name: Check formatting
       run: crystal tool format --check src spec
+    - name: Unit tests
+      run: crystal spec --verbose
     - name: Build docs
       run: crystal docs
     - name: Deploy docs
