@@ -168,6 +168,40 @@ module JSONSchema
         end
       end
 
+      unless @contains.nil?
+        if !@max_contains.nil? || !@min_contains.nil?
+          value_contains_results = value.select { |item| @contains.as(Validator).validate(item).status == :success }
+
+          unless @min_contains.nil?
+            if value_contains_results.size < @min_contains.as(Int32)
+              errors.push(ValidationError.new("Expected array to contain at least #{@min_contains} matched items", "boop"))
+            end
+          end
+
+          unless @max_contains.nil?
+            if value_contains_results.size > @max_contains.as(Int32)
+              errors.push(ValidationError.new("Expected array not to contain more than #{@max_contains} matched items", "boop"))
+            end
+          end
+        else
+          found_contains = false
+          item_iterator = value.each.take_while { |item| !found_contains }
+          current_item = item_iterator.next
+
+          while current_item.is_a?(JSON::Any)
+            result = @contains.as(Validator).validate(current_item)
+            if (result.status == :success)
+              found_contains = true
+            end
+            current_item = item_iterator.next
+          end
+
+          if !found_contains
+            errors.push(ValidationError.new("Expected array to contain at least 1 matched item", "boop"))
+          end
+        end
+      end
+
       unless @min_items.nil?
         if value.size < @min_items.as(Int32)
           errors.push(ValidationError.new("Expected array length to be at least #{@min_items}", "boop"))
