@@ -25,12 +25,12 @@ module JSONSchema
   # Alias type for any type of `Validator`. The top-level `Validator` returned from the macros
   # can be any one of the following.
   alias Validator = ObjectValidator |
-    StringValidator |
-    NumberValidator |
-    NullValidator |
-    BooleanValidator |
-    ArrayValidator |
-    CompositeValidator
+                    StringValidator |
+                    NumberValidator |
+                    NullValidator |
+                    BooleanValidator |
+                    ArrayValidator |
+                    CompositeValidator
 
   # Validates schema where the `type` is `object`.
   #
@@ -77,7 +77,7 @@ module JSONSchema
           errors.push(ValidationError.new("Expected object to have at most #{@max_properties} properties", "boop"))
         end
       end
-      
+
       @properties.each do |property_name, property_validator|
         property_value = value[property_name]?
 
@@ -306,7 +306,7 @@ module JSONSchema
   # See the `JSONSchema#create_validator` macro for common usage of this shard.
   class NullValidator
     def validate(node : JSON::Any)
-      node.as_nil rescue return ValidationResult.new(:error, [ValidationError.new("Excepected value to be null", "boop")])
+      node.as_nil rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be null", "boop")])
       ValidationResult.new(:success)
     end
   end
@@ -317,7 +317,7 @@ module JSONSchema
   # See the `JSONSchema#create_validator` macro for common usage of this shard.
   class BooleanValidator
     def validate(node : JSON::Any)
-      node.as_bool rescue return ValidationResult.new(:error, [ValidationError.new("Excepected value to be a boolean", "boop")])
+      node.as_bool rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be a boolean", "boop")])
       ValidationResult.new(:success)
     end
   end
@@ -339,7 +339,7 @@ module JSONSchema
         child.validate(node)
       end
 
-      results_with_errors = results.select {|result| result.status == :error}
+      results_with_errors = results.select { |result| result.status == :error }
 
       case @keyword
       when "allOf"
@@ -397,10 +397,10 @@ module JSONSchema
   #   JSONSchema.create_validator_method "request_schema.json", "request_body_validator"
   #   JSONSchema.create_validator_method "response_schema.json", "response_body_validator"
   # end
-  # 
+  #
   # r = Request.new
-  # 
-  # r.request_body_validator # => #<JSONSchema::ObjectValidator:...
+  #
+  # r.request_body_validator  # => #<JSONSchema::ObjectValidator:...
   # r.response_body_validator # => #<JSONSchema::ObjectValidator:...
   # ```
   macro create_validator_method(filename, method_name)

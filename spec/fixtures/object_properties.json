@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaString": {
+      "type": "string"
+    },
+    "schemaNumber": {
+      "type": "number"
+    },
+    "schemaInteger": {
+      "type": "integer"
+    },
+    "schemaBoolean": {
+      "type": "boolean"
+    },
+    "schemaNull": {
+      "type": "null"
+    }
+  }
+}

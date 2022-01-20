@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "schema1": {
+      "type": "string"
+    },
+    "schema2": {
+      "type": "string"
+    }
+  },
+  "required": ["schema1", "schema2"]
+}

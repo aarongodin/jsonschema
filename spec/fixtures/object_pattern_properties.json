@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "patternProperties": {
+    "^test1": {
+      "type": "string"
+    },
+    "^test2": {
+      "type": "number"
+    },
+    "^test3": {
+      "type": "integer"
+    },
+    "^test4": {
+      "type": "boolean"
+    },
+    "^test5": {
+      "type": "null"
+    }
+  }
+}

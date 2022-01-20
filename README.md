@@ -65,6 +65,12 @@ r.request_body_validator # => #<JSONSchema::ObjectValidator:...
 r.response_body_validator # => #<JSONSchema::ObjectValidator:...
 ```
 
+> **Omitting extension**: You can omit the file extension in any of the macros, in which case a file with `.json` as the extension will be loaded.
+> ex:
+> ```crystal
+> JSONSchema.create_validator "my_schema" # => Loads "my_schema.json"
+> ```
+
 ### Validating JSON
 
 Use the `#validate` method on any generated validator to receive a `JSONSchema::ValidationResult`:
@@ -112,6 +118,13 @@ These features of JSON Schema are not yet supported, but will be supported in a 
 ### Dialects
 
 The latest revision of this shard only supports the latest revision of JSON Schema (2020-12). There is not yet support for using a different dialect.
+
+## Roadmap
+
+I would like to focus on these features beyond JSON schema that will make this library more useful in a variety of implementations:
+
+1. **Message customization/i18n**: This module has a list of error messages that should be made customizable.
+2. **Runtime generation**: Some implementations may want to create `JSONSchema::Validator` instances at runtime, without having to work with the underlying classes themselves.
 
 ## Acknowledgements
 

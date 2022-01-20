@@ -7,7 +7,7 @@ private module NextVar
   @@n = 0
 
   def self.get
-    var =  "v#{@@n}"
+    var = "v#{@@n}"
     @@n = @@n + 1
     var
   end
@@ -22,10 +22,10 @@ private def define_object_validator(schema : Hash(String, JSON::Any))
 
   options = {
     "has_disabled_additional_properties" => schema["additionalProperties"]? == false,
-    "required" => schema["required"]? || "nil",
-    "property_names" => schema.has_key?("propertyNames") ? define_string_validator(schema["propertyNames"].as_h) : "nil",
-    "min_properties" => schema["minProperties"]? || "nil",
-    "max_properties" => schema["maxProperties"]? || "nil"
+    "required"                           => schema["required"]? || "nil",
+    "property_names"                     => schema.has_key?("propertyNames") ? define_string_validator(schema["propertyNames"].as_h) : "nil",
+    "min_properties"                     => schema["minProperties"]? || "nil",
+    "max_properties"                     => schema["maxProperties"]? || "nil",
   }
 
   if (schema.has_key?("additionalProperties") && !schema["additionalProperties"].as_h?.nil?)
@@ -69,12 +69,12 @@ private def define_array_validator(schema : Hash(String, JSON::Any))
   var = NextVar.get
 
   options = {
-    "contains" => schema["contains"]? ? define_schema(schema["contains"]) : "nil",
+    "contains"     => schema["contains"]? ? define_schema(schema["contains"]) : "nil",
     "min_contains" => schema["minContains"]? || "nil",
     "max_contains" => schema["maxContains"]? || "nil",
-    "min_items" => schema["minItems"]? || "nil",
-    "max_items" => schema["maxItems"]? || "nil",
-    "unique_items" => schema["uniqueItems"]? || false
+    "min_items"    => schema["minItems"]? || "nil",
+    "max_items"    => schema["maxItems"]? || "nil",
+    "unique_items" => schema["uniqueItems"]? || false,
   }
 
   if schema.has_key?("items")
@@ -118,8 +118,8 @@ private def define_string_validator(schema : Hash(String, JSON::Any))
   options = ({
     "min_length" => schema["minLength"]? || "nil",
     "max_length" => schema["maxLength"]? || "nil",
-    "pattern" => schema.has_key?("pattern") ? "/#{schema["pattern"]}/" : "nil",
-    "format" => schema["format"]? || "nil",
+    "pattern"    => schema.has_key?("pattern") ? "/#{schema["pattern"]}/" : "nil",
+    "format"     => schema["format"]? || "nil",
   }).map do |prop, value|
     "#{var}.#{prop} = #{value}"
   end
@@ -140,11 +140,11 @@ private def define_number_validator(schema : Hash(String, JSON::Any), has_intege
 
   options = ({
     "has_integer_constraint" => has_integer_constraint,
-    "multiple_of" => schema["multipleOf"]? || "nil",
-    "minimum" => schema["minimum"]? || "nil",
-    "maximum" => schema["maximum"]? || "nil",
-    "exclusive_minimum" => schema["exclusiveMinimum"]? || "nil",
-    "exclusive_maximum" => schema["exclusiveMaximum"]? || "nil"
+    "multiple_of"            => schema["multipleOf"]? || "nil",
+    "minimum"                => schema["minimum"]? || "nil",
+    "maximum"                => schema["maximum"]? || "nil",
+    "exclusive_minimum"      => schema["exclusiveMinimum"]? || "nil",
+    "exclusive_maximum"      => schema["exclusiveMaximum"]? || "nil",
   }).map do |prop, value|
     "#{var}.#{prop} = #{value}"
   end
@@ -169,7 +169,7 @@ private def define_boolean_validator(schema : Hash(String, JSON::Any))
 end
 
 private def define_composite_validator(schema : Hash(String, JSON::Any))
-  keyword_keys = schema.keys.select {|key| COMPOSITE_KEYS.includes?(key)}
+  keyword_keys = schema.keys.select { |key| COMPOSITE_KEYS.includes?(key) }
   raise "Composite schema may not have more than one keyword" unless keyword_keys.size === 1
   keyword = keyword_keys[0]
   raise "Composite schema value must be an array" if schema[keyword].nil?
@@ -200,7 +200,7 @@ private def define_schema(node : JSON::Any)
   when "boolean"
     return define_boolean_validator(schema)
   else
-    if (COMPOSITE_KEYS.any? {|keyword| schema.has_key?(keyword)})
+    if (COMPOSITE_KEYS.any? { |keyword| schema.has_key?(keyword) })
       return define_composite_validator(schema)
     end
 

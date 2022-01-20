@@ -9,17 +9,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     container:
       image: crystallang/crystal:1.3.1
-
     steps:
     - uses: actions/checkout@v2
-    - name: Install rsync 📚
-      run: |
-        apt-get update && apt-get install -y rsync
+    - name: Install rsync [required by gh-pages action]
+      run: apt-get update && apt-get install -y rsync
     - name: Install dependencies
       run: shards install
+    - name: Check formatting
+      run: crystal tool format --check src spec
     - name: Build docs
       run: crystal docs
     - name: Deploy docs
