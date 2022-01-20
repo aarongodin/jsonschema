@@ -133,7 +133,7 @@ module JSONSchema
   # See the `JSONSchema#create_validator` macro for common usage of this shard.
   class ArrayValidator
     property items : Validator?
-    property prefix_items : Array(Validator)? = [] of Validator
+    property prefix_items : Array(Validator) = [] of Validator
     property has_disabled_additional_items = false
     property contains : Validator?
     property min_contains : Int32?
@@ -143,6 +143,53 @@ module JSONSchema
     property unique_items = false
 
     def validate(node : JSON::Any)
+      value = node.as_a rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be an array", "boop")])
+      errors = [] of ValidationError
+
+      unless @items.nil?
+        value.each_with_index do |item, i|
+          result = @items.as(Validator).validate(item)
+          if (result.status == :error)
+            errors.concat(result.errors)
+          end
+        end
+      end
+
+      unless @prefix_items.size == 0
+        @prefix_items.as(Array).each_with_index do |prefix_item, i|
+          result = prefix_item.validate(value[i])
+          if (result.status == :error)
+            errors.concat(result.errors)
+          end
+        end
+
+        if @has_disabled_additional_items && value.size > @prefix_items.size
+          errors.push(ValidationError.new("Expected array to be tuple of length #{@prefix_items.size}", "boop"))
+        end
+      end
+
+      unless @min_items.nil?
+        if value.size < @min_items.as(Int32)
+          errors.push(ValidationError.new("Expected array length to be at least #{@min_items}", "boop"))
+        end
+      end
+
+      unless @min_items.nil?
+        if value.size > @max_items.as(Int32)
+          errors.push(ValidationError.new("Expected array length to be at most #{@max_items}", "boop"))
+        end
+      end
+
+      if @unique_items
+        if value.uniq.size != value.size
+          errors.push(ValidationError.new("Expected array items to be unique", "boop"))
+        end
+      end
+
+      if errors.size > 0
+        return ValidationResult.new(:error, errors)
+      end
+
       ValidationResult.new(:success)
     end
   end

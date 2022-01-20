@@ -68,22 +68,34 @@ end
 private def define_array_validator(schema : Hash(String, JSON::Any))
   var = NextVar.get
 
-  options = ({
-    "items" => schema["items"]? ? define_schema(schema["items"]) : "nil",
+  options = {
     "contains" => schema["contains"]? ? define_schema(schema["contains"]) : "nil",
     "min_contains" => schema["minContains"]? || "nil",
     "max_contains" => schema["maxContains"]? || "nil",
     "min_items" => schema["minItems"]? || "nil",
     "max_items" => schema["maxItems"]? || "nil",
     "unique_items" => schema["uniqueItems"]? || false
-  }).map do |prop, value|
+  }
+
+  if schema.has_key?("items")
+    if schema.has_key?("prefixItems")
+      items_value = schema["items"].as_bool rescue nil
+      if (items_value == false)
+        options["has_disabled_additional_items"] = true
+      end
+    else
+      options["items"] = define_schema(schema["items"])
+    end
+  end
+
+  options_mapped = options.map do |prop, value|
     "#{var}.#{prop} = #{value}"
   end
 
   prefix_items = String.build do |str|
     if schema.has_key?("prefixItems")
-      schema["prefixItems"].as_a.each_with_index do |item, i|
-        str << "#{var}.prefix_items[#{i}] = #{define_schema(item)}\n"
+      schema["prefixItems"].as_a.each do |item|
+        str << "#{var}.prefix_items << #{define_schema(item)}\n"
       end
     end
   end
@@ -92,7 +104,7 @@ private def define_array_validator(schema : Hash(String, JSON::Any))
     <<-SCH
       (-> {
         #{var} = JSONSchema::ArrayValidator.new
-        #{options.join("\n")}
+        #{options_mapped.join("\n")}
         #{prefix_items}
         return #{var}
       }).call
