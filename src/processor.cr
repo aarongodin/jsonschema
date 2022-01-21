@@ -32,6 +32,15 @@ private def define_object_validator(schema : Hash(String, JSON::Any))
     options["additional_properties"] = define_schema(schema["additionalProperties"])
   end
 
+  dependent_required = String.build do |str|
+    if schema.has_key?("dependentRequired")
+      schema["dependentRequired"].as_h.each do |prop_name, required_list|
+        required_list_strings = required_list.as_a.map { |list_item| %{"#{list_item}"} }
+        str << %{#{var}.dependent_required["#{prop_name}"] = [#{required_list_strings.join(", ")}]}
+      end
+    end
+  end
+
   options_mapped = options.map do |prop, value|
     "#{var}.#{prop} = #{value}"
   end
@@ -58,6 +67,7 @@ private def define_object_validator(schema : Hash(String, JSON::Any))
         #{var} = JSONSchema::ObjectValidator.new
         #{properties}
         #{pattern_properties}
+        #{dependent_required}
         #{options_mapped.join("\n")}
         return #{var}
       }).call

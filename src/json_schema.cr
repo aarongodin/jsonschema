@@ -43,6 +43,7 @@ module JSONSchema
     property has_disabled_additional_properties = false
     property additional_properties : Validator?
     property required : Array(String)?
+    property dependent_required : Hash(String, Array(String)) = Hash(String, Array(String)).new
     property property_names : StringValidator?
     property min_properties : Int32?
     property max_properties : Int32?
@@ -54,7 +55,15 @@ module JSONSchema
 
       unless @required.nil?
         @required.as(Array(String)).each do |required_prop|
-          errors.push(ValidationError.new("Expected required property #{required_prop} to be set", "boop")) unless value.has_key?(required_prop)
+          errors.push(ValidationError.new(%{Expected required property "#{required_prop}" to be set}, "boop")) unless value.has_key?(required_prop)
+        end
+      end
+
+      unless @dependent_required.size == 0
+        @dependent_required.each do |dependent_prop, required_props|
+          required_props.each do |required_prop|
+            errors.push(ValidationError.new(%{Expected required property "#{required_prop}" to be set when "#{dependent_prop}" is set}, "boop")) unless value.has_key?(required_prop)
+          end
         end
       end
 

@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "schema1": {
+      "type": "string"
+    },
+    "schema2": {
+      "type": "string"
+    }
+  },
+  "dependentRequired": {
+    "schema1": ["schema2"]
+  }
+}
