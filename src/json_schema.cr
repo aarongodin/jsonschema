@@ -248,14 +248,14 @@ module JSONSchema
       errors = [] of ValidationError
 
       unless @min_length.nil?
-        if @min_length.as(Int32) >= value.size
-          errors.push(ValidationError.new("Expected string to have minLength #{@min_length}", "boop"))
+        if @min_length.as(Int32) > value.size
+          errors.push(ValidationError.new("Expected string to have a minimum length of #{@min_length}", "boop"))
         end
       end
 
       unless @max_length.nil?
         if value.size > @max_length.as(Int32)
-          errors.push(ValidationError.new("Expected string to have maxLength #{@max_length}", "boop"))
+          errors.push(ValidationError.new("Expected string to have a maximum length of #{@max_length}", "boop"))
         end
       end
 
@@ -266,7 +266,9 @@ module JSONSchema
       end
 
       unless @format.nil?
-        check_string_formats()
+        case @format.as(String)
+        when "date-time" then self.check_format(@format.as(String), Format.is_date_time(value), errors)
+        end
       end
 
       if errors.size > 0
@@ -276,8 +278,8 @@ module JSONSchema
       ValidationResult.new(:success)
     end
 
-    private def check_format(format : String, is_format : Bool, errors : Array(ValidationError))
-      if !is_format
+    private def check_format(format : String, matched_format : Bool, errors : Array(ValidationError))
+      if !matched_format
         errors.push(ValidationError.new(%{Expected string to match format "#{format}"}, "boop"))
       end
     end
@@ -456,17 +458,17 @@ module JSONSchema
 end
 
 # Private macro only for reducing amount of source code to manage
-private macro check_string_formats
-  case @format.as(String)
-  {% for format in %w{
-                     date-time time date duration
-                     email idn-email
-                     hostname idn-hostname
-                     ipv4 ipv6
-                     uuid uri uri-reference iri iri-reference
-                     json-pointer relative-json-pointer regex
-                   } %}
-    when {{ format.stringify }} then self.check_format(@format.as(String), Format.is_{{ format.downcase.gsub(/-/, "_").id }}(value), errors)
-  {% end %}
-  end
-end
+# private macro check_string_formats
+#   case @format.as(String)
+#   {% for format in %w{
+#                      date-time time date duration
+#                      email idn-email
+#                      hostname idn-hostname
+#                      ipv4 ipv6
+#                      uuid uri uri-reference iri iri-reference
+#                      json-pointer relative-json-pointer regex
+#                    } %}
+#     when {{ format.stringify }} then self.check_format(@format.as(String), Format.is_{{ format.downcase.gsub(/-/, "_").id }}(value), errors)
+#   {% end %}
+#   end
+# end

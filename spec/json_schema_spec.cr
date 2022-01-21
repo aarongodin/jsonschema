@@ -4,10 +4,6 @@ private class BasicString
   JSONSchema.create_validator_method("spec/fixtures/basic_string.json")
 end
 
-# private class BasicStringCustom
-#   JSONSchema.create_validator_method("spec/fixtures/basic_string.json", "test")
-# end
-
 describe JSONSchema do
   describe "#create_validator" do
     it "outputs a JSONSchema::Validator" do
@@ -25,10 +21,5 @@ describe JSONSchema do
       t = BasicString.new
       t.responds_to?(:validator).should be_true
     end
-
-    # it "creates a custom method" do
-    #   t = BasicStringCustom.new
-    #   t.responds_to?(:custom_validator).should be_true
-    # end
   end
 end

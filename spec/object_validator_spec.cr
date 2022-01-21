@@ -4,6 +4,7 @@ number_fixture = JSON.parse("10")
 boolean_fixture = JSON.parse("true")
 null_fixture = JSON.parse("null")
 array_fixture = JSON.parse("[1,2,3]")
+string_fixture = JSON.parse(%{"test"})
 
 object_fixture = JSON.parse(
   <<-JSON
@@ -149,6 +150,7 @@ describe JSONSchema::ObjectValidator do
         assert_validation_error validator.validate(boolean_fixture), "Expected value to be an object"
         assert_validation_error validator.validate(null_fixture), "Expected value to be an object"
         assert_validation_error validator.validate(array_fixture), "Expected value to be an object"
+        assert_validation_error validator.validate(string_fixture), "Expected value to be an object"
       end
     end
 
