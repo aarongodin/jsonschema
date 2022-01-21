@@ -13,6 +13,7 @@ describe JSONSchema do
       JSONSchema.create_validator("spec/fixtures/basic_array.json").should be_a(JSONSchema::ArrayValidator)
       JSONSchema.create_validator("spec/fixtures/basic_boolean.json").should be_a(JSONSchema::BooleanValidator)
       JSONSchema.create_validator("spec/fixtures/basic_null.json").should be_a(JSONSchema::NullValidator)
+      JSONSchema.create_validator("spec/fixtures/generic_enum_numbers.json").should be_a(JSONSchema::GenericValidator)
     end
   end
 

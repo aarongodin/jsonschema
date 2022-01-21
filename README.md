@@ -6,6 +6,8 @@
 
 A compile-time generator of [JSON Schema](https://json-schema.org/) validation for Crystal.
 
+> This shard is still in beta. If you find any unexpected validation results, open an issue and it will be fixed as soon as possible.
+
 ## Installation
 
 1. Add the dependency to your `shard.yml`:
@@ -104,9 +106,15 @@ All JSON Schema types _are_ supported!
 * `null`
 * `boolean`
 
+The generic keywords `const` and `enum` are also supported for any schema.
+
 ### Composite Schema
 
-Composite schemas using `not`, `anyOf`, `allOf`, or `oneOf` _are_ supported!
+Composite schemas using `not`, `anyOf`, `allOf`, or `oneOf` _are_ supported! These can be used on any schema, including one with no `type`.
+
+### Conditional Schema
+
+Using `dependentRequired`, `dependentSchemas` and `if-then-else` _are_ supported!
 
 ## Unsupported
 

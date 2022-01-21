@@ -64,5 +64,17 @@ describe JSONSchema::StringValidator do
         assert_validation_error validator.validate(JSON.parse(%{"test"})), %{Expected string to match format "date-time"}
       end
     end
+
+    context "given an enum is set" do
+      validator = JSONSchema.create_validator "spec/fixtures/string_enum"
+
+      it "is successful for strings that match the enum" do
+        assert_validation_success validator.validate(JSON.parse(%{"red"}))
+      end
+
+      it "has an error when the string is not in the enum" do
+        assert_validation_error validator.validate(JSON.parse(%{"purple"})), "Expected value be equal to the enum"
+      end
+    end
   end
 end

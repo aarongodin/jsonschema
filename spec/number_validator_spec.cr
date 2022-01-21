@@ -91,5 +91,17 @@ describe JSONSchema::NumberValidator do
         assert_validation_error validator.validate(JSON.parse(%{100})), "Expected numeric value be less than 100"
       end
     end
+
+    context "given an enum is set" do
+      validator = JSONSchema.create_validator "spec/fixtures/number_enum"
+
+      it "is successful for numbers that match the enum" do
+        assert_validation_success validator.validate(JSON.parse(%{10}))
+      end
+
+      it "has an error when the number is not in the enum" do
+        assert_validation_error validator.validate(JSON.parse(%{1000})), "Expected value be equal to the enum"
+      end
+    end
   end
 end

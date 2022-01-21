@@ -31,7 +31,53 @@ module JSONSchema
                     NullValidator |
                     BooleanValidator |
                     ArrayValidator |
+                    GenericValidator |
                     CompositeValidator
+
+  def self.validate_enum(value : JSON::Any, enum_list : Array(JSON::Any)) : ValidationError?
+    found_match = false
+    item_iterator = enum_list.each.take_while { |item| !found_match }
+    current_item = item_iterator.next
+
+    while current_item.is_a?(JSON::Any)
+      found_match = value == current_item
+      current_item = item_iterator.next
+    end
+
+    if found_match
+      return nil
+    end
+
+    ValidationError.new "Expected value be equal to the enum", "boop"
+  end
+
+  # Validates schema that has no type. Allows for constraints such as `enum`, `const` or
+  # composite schema that do not require a `type` keyword (`enum` is also available on typed schemas).
+  #
+  # This is a raw `Validator` class that you most likely do not need to use directly.
+  # See the `JSONSchema#create_validator` macro for common usage of this shard.
+  class GenericValidator
+    property enum_list : Array(JSON::Any) = [] of JSON::Any
+    property composites : Array(CompositeValidator) = [] of CompositeValidator
+
+    def validate(node : JSON::Any)
+      errors = [] of ValidationError
+
+      unless @enum_list.size == 0
+        enum_result = JSONSchema.validate_enum(node, @enum_list)
+
+        unless enum_result.nil?
+          errors.push(enum_result.as(ValidationError))
+        end
+      end
+
+      if errors.size > 0
+        return ValidationResult.new(:error, errors)
+      end
+
+      ValidationResult.new(:success)
+    end
+  end
 
   # Validates schema where the `type` is `object`.
   #
@@ -47,6 +93,7 @@ module JSONSchema
     property property_names : StringValidator?
     property min_properties : Int32?
     property max_properties : Int32?
+    property enum_list : Array(JSON::Any) = [] of JSON::Any
 
     def validate(node : JSON::Any)
       value = node.as_h rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be an object", "boop")])
@@ -129,6 +176,14 @@ module JSONSchema
         end
       end
 
+      unless @enum_list.size == 0
+        enum_result = JSONSchema.validate_enum(node, @enum_list)
+
+        unless enum_result.nil?
+          errors.push(enum_result.as(ValidationError))
+        end
+      end
+
       if errors.size > 0
         return ValidationResult.new(:error, errors)
       end
@@ -151,6 +206,7 @@ module JSONSchema
     property min_items : Int32?
     property max_items : Int32?
     property unique_items = false
+    property enum_list : Array(JSON::Any) = [] of JSON::Any
 
     def validate(node : JSON::Any)
       value = node.as_a rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be an array", "boop")])
@@ -230,6 +286,14 @@ module JSONSchema
         end
       end
 
+      unless @enum_list.size == 0
+        enum_result = JSONSchema.validate_enum(node, @enum_list)
+
+        unless enum_result.nil?
+          errors.push(enum_result.as(ValidationError))
+        end
+      end
+
       if errors.size > 0
         return ValidationResult.new(:error, errors)
       end
@@ -247,13 +311,10 @@ module JSONSchema
     property max_length : Int32?
     property pattern : Regex?
     property format : String?
+    property enum_list : Array(JSON::Any) = [] of JSON::Any
 
     def validate(node : JSON::Any)
       value = node.as_s rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be a string", "boop")])
-      validate(value)
-    end
-
-    def validate(value : String)
       errors = [] of ValidationError
 
       unless @min_length.nil?
@@ -277,6 +338,14 @@ module JSONSchema
       unless @format.nil?
         case @format.as(String)
         when "date-time" then self.check_format(@format.as(String), Format.is_date_time(value), errors)
+        end
+      end
+
+      unless @enum_list.size == 0
+        enum_result = JSONSchema.validate_enum(node, @enum_list)
+
+        unless enum_result.nil?
+          errors.push(enum_result.as(ValidationError))
         end
       end
 
@@ -305,13 +374,10 @@ module JSONSchema
     property maximum : Int32?
     property exclusive_minimum : Int32?
     property exclusive_maximum : Int32?
+    property enum_list : Array(JSON::Any) = [] of JSON::Any
 
     def validate(node : JSON::Any)
       value = node.as_f rescue node.as_i rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be a number", "boop")])
-      validate(value)
-    end
-
-    def validate(value : Float64 | Int32)
       errors = [] of ValidationError
 
       if @has_integer_constraint && (value % 1 != 0)
@@ -345,6 +411,14 @@ module JSONSchema
       unless @multiple_of.nil?
         unless value % multiple_of.as(Int32) == 0
           errors.push(ValidationError.new("Expected numeric value to be multiple of #{@multiple_of}", "boop"))
+        end
+      end
+
+      unless @enum_list.size == 0
+        enum_result = JSONSchema.validate_enum(node, @enum_list)
+
+        unless enum_result.nil?
+          errors.push(enum_result.as(ValidationError))
         end
       end
 
