@@ -76,6 +76,11 @@
       
     </li>
   
+  <li class=" " data-id="json-schema-cr/JSONSchema/GenericValidator" data-name="jsonschema::genericvalidator">
+      <a href="JSONSchema/GenericValidator.html">GenericValidator</a>
+      
+    </li>
+  
   <li class=" " data-id="json-schema-cr/JSONSchema/InvalidSchemaError" data-name="jsonschema::invalidschemaerror">
       <a href="JSONSchema/InvalidSchemaError.html">InvalidSchemaError</a>
       
@@ -137,6 +142,9 @@
   </svg>
 </a>json-schema-cr</h1>
 <p>A compile-time generator of <a href="https://json-schema.org/">JSON Schema</a> validation for Crystal.</p>
+<blockquote>
+<p>This shard is still in beta. If you find any unexpected validation results, open an issue and it will be fixed as soon as possible.</p>
+</blockquote>
 <h2><a id="installation" class="anchor" href="#installation">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
@@ -234,12 +242,19 @@ request_body.validator.validate(input_json) <span class="c"># =&gt; JSONSchema::
 <li><code>null</code></li>
 <li><code>boolean</code></li>
 </ul>
+<p>The generic keywords <code>const</code> and <code>enum</code> are also supported for any schema.</p>
 <h3><a id="composite-schema" class="anchor" href="#composite-schema">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>Composite Schema</h3>
-<p>Composite schemas using <code>not</code>, <code>anyOf</code>, <code>allOf</code>, or <code>oneOf</code> <em>are</em> supported!</p>
+<p>Composite schemas using <code>not</code>, <code>anyOf</code>, <code>allOf</code>, or <code>oneOf</code> <em>are</em> supported! These can be used on any schema, including one with no <code>type</code>.</p>
+<h3><a id="conditional-schema" class="anchor" href="#conditional-schema">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Conditional Schema</h3>
+<p>Using <code>dependentRequired</code>, <code>dependentSchemas</code> and <code>if-then-else</code> <em>are</em> supported!</p>
 <h2><a id="unsupported" class="anchor" href="#unsupported">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>

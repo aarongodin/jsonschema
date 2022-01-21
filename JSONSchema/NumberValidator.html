@@ -76,6 +76,11 @@
       
     </li>
   
+  <li class=" " data-id="json-schema-cr/JSONSchema/GenericValidator" data-name="jsonschema::genericvalidator">
+      <a href="../JSONSchema/GenericValidator.html">GenericValidator</a>
+      
+    </li>
+  
   <li class=" " data-id="json-schema-cr/JSONSchema/InvalidSchemaError" data-name="jsonschema::invalidschemaerror">
       <a href="../JSONSchema/InvalidSchemaError.html">InvalidSchemaError</a>
       
@@ -176,7 +181,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
   </h2>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/4a2a5451b931a1277e8a0e77a86a2c3632402bcd/src/json_schema.cr#L292" target="_blank">
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L370" target="_blank">
         json_schema.cr
       </a>
     
@@ -200,6 +205,16 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
     Instance Method Summary
   </h2>
   <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#enum_list%3AArray%28JSON%3A%3AAny%29-instance-method" class="signature"><strong>#enum_list</strong> : Array(JSON::Any)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#enum_list%3D%28enum_list%3AArray%28JSON%3A%3AAny%29%29-instance-method" class="signature"><strong>#enum_list=</strong>(enum_list : Array(JSON::Any))</a>
+        
+      </li>
     
       <li class="entry-summary">
         <a href="#exclusive_maximum%3AInt32%3F-instance-method" class="signature"><strong>#exclusive_maximum</strong> : Int32?</a>
@@ -266,11 +281,6 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
         
       </li>
     
-      <li class="entry-summary">
-        <a href="#validate%28value%3AFloat64%7CInt32%29-instance-method" class="signature"><strong>#validate</strong>(value : Float64 | Int32)</a>
-        
-      </li>
-    
   </ul>
 
 
@@ -315,6 +325,38 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
     Instance Method Detail
   </h2>
   
+    <div class="entry-detail" id="enum_list:Array(JSON::Any)-instance-method">
+      <div class="signature">
+        
+        def <strong>enum_list</strong> : Array(JSON::Any)
+
+        <a class="method-permalink" href="#enum_list%3AArray%28JSON%3A%3AAny%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L377" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="enum_list=(enum_list:Array(JSON::Any))-instance-method">
+      <div class="signature">
+        
+        def <strong>enum_list=</strong>(enum_list : Array(JSON::Any))
+
+        <a class="method-permalink" href="#enum_list%3D%28enum_list%3AArray%28JSON%3A%3AAny%29%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L377" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
     <div class="entry-detail" id="exclusive_maximum:Int32?-instance-method">
       <div class="signature">
         
@@ -326,7 +368,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/4a2a5451b931a1277e8a0e77a86a2c3632402bcd/src/json_schema.cr#L298" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L376" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -342,7 +384,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/4a2a5451b931a1277e8a0e77a86a2c3632402bcd/src/json_schema.cr#L298" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L376" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -358,7 +400,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/4a2a5451b931a1277e8a0e77a86a2c3632402bcd/src/json_schema.cr#L297" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L375" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -374,7 +416,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/4a2a5451b931a1277e8a0e77a86a2c3632402bcd/src/json_schema.cr#L297" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L375" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -390,7 +432,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/4a2a5451b931a1277e8a0e77a86a2c3632402bcd/src/json_schema.cr#L293" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L371" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -406,7 +448,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/4a2a5451b931a1277e8a0e77a86a2c3632402bcd/src/json_schema.cr#L293" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L371" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -422,7 +464,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/4a2a5451b931a1277e8a0e77a86a2c3632402bcd/src/json_schema.cr#L296" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L374" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -438,7 +480,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/4a2a5451b931a1277e8a0e77a86a2c3632402bcd/src/json_schema.cr#L296" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L374" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -454,7 +496,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/4a2a5451b931a1277e8a0e77a86a2c3632402bcd/src/json_schema.cr#L295" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L373" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -470,7 +512,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/4a2a5451b931a1277e8a0e77a86a2c3632402bcd/src/json_schema.cr#L295" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L373" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -486,7 +528,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/4a2a5451b931a1277e8a0e77a86a2c3632402bcd/src/json_schema.cr#L294" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L372" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -502,7 +544,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/4a2a5451b931a1277e8a0e77a86a2c3632402bcd/src/json_schema.cr#L294" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L372" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -518,23 +560,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/4a2a5451b931a1277e8a0e77a86a2c3632402bcd/src/json_schema.cr#L300" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="validate(value:Float64|Int32)-instance-method">
-      <div class="signature">
-        
-        def <strong>validate</strong>(value : Float64 | Int32)
-
-        <a class="method-permalink" href="#validate%28value%3AFloat64%7CInt32%29-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/4a2a5451b931a1277e8a0e77a86a2c3632402bcd/src/json_schema.cr#L305" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L379" target="_blank">View source</a>]
         
       </div>
     </div>
