@@ -52,7 +52,7 @@ module JSONSchema
   end
 
   # Validates schema that has no type. Allows for constraints such as `enum`, `const` or
-  # composite schema that do not require a `type` keyword (`enum` is also available on typed schemas).
+  # composite schemas that do not require a `type` keyword (`enum` is also available on typed schemas).
   #
   # This is a raw `Validator` class that you most likely do not need to use directly.
   # See the `JSONSchema#create_validator` macro for common usage of this shard.
@@ -78,6 +78,8 @@ module JSONSchema
         end
       end
 
+      validate_composites(@composites, node, errors)
+
       if errors.size > 0
         return ValidationResult.new(:error, errors)
       end
@@ -101,6 +103,7 @@ module JSONSchema
     property min_properties : Int32?
     property max_properties : Int32?
     property enum_list : Array(JSON::Any) = [] of JSON::Any
+    property composites : Array(CompositeValidator) = [] of CompositeValidator
 
     def validate(node : JSON::Any)
       value = node.as_h rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be an object", "boop")])
@@ -191,6 +194,8 @@ module JSONSchema
         end
       end
 
+      validate_composites(@composites, node, errors)
+
       if errors.size > 0
         return ValidationResult.new(:error, errors)
       end
@@ -214,6 +219,7 @@ module JSONSchema
     property max_items : Int32?
     property unique_items = false
     property enum_list : Array(JSON::Any) = [] of JSON::Any
+    property composites : Array(CompositeValidator) = [] of CompositeValidator
 
     def validate(node : JSON::Any)
       value = node.as_a rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be an array", "boop")])
@@ -301,6 +307,8 @@ module JSONSchema
         end
       end
 
+      validate_composites(@composites, node, errors)
+
       if errors.size > 0
         return ValidationResult.new(:error, errors)
       end
@@ -319,6 +327,7 @@ module JSONSchema
     property pattern : Regex?
     property format : String?
     property enum_list : Array(JSON::Any) = [] of JSON::Any
+    property composites : Array(CompositeValidator) = [] of CompositeValidator
 
     def validate(node : JSON::Any)
       value = node.as_s rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be a string", "boop")])
@@ -356,6 +365,8 @@ module JSONSchema
         end
       end
 
+      validate_composites(@composites, node, errors)
+
       if errors.size > 0
         return ValidationResult.new(:error, errors)
       end
@@ -382,6 +393,7 @@ module JSONSchema
     property exclusive_minimum : Int32?
     property exclusive_maximum : Int32?
     property enum_list : Array(JSON::Any) = [] of JSON::Any
+    property composites : Array(CompositeValidator) = [] of CompositeValidator
 
     def validate(node : JSON::Any)
       value = node.as_f rescue node.as_i rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be a number", "boop")])
@@ -428,6 +440,8 @@ module JSONSchema
           errors.push(enum_result.as(ValidationError))
         end
       end
+
+      validate_composites(@composites, node, errors)
 
       if errors.size > 0
         return ValidationResult.new(:error, errors)
@@ -562,3 +576,15 @@ end
 #   {% end %}
 #   end
 # end
+
+# This modifies an error array with any errors that are the result of the composite validators in the array
+# when validated against the given node.
+private def validate_composites(composites : Array(JSONSchema::CompositeValidator), node : JSON::Any, errors : Array(JSONSchema::ValidationError))
+  unless composites.size == 0
+    composite_results = composites.map{ |composite| composite.validate(node) }.each do |composite_result|
+      if composite_result.status == :error
+        errors.concat(composite_result.errors)
+      end
+    end
+  end
+end

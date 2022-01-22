@@ -86,7 +86,7 @@ class RequestBody
 end
 
 request_body = RequestBody.new
-input_json = JSON.parse({ "example" => "test" })
+input_json = JSON.parse(%{{"test": "example"}})
 
 request_body.validator.validate(input_json) # => JSONSchema::ValidationResult(@status=:success, @errors=[])
 ```
@@ -106,15 +106,24 @@ All JSON Schema types _are_ supported!
 * `null`
 * `boolean`
 
-The generic keywords `const` and `enum` are also supported for any schema.
+The generic keywords `const` and `enum` are also supported.
+
+* `enum` can be provided either as a generic keyword (schema without a `type` value), or on a typed schema.
+* `const` may only be provided as a generic keyword.
 
 ### Composite Schema
 
-Composite schemas using `not`, `anyOf`, `allOf`, or `oneOf` _are_ supported! These can be used on any schema, including one with no `type`.
+Composite schemas using `not`, `anyOf`, `allOf`, or `oneOf` _are_ supported! These can be used on any schema, including a generic one with no `type`.
 
 ### Conditional Schema
 
 Using `dependentRequired`, `dependentSchemas` and `if-then-else` _are_ supported!
+
+### Illogical Schema
+
+It's possible to make a JSON schema that is logically impossible. For example, you could create a composite schema that checks that a value is both a number and a string. The generator tries to prevent this from happening. Since the schema is processed through macros, it seems better to present you a compile error that the schema is illogical than to allow you to use a schema that would be additional work to support in the code, but not actually validate anything.
+
+Calling this out here as this is different behavior than most JSON Schema tools out there. Many libraries implement the rules and rely on the user to write a logical schema.
 
 ## Unsupported
 

@@ -89,6 +89,7 @@ private def define_object_validator(schema : Hash(String, JSON::Any))
         #{dependent_required}
         #{enum_list}
         #{options_mapped.join("\n")}
+        #{define_composite_validators(var, schema)}
         return #{var}
       }).call
     SCH
@@ -139,6 +140,7 @@ private def define_array_validator(schema : Hash(String, JSON::Any))
         #{options_mapped.join("\n")}
         #{prefix_items}
         #{enum_list}
+        #{define_composite_validators(var, schema)}
         return #{var}
       }).call
     SCH
@@ -168,6 +170,7 @@ private def define_string_validator(schema : Hash(String, JSON::Any))
         #{var} = JSONSchema::StringValidator.new
         #{options.join("\n")}
         #{enum_list}
+        #{define_composite_validators(var, schema)}
         return #{var}
       }).call
     SCH
@@ -196,6 +199,7 @@ private def define_number_validator(schema : Hash(String, JSON::Any), has_intege
         #{var} = JSONSchema::NumberValidator.new
         #{options.join("\n")}
         #{enum_list}
+        #{define_composite_validators(var, schema)}
         return #{var}
       }).call
     SCH
@@ -210,17 +214,30 @@ private def define_boolean_validator(schema : Hash(String, JSON::Any))
   "JSONSchema::BooleanValidator.new"
 end
 
-private def define_composite_validator(schema : Hash(String, JSON::Any))
-  keyword_keys = schema.keys.select { |key| COMPOSITE_KEYS.includes?(key) }
-  raise "Composite schema may not have more than one keyword" unless keyword_keys.size === 1
-  keyword = keyword_keys[0]
-  raise "Composite schema value must be an array" if schema[keyword].nil?
+private def is_generic_schema(schema : Hash(String, JSON::Any))
+  (schema.keys & (COMPOSITE_KEYS + ["enum", "const"])).size > 0
+end
 
-  children_defs = schema[keyword].as_a.map do |child_schema|
-    define_schema child_schema
+private def define_composite_validator(keyword : String, children : Array(JSON::Any))
+  children_defs = children.map { |child_schema| define_schema(child_schema).as(String) }
+  return %{JSONSchema::CompositeValidator.new("#{keyword}", [#{children_defs.join(", ")}] of JSONSchema::Validator)}
+end
+
+private def define_composite_validators(var : String, schema : Hash(String, JSON::Any))
+  composites = [] of String
+
+  COMPOSITE_KEYS.each do |keyword|
+    if schema.has_key?(keyword)
+      composites.push(define_composite_validator(keyword, schema[keyword].as_a))
+    end
   end
 
-  return "JSONSchema::CompositeValidator.new(\"#{keyword}\", [#{children_defs.join(", ")}] of JSONSchema::Validator)"
+  if composites.size == 0
+    return ""
+  end
+
+  composites_mapped = composites.map { |composite| %{#{var}.composites.push(#{composite})} }
+  composites_mapped.join("\n")
 end
 
 private def define_generic_validator(schema : Hash(String, JSON::Any))
@@ -235,6 +252,7 @@ private def define_generic_validator(schema : Hash(String, JSON::Any))
         #{var} = JSONSchema::GenericValidator.new
         #{enum_list}
         #{const}
+        #{define_composite_validators(var, schema)}
         return #{var}
       }).call
     SCH
@@ -260,11 +278,7 @@ private def define_schema(node : JSON::Any)
   when "boolean"
     return define_boolean_validator(schema)
   else
-    # if (COMPOSITE_KEYS.any? { |keyword| schema.has_key?(keyword) })
-    #   return define_composite_validator(schema)
-    # end
-
-    if (schema.has_key?("enum") || schema.has_key?("const"))
+    if is_generic_schema(schema)
       return define_generic_validator(schema)
     end
 
