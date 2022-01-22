@@ -581,7 +581,7 @@ end
 # when validated against the given node.
 private def validate_composites(composites : Array(JSONSchema::CompositeValidator), node : JSON::Any, errors : Array(JSONSchema::ValidationError))
   unless composites.size == 0
-    composite_results = composites.map{ |composite| composite.validate(node) }.each do |composite_result|
+    composite_results = composites.map { |composite| composite.validate(node) }.each do |composite_result|
       if composite_result.status == :error
         errors.concat(composite_result.errors)
       end
