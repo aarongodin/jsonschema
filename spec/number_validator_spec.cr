@@ -100,7 +100,7 @@ describe JSONSchema::NumberValidator do
       end
 
       it "has an error when the number is not in the enum" do
-        assert_validation_error validator.validate(JSON.parse(%{1000})), "Expected value be equal to the enum"
+        assert_validation_error validator.validate(JSON.parse(%{1000})), "Expected value to be equal to the enum"
       end
     end
   end

@@ -13,20 +13,20 @@ private module NextVar
   end
 end
 
+private def stringify_json_any(node : JSON::Any)
+  case node.raw
+  when Int64
+    "JSON::Any.new(#{node.raw}_i64)"
+  when String
+    %{JSON::Any.new("#{node.raw}")}
+  else
+    "JSON::Any.new(#{node.raw})"
+  end
+end
+
 private def create_enum_list_assignment_string(var : String, enum_items : Array(JSON::Any))
   return "" if enum_items.size == 0
-
-  enum_tokens = enum_items.map do |enum_item|
-    case enum_item.raw
-    when Int64
-      "JSON::Any.new(#{enum_item.raw}_i64)"
-    when String
-      %{JSON::Any.new("#{enum_item.raw}")}
-    else
-      "JSON::Any.new(#{enum_item.raw})"
-    end
-  end
-
+  enum_tokens = enum_items.map { |enum_item| stringify_json_any(enum_item) }
   %{#{var}.enum_list = [#{enum_tokens.join(", ")}]}
 end
 
@@ -78,11 +78,7 @@ private def define_object_validator(schema : Hash(String, JSON::Any))
     end
   end
 
-  enum_list = if schema.has_key?("enum")
-                create_enum_list_assignment_string(var, schema["enum"].as_a)
-              else
-                ""
-              end
+  enum_list = schema.has_key?("enum") ? create_enum_list_assignment_string(var, schema["enum"].as_a) : ""
 
   return (
     <<-SCH
@@ -134,11 +130,7 @@ private def define_array_validator(schema : Hash(String, JSON::Any))
     end
   end
 
-  enum_list = if schema.has_key?("enum")
-                create_enum_list_assignment_string(var, schema["enum"].as_a)
-              else
-                ""
-              end
+  enum_list = schema.has_key?("enum") ? create_enum_list_assignment_string(var, schema["enum"].as_a) : ""
 
   return (
     <<-SCH
@@ -168,11 +160,7 @@ private def define_string_validator(schema : Hash(String, JSON::Any))
     options.push %{#{var}.format = "#{schema["format"]}"}
   end
 
-  enum_list = if schema.has_key?("enum")
-                create_enum_list_assignment_string(var, schema["enum"].as_a)
-              else
-                ""
-              end
+  enum_list = schema.has_key?("enum") ? create_enum_list_assignment_string(var, schema["enum"].as_a) : ""
 
   return (
     <<-SCH
@@ -200,11 +188,7 @@ private def define_number_validator(schema : Hash(String, JSON::Any), has_intege
     "#{var}.#{prop} = #{value}"
   end
 
-  enum_list = if schema.has_key?("enum")
-                create_enum_list_assignment_string(var, schema["enum"].as_a)
-              else
-                ""
-              end
+  enum_list = schema.has_key?("enum") ? create_enum_list_assignment_string(var, schema["enum"].as_a) : ""
 
   return (
     <<-SCH
@@ -242,17 +226,15 @@ end
 private def define_generic_validator(schema : Hash(String, JSON::Any))
   var = NextVar.get
 
-  enum_list = if schema.has_key?("enum")
-                create_enum_list_assignment_string(var, schema["enum"].as_a)
-              else
-                ""
-              end
+  enum_list = schema.has_key?("enum") ? create_enum_list_assignment_string(var, schema["enum"].as_a) : ""
+  const = schema.has_key?("const") ? "#{var}.const = #{stringify_json_any(schema["const"])}" : ""
 
   return (
     <<-SCH
       (-> {
         #{var} = JSONSchema::GenericValidator.new
         #{enum_list}
+        #{const}
         return #{var}
       }).call
     SCH
@@ -282,7 +264,7 @@ private def define_schema(node : JSON::Any)
     #   return define_composite_validator(schema)
     # end
 
-    if (schema.has_key?("enum"))
+    if (schema.has_key?("enum") || schema.has_key?("const"))
       return define_generic_validator(schema)
     end
 

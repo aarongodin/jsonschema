@@ -73,7 +73,7 @@ describe JSONSchema::StringValidator do
       end
 
       it "has an error when the string is not in the enum" do
-        assert_validation_error validator.validate(JSON.parse(%{"purple"})), "Expected value be equal to the enum"
+        assert_validation_error validator.validate(JSON.parse(%{"purple"})), "Expected value to be equal to the enum"
       end
     end
   end

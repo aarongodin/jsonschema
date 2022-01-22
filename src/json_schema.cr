@@ -48,7 +48,7 @@ module JSONSchema
       return nil
     end
 
-    ValidationError.new "Expected value be equal to the enum", "boop"
+    ValidationError.new "Expected value to be equal to the enum", "boop"
   end
 
   # Validates schema that has no type. Allows for constraints such as `enum`, `const` or
@@ -58,6 +58,7 @@ module JSONSchema
   # See the `JSONSchema#create_validator` macro for common usage of this shard.
   class GenericValidator
     property enum_list : Array(JSON::Any) = [] of JSON::Any
+    property const : JSON::Any?
     property composites : Array(CompositeValidator) = [] of CompositeValidator
 
     def validate(node : JSON::Any)
@@ -68,6 +69,12 @@ module JSONSchema
 
         unless enum_result.nil?
           errors.push(enum_result.as(ValidationError))
+        end
+      end
+
+      unless @const.nil?
+        unless node == @const
+          errors.push ValidationError.new("Expected value to be #{@const}", "boop")
         end
       end
 

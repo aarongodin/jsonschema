@@ -11,10 +11,10 @@ describe JSONSchema::GenericValidator do
       end
 
       it "has an error when passed a non-matching number or other value" do
-        assert_validation_error validator.validate(JSON.parse(%{5})), "Expected value be equal to the enum"
-        assert_validation_error validator.validate(JSON.parse(%{"Test"})), "Expected value be equal to the enum"
-        assert_validation_error validator.validate(JSON.parse(%{{"test": "testing"}})), "Expected value be equal to the enum"
-        assert_validation_error validator.validate(JSON.parse(%{[1,2,3]})), "Expected value be equal to the enum"
+        assert_validation_error validator.validate(JSON.parse(%{5})), "Expected value to be equal to the enum"
+        assert_validation_error validator.validate(JSON.parse(%{"Test"})), "Expected value to be equal to the enum"
+        assert_validation_error validator.validate(JSON.parse(%{{"test": "testing"}})), "Expected value to be equal to the enum"
+        assert_validation_error validator.validate(JSON.parse(%{[1,2,3]})), "Expected value to be equal to the enum"
       end
     end
 
@@ -26,10 +26,23 @@ describe JSONSchema::GenericValidator do
       end
 
       it "has an error when passed a non-matching string or other value" do
-        assert_validation_error validator.validate(JSON.parse(%{5})), "Expected value be equal to the enum"
-        assert_validation_error validator.validate(JSON.parse(%{"purple"})), "Expected value be equal to the enum"
-        assert_validation_error validator.validate(JSON.parse(%{{"test": "testing"}})), "Expected value be equal to the enum"
-        assert_validation_error validator.validate(JSON.parse(%{[1,2,3]})), "Expected value be equal to the enum"
+        assert_validation_error validator.validate(JSON.parse(%{5})), "Expected value to be equal to the enum"
+        assert_validation_error validator.validate(JSON.parse(%{"purple"})), "Expected value to be equal to the enum"
+        assert_validation_error validator.validate(JSON.parse(%{{"test": "testing"}})), "Expected value to be equal to the enum"
+        assert_validation_error validator.validate(JSON.parse(%{[1,2,3]})), "Expected value to be equal to the enum"
+      end
+    end
+
+    context "given a const value is set" do
+      validator = JSONSchema.create_validator "spec/fixtures/generic_const"
+
+      it "is successful when passed an equal value" do
+        assert_validation_success validator.validate(JSON.parse(%{"testing"}))
+      end
+
+      it "has an error when passed an inequal value" do
+        assert_validation_error validator.validate(JSON.parse(%{5})), "Expected value to be testing"
+        assert_validation_error validator.validate(JSON.parse(%{"purple"})), "Expected value to be testing"
       end
     end
   end
