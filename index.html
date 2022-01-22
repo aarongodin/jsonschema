@@ -219,7 +219,7 @@ ex:</p>
 <span class="k">end</span>
 
 request_body <span class="o">=</span> <span class="t">RequestBody</span>.<span class="k">new</span>
-input_json <span class="o">=</span> <span class="t">JSON</span>.parse({ <span class="s">&quot;example&quot;</span> =&gt; <span class="s">&quot;test&quot;</span> })
+input_json <span class="o">=</span> <span class="t">JSON</span>.parse(<span class="s">%{{&quot;test&quot;: &quot;example&quot;}}</span>)
 
 request_body.validator.validate(input_json) <span class="c"># =&gt; JSONSchema::ValidationResult(@status=:success, @errors=[])</span></code></pre>
 <p>The <code><a href="JSONSchema/ValidationResult.html">JSONSchema::ValidationResult</a></code> will contain either <code>:success</code> or <code>:error</code> as the <code>status</code>. On <code>:error</code>, you can check the <code>@errors</code> array for a list of <code><a href="JSONSchema/ValidationError.html">JSONSchema::ValidationError</a></code> and respond in your code accordingly.</p>
@@ -242,19 +242,30 @@ request_body.validator.validate(input_json) <span class="c"># =&gt; JSONSchema::
 <li><code>null</code></li>
 <li><code>boolean</code></li>
 </ul>
-<p>The generic keywords <code>const</code> and <code>enum</code> are also supported for any schema.</p>
+<p>The generic keywords <code>const</code> and <code>enum</code> are also supported.</p>
+<ul>
+<li><code>enum</code> can be provided either as a generic keyword (schema without a <code>type</code> value), or on a typed schema.</li>
+<li><code>const</code> may only be provided as a generic keyword.</li>
+</ul>
 <h3><a id="composite-schema" class="anchor" href="#composite-schema">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>Composite Schema</h3>
-<p>Composite schemas using <code>not</code>, <code>anyOf</code>, <code>allOf</code>, or <code>oneOf</code> <em>are</em> supported! These can be used on any schema, including one with no <code>type</code>.</p>
+<p>Composite schemas using <code>not</code>, <code>anyOf</code>, <code>allOf</code>, or <code>oneOf</code> <em>are</em> supported! These can be used on any schema, including a generic one with no <code>type</code>.</p>
 <h3><a id="conditional-schema" class="anchor" href="#conditional-schema">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>Conditional Schema</h3>
 <p>Using <code>dependentRequired</code>, <code>dependentSchemas</code> and <code>if-then-else</code> <em>are</em> supported!</p>
+<h3><a id="illogical-schema" class="anchor" href="#illogical-schema">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Illogical Schema</h3>
+<p>It's possible to make a JSON schema that is logically impossible. For example, you could create a composite schema that checks that a value is both a number and a string. The generator tries to prevent this from happening. Since the schema is processed through macros, it seems better to present you a compile error that the schema is illogical than to allow you to use a schema that would be additional work to support in the code, but not actually validate anything.</p>
+<p>Calling this out here as this is different behavior than most JSON Schema tools out there. Many libraries implement the rules and rely on the user to write a logical schema.</p>
 <h2><a id="unsupported" class="anchor" href="#unsupported">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
