@@ -154,7 +154,7 @@
     Overview
   </h2>
 
-  <p>Validates schema that has no type. Allows for constraints such as <code>enum</code>, <code>const</code> or
+  <p>Validates schema that has no type. Allows for constraints such as <code>enum</code>, <code><a href="../JSONSchema/GenericValidator.html#const%3AJSON%3A%3AAny%3F-instance-method">#const</a></code> or
 composite schema that do not require a <code>type</code> keyword (<code>enum</code> is also available on typed schemas).</p>
 <p>This is a raw <code><a href="../JSONSchema/Validator.html">Validator</a></code> class that you most likely do not need to use directly.
 See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">JSONSchema#create_validator</a></code> macro for common usage of this shard.</p>
@@ -182,7 +182,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
   </h2>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L59" target="_blank">
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/5e7082eba84c27468e69d9f4b7fd708803bc8036/src/json_schema.cr#L59" target="_blank">
         json_schema.cr
       </a>
     
@@ -214,6 +214,16 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
     
       <li class="entry-summary">
         <a href="#composites%3D%28composites%3AArray%28CompositeValidator%29%29-instance-method" class="signature"><strong>#composites=</strong>(composites : Array(CompositeValidator))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#const%3AJSON%3A%3AAny%3F-instance-method" class="signature"><strong>#const</strong> : JSON::Any?</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#const%3D%28const%3AJSON%3A%3AAny%3F%29-instance-method" class="signature"><strong>#const=</strong>(const : JSON::Any?)</a>
         
       </li>
     
@@ -287,7 +297,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L61" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/5e7082eba84c27468e69d9f4b7fd708803bc8036/src/json_schema.cr#L62" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -303,7 +313,39 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L61" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/5e7082eba84c27468e69d9f4b7fd708803bc8036/src/json_schema.cr#L62" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="const:JSON::Any?-instance-method">
+      <div class="signature">
+        
+        def <strong>const</strong> : JSON::Any?
+
+        <a class="method-permalink" href="#const%3AJSON%3A%3AAny%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/5e7082eba84c27468e69d9f4b7fd708803bc8036/src/json_schema.cr#L61" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="const=(const:JSON::Any?)-instance-method">
+      <div class="signature">
+        
+        def <strong>const=</strong>(const : JSON::Any?)
+
+        <a class="method-permalink" href="#const%3D%28const%3AJSON%3A%3AAny%3F%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/5e7082eba84c27468e69d9f4b7fd708803bc8036/src/json_schema.cr#L61" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -319,7 +361,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L60" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/5e7082eba84c27468e69d9f4b7fd708803bc8036/src/json_schema.cr#L60" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -335,7 +377,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L60" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/5e7082eba84c27468e69d9f4b7fd708803bc8036/src/json_schema.cr#L60" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -351,7 +393,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e674e5a7f4c658a251b351aba60fc0e0a2c671f3/src/json_schema.cr#L63" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/5e7082eba84c27468e69d9f4b7fd708803bc8036/src/json_schema.cr#L64" target="_blank">View source</a>]
         
       </div>
     </div>
