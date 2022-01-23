@@ -185,21 +185,21 @@
   </h2>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/81b674df2526d3c79627458481817895df44d687/src/error.cr#L1" target="_blank">
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/75170ea73622cb3a70bc86b5be2087436847de7b/src/error.cr#L1" target="_blank">
         error.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/81b674df2526d3c79627458481817895df44d687/src/json_schema.cr#L5" target="_blank">
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/75170ea73622cb3a70bc86b5be2087436847de7b/src/json_schema.cr#L5" target="_blank">
         json_schema.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/81b674df2526d3c79627458481817895df44d687/src/processor.cr#L289" target="_blank">
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/75170ea73622cb3a70bc86b5be2087436847de7b/src/processor.cr#L289" target="_blank">
         processor.cr
       </a>
     
@@ -242,7 +242,7 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#validate_enum%28value%3AJSON%3A%3AAny%2Cenum_list%3AArray%28JSON%3A%3AAny%29%29%3AValidationError%3F-class-method" class="signature"><strong>.validate_enum</strong>(value : JSON::Any, enum_list : Array(JSON::Any)) : ValidationError?</a>
+        <a href="#validate_enum%28value%3AJSON%3A%3AAny%2Cenum_list%3AArray%28JSON%3A%3AAny%29%2Ccontext%3ANodeContext%29%3AValidationError%3F-class-method" class="signature"><strong>.validate_enum</strong>(value : JSON::Any, enum_list : Array(JSON::Any), context : NodeContext) : ValidationError?</a>
         
       </li>
     
@@ -303,18 +303,18 @@
     Class Method Detail
   </h2>
   
-    <div class="entry-detail" id="validate_enum(value:JSON::Any,enum_list:Array(JSON::Any)):ValidationError?-class-method">
+    <div class="entry-detail" id="validate_enum(value:JSON::Any,enum_list:Array(JSON::Any),context:NodeContext):ValidationError?-class-method">
       <div class="signature">
         
-        def self.<strong>validate_enum</strong>(value : JSON::Any, enum_list : Array(JSON::Any)) : <a href="JSONSchema/ValidationError.html">ValidationError</a>?
+        def self.<strong>validate_enum</strong>(value : JSON::Any, enum_list : Array(JSON::Any), context : <a href="JSONSchema/NodeContext.html">NodeContext</a>) : <a href="JSONSchema/ValidationError.html">ValidationError</a>?
 
-        <a class="method-permalink" href="#validate_enum%28value%3AJSON%3A%3AAny%2Cenum_list%3AArray%28JSON%3A%3AAny%29%29%3AValidationError%3F-class-method">#</a>
+        <a class="method-permalink" href="#validate_enum%28value%3AJSON%3A%3AAny%2Cenum_list%3AArray%28JSON%3A%3AAny%29%2Ccontext%3ANodeContext%29%3AValidationError%3F-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/81b674df2526d3c79627458481817895df44d687/src/json_schema.cr#L72" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/75170ea73622cb3a70bc86b5be2087436847de7b/src/json_schema.cr#L115" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -350,7 +350,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/81b674df2526d3c79627458481817895df44d687/src/json_schema.cr#L558" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/75170ea73622cb3a70bc86b5be2087436847de7b/src/json_schema.cr#L601" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -377,7 +377,7 @@ b.validator <span class="c"># =&gt; #&lt;JSONSchema::ObjectValidator:...</span><
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/81b674df2526d3c79627458481817895df44d687/src/json_schema.cr#L572" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/75170ea73622cb3a70bc86b5be2087436847de7b/src/json_schema.cr#L615" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -408,7 +408,7 @@ r.response_body_validator <span class="c"># =&gt; #&lt;JSONSchema::ObjectValidat
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/81b674df2526d3c79627458481817895df44d687/src/json_schema.cr#L592" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/75170ea73622cb3a70bc86b5be2087436847de7b/src/json_schema.cr#L635" target="_blank">View source</a>]
         
       </div>
     </div>

@@ -228,6 +228,17 @@ input_json <span class="o">=</span> <span class="t">JSON</span>.parse(<span clas
 
 request_body.validator.validate(input_json) <span class="c"># =&gt; JSONSchema::ValidationResult(@status=:success, @errors=[])</span></code></pre>
 <p>The <code><a href="JSONSchema/ValidationResult.html">JSONSchema::ValidationResult</a></code> will contain either <code>:success</code> or <code>:error</code> as the <code>status</code>. On <code>:error</code>, you can check the <code>@errors</code> array for a list of <code><a href="JSONSchema/ValidationError.html">JSONSchema::ValidationError</a></code> and respond in your code accordingly.</p>
+<h3><a id="context" class="anchor" href="#context">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Context</h3>
+<p>When a <code>ValidationError</code> is created, it includes a <code>NodeContext</code> object which represents the location where the error occurred. You can get the value from this location by using <code>NodeContext#dig_into</code>:</p>
+<pre><code class="language-crystal">result <span class="o">=</span> validator.validate(input_json)
+result.errors[<span class="n">0</span>].context.dig_into(input_json) <span class="c"># =&gt; returns JSON::Any() that wraps value at that location</span></code></pre>
+<p>You can get a string path with <code>NodeContext#to_s</code> similar to what <code>jq</code> (<a href="https://stedolan.github.io/jq/">ref</a>) uses for pathing.</p>
+<pre><code class="language-crystal">result <span class="o">=</span> validator.validate(input_json)
+result.errors[<span class="n">0</span>].context.to_s <span class="c"># =&gt; String such as &quot;.person.name&quot; or &quot;.example[2].title&quot;</span></code></pre>
 <h2><a id="features" class="anchor" href="#features">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>

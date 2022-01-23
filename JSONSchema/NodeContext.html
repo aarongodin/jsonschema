@@ -159,9 +159,7 @@
     Overview
   </h2>
 
-  <p>Internal mechanism for passing the context of the JSON structure.
-Allows child-parent relationships in errors to be tracked in nested structures,
-and the path can be reported on the <code><a href="../JSONSchema/ValidationError.html">ValidationError</a></code>.</p>
+  <p>Tracks the location of a JSON value within a JSON schema.</p>
 
 
 
@@ -186,7 +184,7 @@ and the path can be reported on the <code><a href="../JSONSchema/ValidationError
   </h2>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/81b674df2526d3c79627458481817895df44d687/src/json_schema.cr#L29" target="_blank">
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/75170ea73622cb3a70bc86b5be2087436847de7b/src/json_schema.cr#L27" target="_blank">
         json_schema.cr
       </a>
     
@@ -208,32 +206,13 @@ and the path can be reported on the <code><a href="../JSONSchema/ValidationError
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new%28path%3D%22%22%2Cparent%3Dnil%29-class-method" class="signature"><strong>.new</strong>(path = <span class="s">&quot;&quot;</span>, parent = <span class="n">nil</span>)</a>
+        <a href="#new%28path%3D%22.%22%2Cparent%3Dnil%29-class-method" class="signature"><strong>.new</strong>(path = <span class="s">&quot;.&quot;</span>, parent = <span class="n">nil</span>)</a>
         
       </li>
     
   </ul>
 
 
-
-  <h2>
-    <a id="class-method-summary" class="anchor" href="#class-method-summary">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Class Method Summary
-  </h2>
-  <ul class="list-summary">
-    
-      <li class="entry-summary">
-        <a href="#from_object_property%28prop%3AString%2Cparent%3ANodeContext%29-class-method" class="signature"><strong>.from_object_property</strong>(prop : String, parent : NodeContext)</a>
-        
-          <div class="summary"><p>Helper for cases where we need to create a different path at the root level object than in a nested object property.</p></div>
-        
-      </li>
-    
-  </ul>
 
 
 
@@ -246,6 +225,20 @@ and the path can be reported on the <code><a href="../JSONSchema/ValidationError
     Instance Method Summary
   </h2>
   <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#dig_into%28input%3AJSON%3A%3AAny%29-instance-method" class="signature"><strong>#dig_into</strong>(input : JSON::Any)</a>
+        
+          <div class="summary"><p>Calls <code>JSON::Any#dig</code> on a given input to dig to the value represented by this NodeContext.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#from_property%28prop%3AString%29-instance-method" class="signature"><strong>#from_property</strong>(prop : String)</a>
+        
+          <div class="summary"><p>Create a child NodeContext based on <code>self</code>, taking into account whether <code>self</code> is the root node.</p></div>
+        
+      </li>
     
       <li class="entry-summary">
         <a href="#parent%3ANodeContext%3F-instance-method" class="signature"><strong>#parent</strong> : NodeContext?</a>
@@ -270,7 +263,7 @@ and the path can be reported on the <code><a href="../JSONSchema/ValidationError
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><p>Returns a string representation of this object.</p></div>
+          <div class="summary"><p>Get a string representation of the node's full path.</p></div>
         
       </li>
     
@@ -314,56 +307,24 @@ and the path can be reported on the <code><a href="../JSONSchema/ValidationError
     Constructor Detail
   </h2>
   
-    <div class="entry-detail" id="new(path=&quot;&quot;,parent=nil)-class-method">
+    <div class="entry-detail" id="new(path=&quot;.&quot;,parent=nil)-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(path = <span class="s">&quot;&quot;</span>, parent = <span class="n">nil</span>)
+        def self.<strong>new</strong>(path = <span class="s">&quot;.&quot;</span>, parent = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#new%28path%3D%22%22%2Cparent%3Dnil%29-class-method">#</a>
+        <a class="method-permalink" href="#new%28path%3D%22.%22%2Cparent%3Dnil%29-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/81b674df2526d3c79627458481817895df44d687/src/json_schema.cr#L33" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/75170ea73622cb3a70bc86b5be2087436847de7b/src/json_schema.cr#L31" target="_blank">View source</a>]
         
       </div>
     </div>
   
 
 
-
-  <h2>
-    <a id="class-method-detail" class="anchor" href="#class-method-detail">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Class Method Detail
-  </h2>
-  
-    <div class="entry-detail" id="from_object_property(prop:String,parent:NodeContext)-class-method">
-      <div class="signature">
-        
-        def self.<strong>from_object_property</strong>(prop : String, parent : <a href="../JSONSchema/NodeContext.html">NodeContext</a>)
-
-        <a class="method-permalink" href="#from_object_property%28prop%3AString%2Cparent%3ANodeContext%29-class-method">#</a>
-      </div>
-      
-        <div class="doc">
-          
-          <p>Helper for cases where we need to create a different path at the root level object than
-in a nested object property.</p>
-        </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/81b674df2526d3c79627458481817895df44d687/src/json_schema.cr#L52" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
 
 
 
@@ -376,6 +337,48 @@ in a nested object property.</p>
     Instance Method Detail
   </h2>
   
+    <div class="entry-detail" id="dig_into(input:JSON::Any)-instance-method">
+      <div class="signature">
+        
+        def <strong>dig_into</strong>(input : JSON::Any)
+
+        <a class="method-permalink" href="#dig_into%28input%3AJSON%3A%3AAny%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Calls <code>JSON::Any#dig</code> on a given input to dig to the value represented by this NodeContext.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/75170ea73622cb3a70bc86b5be2087436847de7b/src/json_schema.cr#L55" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="from_property(prop:String)-instance-method">
+      <div class="signature">
+        
+        def <strong>from_property</strong>(prop : String)
+
+        <a class="method-permalink" href="#from_property%28prop%3AString%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Create a child NodeContext based on <code>self</code>, taking into account whether <code>self</code> is the root node.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/75170ea73622cb3a70bc86b5be2087436847de7b/src/json_schema.cr#L95" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
     <div class="entry-detail" id="parent:NodeContext?-instance-method">
       <div class="signature">
         
@@ -387,7 +390,7 @@ in a nested object property.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/81b674df2526d3c79627458481817895df44d687/src/json_schema.cr#L30" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/75170ea73622cb3a70bc86b5be2087436847de7b/src/json_schema.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -403,7 +406,7 @@ in a nested object property.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/81b674df2526d3c79627458481817895df44d687/src/json_schema.cr#L30" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/75170ea73622cb3a70bc86b5be2087436847de7b/src/json_schema.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -419,7 +422,7 @@ in a nested object property.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/81b674df2526d3c79627458481817895df44d687/src/json_schema.cr#L31" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/75170ea73622cb3a70bc86b5be2087436847de7b/src/json_schema.cr#L29" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -435,7 +438,7 @@ in a nested object property.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/81b674df2526d3c79627458481817895df44d687/src/json_schema.cr#L31" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/75170ea73622cb3a70bc86b5be2087436847de7b/src/json_schema.cr#L29" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -450,20 +453,16 @@ in a nested object property.</p>
       
         <div class="doc">
           
-            <div class="doc-inherited">
-              Description copied from class Object
-            </div>
-          
-          <p>Returns a string representation of this object.</p>
-<p>Descendants must usually <strong>not</strong> override this method. Instead,
-they must override <code>to_s(io)</code>, which must append to the given
-IO object.</p>
+          <p>Get a string representation of the node's full path. The format is dot and square bracket notation,
+similar to the format expected by <code>jq</code>, a popular <a href="https://stedolan.github.io/jq/">JSON querying CLI</a>.</p>
+<p>Example: <code><a href="../JSONSchema/NodeContext.html#parent%3ANodeContext%3F-instance-method">.parent</a>.children[0].example</code></p>
+<p>The top-level <code>.</code> will always refer to the root node.</p>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/81b674df2526d3c79627458481817895df44d687/src/json_schema.cr#L36" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/75170ea73622cb3a70bc86b5be2087436847de7b/src/json_schema.cr#L40" target="_blank">View source</a>]
         
       </div>
     </div>
