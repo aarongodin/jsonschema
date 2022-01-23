@@ -31,6 +31,10 @@ describe JSONSchema::GenericValidator do
         assert_validation_error validator.validate(JSON.parse(%{{"test": "testing"}})), "Expected value to be equal to the enum"
         assert_validation_error validator.validate(JSON.parse(%{[1,2,3]})), "Expected value to be equal to the enum"
       end
+
+      it "has an error with the correct root context" do
+        assert_validation_error_context validator.validate(JSON.parse(%{5})), "."
+      end
     end
 
     context "given a const value is set" do
@@ -43,6 +47,10 @@ describe JSONSchema::GenericValidator do
       it "has an error when passed an inequal value" do
         assert_validation_error validator.validate(JSON.parse(%{5})), "Expected value to be testing"
         assert_validation_error validator.validate(JSON.parse(%{"purple"})), "Expected value to be testing"
+      end
+
+      it "has an error with the correct root context" do
+        assert_validation_error_context validator.validate(JSON.parse(%{5})), "."
       end
     end
   end

@@ -93,6 +93,23 @@ request_body.validator.validate(input_json) # => JSONSchema::ValidationResult(@s
 
 The `JSONSchema::ValidationResult` will contain either `:success` or `:error` as the `status`. On `:error`, you can check the `@errors` array for a list of `JSONSchema::ValidationError` and respond in your code accordingly.
 
+### Context
+
+When a `ValidationError` is created, it includes a `NodeContext` object which represents the location where the error occurred. You can get the value from this location by using `NodeContext#dig_into`:
+
+```crystal
+result = validator.validate(input_json)
+result.errors[0].context.dig_into(input_json) # => returns JSON::Any() that wraps value at that location
+```
+
+You can get a string path with `NodeContext#to_s` similar to what `jq` ([ref](https://stedolan.github.io/jq/)) uses for pathing.
+
+```crystal
+result = validator.validate(input_json)
+result.errors[0].context.to_s # => String such as ".person.name" or ".example[2].title"
+```
+
+
 ## Features
 
 ### Core Types

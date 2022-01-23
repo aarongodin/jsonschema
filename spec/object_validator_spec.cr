@@ -356,7 +356,7 @@ describe JSONSchema::ObjectValidator do
       end
     end
 
-    context "when errors are encountered at a child context" do
+    describe "when errors are encountered at a child context" do
       context "given a propertyNames schema is set" do
         validator = JSONSchema.create_validator "spec/fixtures/object_property_names"
 

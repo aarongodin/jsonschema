@@ -8,9 +8,9 @@ module JSONSchema
   # Captures an error message and the corresponding path to the value where the error occurred.
   struct ValidationError
     property message : String
-    property path : String
+    property context : NodeContext
 
-    def initialize(@message, @path)
+    def initialize(@message, @context)
     end
   end
 
@@ -23,16 +23,20 @@ module JSONSchema
     end
   end
 
-  # Internal mechanism for passing the context of the JSON structure.
-  # Allows child-parent relationships in errors to be tracked in nested structures,
-  # and the path can be reported on the `ValidationError`.
+  # Tracks the location of a JSON value within a JSON schema.
   class NodeContext
     property parent : NodeContext?
     property path : String
 
-    def initialize(@path = "", @parent = nil)
+    def initialize(@path = ".", @parent = nil)
     end
 
+    # Get a string representation of the node's full path. The format is dot and square bracket notation,
+    # similar to the format expected by `jq`, a popular [JSON querying CLI](https://stedolan.github.io/jq/).
+    #
+    # Example: `.parent.children[0].example`
+    #
+    # The top-level `.` will always refer to the root node.
     def to_s
       string_parts = [] of String
       node = self
@@ -47,13 +51,52 @@ module JSONSchema
       end
     end
 
-    # Helper for cases where we need to create a different path at the root level object than
-    # in a nested object property.
-    def self.from_object_property(prop : String, parent : NodeContext)
-      if parent.path == "." # We know we are at the root context, so we don't need to prepend a `.`
-        NodeContext.new(prop, parent)
+    # Calls `JSON::Any#dig` on a given input to dig to the value represented by this NodeContext.
+    def dig_into(input : JSON::Any)
+      accessors = [] of String | Int32
+      node = self
+
+      until node.nil?
+        if node.path == "."
+          node = node.parent
+          next
+        end
+
+        case node.path
+        when .starts_with?('.')
+          accessors.push(node.path[1..])
+        when .starts_with?('[')
+          accessors.push(node.path.strip("[]").to_i)
+        else
+          accessors.push(node.path)
+        end
+
+        node = node.parent
+      end
+
+      if (accessors.size == 0)
+        raise "Cannot dig beyond root node context"
+      end
+
+      accessors.reverse!
+
+      value = input.dig(accessors[0])
+      accessor_index = 1
+
+      while (accessor_index < accessors.size)
+        value = value.dig(accessors[accessor_index])
+        accessor_index = accessor_index + 1
+      end
+
+      value
+    end
+
+    # Create a child NodeContext based on `self`, taking into account whether `self` is the root node.
+    def from_property(prop : String)
+      if self.path == "." # We know we are at the root context, so we don't need to prepend `.`
+        NodeContext.new(prop, self)
       else
-        NodeContext.new(".#{prop}", parent)
+        NodeContext.new(".#{prop}", self)
       end
     end
   end
@@ -69,7 +112,7 @@ module JSONSchema
                     GenericValidator |
                     CompositeValidator
 
-  def self.validate_enum(value : JSON::Any, enum_list : Array(JSON::Any)) : ValidationError?
+  def self.validate_enum(value : JSON::Any, enum_list : Array(JSON::Any), context : NodeContext) : ValidationError?
     found_match = false
     item_iterator = enum_list.each.take_while { |item| !found_match }
     current_item = item_iterator.next
@@ -83,7 +126,7 @@ module JSONSchema
       return nil
     end
 
-    ValidationError.new "Expected value to be equal to the enum", "boop"
+    ValidationError.new "Expected value to be equal to the enum", context
   end
 
   # Validates schema that has no type. Allows for constraints such as `enum`, `const` or
@@ -100,7 +143,7 @@ module JSONSchema
       errors = [] of ValidationError
 
       unless @enum_list.size == 0
-        enum_result = JSONSchema.validate_enum(node, @enum_list)
+        enum_result = JSONSchema.validate_enum(node, @enum_list, context)
 
         unless enum_result.nil?
           errors.push(enum_result.as(ValidationError))
@@ -109,7 +152,7 @@ module JSONSchema
 
       unless @const.nil?
         unless node == @const
-          errors.push ValidationError.new("Expected value to be #{@const}", "boop")
+          errors.push ValidationError.new("Expected value to be #{@const}", context)
         end
       end
 
@@ -141,27 +184,27 @@ module JSONSchema
     property composites : Array(CompositeValidator) = [] of CompositeValidator
 
     def validate(node : JSON::Any, context = NodeContext.new("."))
-      value = node.as_h rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be an object", context.to_s)])
+      value = node.as_h rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be an object", context)])
 
       errors = [] of ValidationError
 
       unless @required.nil?
         @required.as(Array(String)).each do |required_prop|
-          errors.push(ValidationError.new(%{Expected required property "#{required_prop}" to be set}, context.to_s)) unless value.has_key?(required_prop)
+          errors.push(ValidationError.new(%{Expected required property "#{required_prop}" to be set}, context)) unless value.has_key?(required_prop)
         end
       end
 
       unless @dependent_required.size == 0
         @dependent_required.each do |dependent_prop, required_props|
           required_props.each do |required_prop|
-            errors.push(ValidationError.new(%{Expected required property "#{required_prop}" to be set when "#{dependent_prop}" is set}, context.to_s)) unless value.has_key?(required_prop)
+            errors.push(ValidationError.new(%{Expected required property "#{required_prop}" to be set when "#{dependent_prop}" is set}, context)) unless value.has_key?(required_prop)
           end
         end
       end
 
       unless @property_names.nil?
         value.keys.each do |property_name|
-          result = @property_names.as(StringValidator).validate(JSON::Any.new(property_name), NodeContext.from_object_property(property_name, context))
+          result = @property_names.as(StringValidator).validate(JSON::Any.new(property_name), context.from_property(property_name))
           if result.status == :error
             errors.concat(result.errors)
           end
@@ -170,13 +213,13 @@ module JSONSchema
 
       unless @min_properties.nil?
         unless value.keys.size >= @min_properties.as(Int32)
-          errors.push(ValidationError.new("Expected object to have at least #{@min_properties} properties", context.to_s))
+          errors.push(ValidationError.new("Expected object to have at least #{@min_properties} properties", context))
         end
       end
 
       unless @max_properties.nil?
         if value.keys.size > @max_properties.as(Int32)
-          errors.push(ValidationError.new("Expected object to have at most #{@max_properties} properties", context.to_s))
+          errors.push(ValidationError.new("Expected object to have at most #{@max_properties} properties", context))
         end
       end
 
@@ -184,7 +227,7 @@ module JSONSchema
         property_value = value[property_name]?
 
         unless property_value.nil?
-          result = property_validator.validate(property_value, NodeContext.from_object_property(property_name, context))
+          result = property_validator.validate(property_value, context.from_property(property_name))
           if result.status == :error
             errors.concat(result.errors)
           end
@@ -194,7 +237,7 @@ module JSONSchema
       @pattern_properties.each do |pattern, pattern_validator|
         value.each do |k, v|
           if pattern =~ k
-            result = pattern_validator.validate(v, NodeContext.from_object_property(k, context))
+            result = pattern_validator.validate(v, context.from_property(k))
             if result.status == :error
               errors.concat(result.errors)
             end
@@ -208,12 +251,12 @@ module JSONSchema
 
       if @has_disabled_additional_properties
         if additional_keys.size > 0
-          errors.push(ValidationError.new("Expected object not to have additional properties", context.to_s))
+          errors.push(ValidationError.new("Expected object not to have additional properties", context))
         end
       else
         unless @additional_properties.nil?
           additional_keys.each do |additional_key|
-            result = @additional_properties.as(Validator).validate(value[additional_key], NodeContext.from_object_property(additional_key, context))
+            result = @additional_properties.as(Validator).validate(value[additional_key], context.from_property(additional_key))
             if result.status == :error
               errors.concat(result.errors)
             end
@@ -222,7 +265,7 @@ module JSONSchema
       end
 
       unless @enum_list.size == 0
-        enum_result = JSONSchema.validate_enum(node, @enum_list)
+        enum_result = JSONSchema.validate_enum(node, @enum_list, context)
 
         unless enum_result.nil?
           errors.push(enum_result.as(ValidationError))
@@ -257,7 +300,7 @@ module JSONSchema
     property composites : Array(CompositeValidator) = [] of CompositeValidator
 
     def validate(node : JSON::Any, context = NodeContext.new)
-      value = node.as_a rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be an array", "boop")])
+      value = node.as_a rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be an array", context)])
       errors = [] of ValidationError
 
       unless @items.nil?
@@ -278,7 +321,7 @@ module JSONSchema
         end
 
         if @has_disabled_additional_items && value.size > @prefix_items.size
-          errors.push(ValidationError.new("Expected array to be tuple of length #{@prefix_items.size}", "boop"))
+          errors.push(ValidationError.new("Expected array to be tuple of length #{@prefix_items.size}", context))
         end
       end
 
@@ -288,13 +331,13 @@ module JSONSchema
 
           unless @min_contains.nil?
             if value_contains_results.size < @min_contains.as(Int32)
-              errors.push(ValidationError.new("Expected array to contain at least #{@min_contains} matched items", "boop"))
+              errors.push(ValidationError.new("Expected array to contain at least #{@min_contains} matched items", context))
             end
           end
 
           unless @max_contains.nil?
             if value_contains_results.size > @max_contains.as(Int32)
-              errors.push(ValidationError.new("Expected array not to contain more than #{@max_contains} matched items", "boop"))
+              errors.push(ValidationError.new("Expected array not to contain more than #{@max_contains} matched items", context))
             end
           end
         else
@@ -311,31 +354,31 @@ module JSONSchema
           end
 
           if !found_contains
-            errors.push(ValidationError.new("Expected array to contain at least 1 matched item", "boop"))
+            errors.push(ValidationError.new("Expected array to contain at least 1 matched item", context))
           end
         end
       end
 
       unless @min_items.nil?
         if value.size < @min_items.as(Int32)
-          errors.push(ValidationError.new("Expected array length to be at least #{@min_items}", "boop"))
+          errors.push(ValidationError.new("Expected array length to be at least #{@min_items}", context))
         end
       end
 
       unless @min_items.nil?
         if value.size > @max_items.as(Int32)
-          errors.push(ValidationError.new("Expected array length to be at most #{@max_items}", "boop"))
+          errors.push(ValidationError.new("Expected array length to be at most #{@max_items}", context))
         end
       end
 
       if @unique_items
         if value.uniq.size != value.size
-          errors.push(ValidationError.new("Expected array items to be unique", "boop"))
+          errors.push(ValidationError.new("Expected array items to be unique", context))
         end
       end
 
       unless @enum_list.size == 0
-        enum_result = JSONSchema.validate_enum(node, @enum_list)
+        enum_result = JSONSchema.validate_enum(node, @enum_list, context)
 
         unless enum_result.nil?
           errors.push(enum_result.as(ValidationError))
@@ -365,35 +408,35 @@ module JSONSchema
     property composites : Array(CompositeValidator) = [] of CompositeValidator
 
     def validate(node : JSON::Any, context = NodeContext.new)
-      value = node.as_s rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be a string", context.to_s)])
+      value = node.as_s rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be a string", context)])
       errors = [] of ValidationError
 
       unless @min_length.nil?
         if @min_length.as(Int32) > value.size
-          errors.push(ValidationError.new("Expected string to have a minimum length of #{@min_length}", "boop"))
+          errors.push(ValidationError.new("Expected string to have a minimum length of #{@min_length}", context))
         end
       end
 
       unless @max_length.nil?
         if value.size > @max_length.as(Int32)
-          errors.push(ValidationError.new("Expected string to have a maximum length of #{@max_length}", "boop"))
+          errors.push(ValidationError.new("Expected string to have a maximum length of #{@max_length}", context))
         end
       end
 
       unless @pattern.nil?
         if (@pattern =~ value).nil?
-          errors.push(ValidationError.new("Expected string to match pattern /#{@pattern.as(Regex).source}/", context.to_s))
+          errors.push(ValidationError.new("Expected string to match pattern /#{@pattern.as(Regex).source}/", context))
         end
       end
 
       unless @format.nil?
         case @format.as(String)
-        when "date-time" then self.check_format(@format.as(String), Format.is_date_time(value), errors)
+        when "date-time" then self.check_format(@format.as(String), Format.is_date_time(value), errors, context)
         end
       end
 
       unless @enum_list.size == 0
-        enum_result = JSONSchema.validate_enum(node, @enum_list)
+        enum_result = JSONSchema.validate_enum(node, @enum_list, context)
 
         unless enum_result.nil?
           errors.push(enum_result.as(ValidationError))
@@ -409,9 +452,9 @@ module JSONSchema
       ValidationResult.new(:success)
     end
 
-    private def check_format(format : String, matched_format : Bool, errors : Array(ValidationError))
+    private def check_format(format : String, matched_format : Bool, errors : Array(ValidationError), context : NodeContext)
       if !matched_format
-        errors.push(ValidationError.new(%{Expected string to match format "#{format}"}, "boop"))
+        errors.push(ValidationError.new(%{Expected string to match format "#{format}"}, context))
       end
     end
   end
@@ -431,45 +474,45 @@ module JSONSchema
     property composites : Array(CompositeValidator) = [] of CompositeValidator
 
     def validate(node : JSON::Any, context = NodeContext.new)
-      value = node.as_f rescue node.as_i rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be a number", context.to_s)])
+      value = node.as_f rescue node.as_i rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be a number", context)])
       errors = [] of ValidationError
 
       if @has_integer_constraint && (value % 1 != 0)
-        errors.push(ValidationError.new("Expected numeric value to be an integer", "boop"))
+        errors.push(ValidationError.new("Expected numeric value to be an integer", context))
       end
 
       unless @minimum.nil?
         unless @minimum.as(Int32) <= value
-          errors.push(ValidationError.new("Expected numeric value be greater than or equal to #{@minimum}", "boop"))
+          errors.push(ValidationError.new("Expected numeric value be greater than or equal to #{@minimum}", context))
         end
       end
 
       unless @maximum.nil?
         unless value <= @maximum.as(Int32)
-          errors.push(ValidationError.new("Expected numeric value be less than or equal to #{@maximum}", "boop"))
+          errors.push(ValidationError.new("Expected numeric value be less than or equal to #{@maximum}", context))
         end
       end
 
       unless @exclusive_minimum.nil?
         unless @exclusive_minimum.as(Int32) < value
-          errors.push(ValidationError.new("Expected numeric value be greater than #{@exclusive_minimum}", "boop"))
+          errors.push(ValidationError.new("Expected numeric value be greater than #{@exclusive_minimum}", context))
         end
       end
 
       unless @exclusive_maximum.nil?
         unless value < @exclusive_maximum.as(Int32)
-          errors.push(ValidationError.new("Expected numeric value be less than #{@exclusive_maximum}", "boop"))
+          errors.push(ValidationError.new("Expected numeric value be less than #{@exclusive_maximum}", context))
         end
       end
 
       unless @multiple_of.nil?
         unless value % multiple_of.as(Int32) == 0
-          errors.push(ValidationError.new("Expected numeric value to be multiple of #{@multiple_of}", "boop"))
+          errors.push(ValidationError.new("Expected numeric value to be multiple of #{@multiple_of}", context))
         end
       end
 
       unless @enum_list.size == 0
-        enum_result = JSONSchema.validate_enum(node, @enum_list)
+        enum_result = JSONSchema.validate_enum(node, @enum_list, context)
 
         unless enum_result.nil?
           errors.push(enum_result.as(ValidationError))
@@ -492,7 +535,7 @@ module JSONSchema
   # See the `JSONSchema#create_validator` macro for common usage of this shard.
   class NullValidator
     def validate(node : JSON::Any, context = NodeContext.new)
-      node.as_nil rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be null", context.to_s)])
+      node.as_nil rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be null", context)])
       ValidationResult.new(:success)
     end
   end
@@ -503,7 +546,7 @@ module JSONSchema
   # See the `JSONSchema#create_validator` macro for common usage of this shard.
   class BooleanValidator
     def validate(node : JSON::Any, context = NodeContext.new)
-      node.as_bool rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be a boolean", "boop")])
+      node.as_bool rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be a boolean", context)])
       ValidationResult.new(:success)
     end
   end
@@ -530,19 +573,19 @@ module JSONSchema
       case @keyword
       when "allOf"
         if results_with_errors.size > 0
-          return ValidationResult.new(:error, [ValidationError.new("Expected value to match all schemas", "boop")])
+          return ValidationResult.new(:error, [ValidationError.new("Expected value to match all schemas", context)])
         end
       when "anyOf"
         unless results.size - results_with_errors.size > 0
-          return ValidationResult.new(:error, [ValidationError.new("Expected value to match any of the schemas", "boop")])
+          return ValidationResult.new(:error, [ValidationError.new("Expected value to match any of the schemas", context)])
         end
       when "oneOf"
         unless results.size - results_with_errors.size == 1
-          return ValidationResult.new(:error, [ValidationError.new("Expected value to match only one of the schemas", "boop")])
+          return ValidationResult.new(:error, [ValidationError.new("Expected value to match only one of the schemas", context)])
         end
       when "not"
         unless results.size == results_with_errors.size
-          return ValidationResult.new(:error, [ValidationError.new("Expected value not to match any of the schemas", "boop")])
+          return ValidationResult.new(:error, [ValidationError.new("Expected value not to match any of the schemas", context)])
         end
       end
 

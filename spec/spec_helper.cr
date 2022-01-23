@@ -23,5 +23,5 @@ end
 def assert_validation_error_context(result : JSONSchema::ValidationResult, contextPath : String)
   result.status.should eq(:error)
   result.errors.size.should eq(1)
-  result.errors[0].path.should eq(contextPath)
+  result.errors[0].context.to_s.should eq(contextPath)
 end
