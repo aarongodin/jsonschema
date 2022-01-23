@@ -47,7 +47,7 @@ describe JSONSchema::NodeContext do
   describe "#dig_into" do
     context "given a root node context" do
       it "raises" do
-        expect_raises(Exception, "Cannot dig beyond root node context") do
+        expect_raises(Exception, "Cannot dig on root node context") do
           JSONSchema::NodeContext.new.dig_into(JSON.parse(%{"something"}))
         end
       end

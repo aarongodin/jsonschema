@@ -1,0 +1,9 @@
+{
+  "type": "array",
+  "prefixItems": [
+    { "type": "string" },
+    { "type": "number" },
+    { "type": "boolean" }
+  ],
+  "items": false
+}

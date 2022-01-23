@@ -75,7 +75,7 @@ module JSONSchema
       end
 
       if (accessors.size == 0)
-        raise "Cannot dig beyond root node context"
+        raise "Cannot dig on root node context"
       end
 
       accessors.reverse!
@@ -337,7 +337,7 @@ module JSONSchema
 
           unless @max_contains.nil?
             if value_contains_results.size > @max_contains.as(Int32)
-              errors.push(ValidationError.new("Expected array not to contain more than #{@max_contains} matched items", context))
+              errors.push(ValidationError.new("Expected array to contain at most #{@max_contains} matched items", context))
             end
           end
         else
