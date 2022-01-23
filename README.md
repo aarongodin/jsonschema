@@ -109,7 +109,6 @@ result = validator.validate(input_json)
 result.errors[0].context.to_s # => String such as ".person.name" or ".example[2].title"
 ```
 
-
 ## Features
 
 ### Core Types
@@ -135,6 +134,12 @@ Composite schemas using `not`, `anyOf`, `allOf`, or `oneOf` _are_ supported! The
 ### Conditional Schema
 
 Using `dependentRequired`, `dependentSchemas` and `if-then-else` _are_ supported!
+
+### String Formats
+
+JSON Schema provides a number of format keywords that require the validation to restrict the string to values matching the format. To make that a reality quickly in this module, I copied the regex's found in the `jsonschema` module found on [npm](https://www.npmjs.com/package/jsonschema).
+
+Based on issues existing on that module's GitHub, I have found that not all of them are "perfect". I will be reviewing them before a future release to determine whether each format can be solved with regex, and replacing them with a lexer where needed.
 
 ### Illogical Schema
 
