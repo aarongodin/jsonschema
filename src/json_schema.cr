@@ -429,11 +429,11 @@ module JSONSchema
         end
       end
 
-      unless @format.nil?
-        case @format.as(String)
-        when "date-time" then self.check_format(@format.as(String), Format.is_date_time(value), errors, context)
-        end
-      end
+      # unless @format.nil?
+      #   case @format.as(String)
+      #   when "date-time" then self.check_format(@format.as(String), Format.is_date_time(value), errors, context)
+      #   end
+      # end
 
       unless @enum_list.size == 0
         enum_result = JSONSchema.validate_enum(node, @enum_list, context)

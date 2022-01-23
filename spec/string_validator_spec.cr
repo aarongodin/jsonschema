@@ -53,17 +53,17 @@ describe JSONSchema::StringValidator do
     end
 
     # This test only covers "date-time" format, but the unlderlying formats are all regular expressions
-    context "given a format is set" do
-      validator = JSONSchema.create_validator "spec/fixtures/string_format"
+    # context "given a format is set" do
+    #   validator = JSONSchema.create_validator "spec/fixtures/string_format"
 
-      it "is successful for strings that match the format" do
-        assert_validation_success validator.validate(JSON.parse(%{"2018-11-13T20:20:39+00:00"}))
-      end
+    #   it "is successful for strings that match the format" do
+    #     assert_validation_success validator.validate(JSON.parse(%{"2018-11-13T20:20:39+00:00"}))
+    #   end
 
-      it "has an error when the string does not match the format" do
-        assert_validation_error validator.validate(JSON.parse(%{"test"})), %{Expected string to match format "date-time"}
-      end
-    end
+    #   it "has an error when the string does not match the format" do
+    #     assert_validation_error validator.validate(JSON.parse(%{"test"})), %{Expected string to match format "date-time"}
+    #   end
+    # end
 
     context "given an enum is set" do
       validator = JSONSchema.create_validator "spec/fixtures/string_enum"
