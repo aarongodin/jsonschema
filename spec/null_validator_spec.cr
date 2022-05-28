@@ -7,7 +7,7 @@ array_fixture = JSON.parse("[1,2,3]")
 object_fixture = JSON.parse("{}")
 string_fixture = JSON.parse(%{"test"})
 
-describe JSONSchema::NumberValidator do
+describe JSONSchema::NullValidator do
   describe "#validate" do
     context "given the null schema" do
       validator = JSONSchema.create_validator "spec/fixtures/basic_null"
