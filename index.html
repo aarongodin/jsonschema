@@ -51,6 +51,11 @@
   <div class="types-list">
     <ul>
   
+  <li class=" " data-id="json-schema-cr/toplevel" data-name="top level namespace">
+      <a href="toplevel.html">Top Level Namespace</a>
+      
+    </li>
+  
   <li class="parent " data-id="json-schema-cr/JSONSchema" data-name="jsonschema">
       <a href="JSONSchema.html">JSONSchema</a>
       
@@ -275,6 +280,13 @@ result.errors[<span class="n">0</span>].context.to_s <span class="c"># =&gt; Str
   </svg>
 </a>Conditional Schema</h3>
 <p>Using <code>dependentRequired</code>, <code>dependentSchemas</code> and <code>if-then-else</code> <em>are</em> supported!</p>
+<h3><a id="string-formats" class="anchor" href="#string-formats">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>String Formats</h3>
+<p>JSON Schema provides a number of format keywords that require the validation to restrict the string to values matching the format. To make that a reality quickly in this module, I copied the regex's found in the <code>jsonschema</code> module found on <a href="https://www.npmjs.com/package/jsonschema">npm</a>.</p>
+<p>Based on issues existing on that module's GitHub, I have found that not all of them are &quot;perfect&quot;. I will be reviewing them before a future release to determine whether each format can be solved with regex, and replacing them with a lexer where needed.</p>
 <h3><a id="illogical-schema" class="anchor" href="#illogical-schema">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
