@@ -13,6 +13,42 @@ module JSONSchema
   # DSL through block receivers rather than the standard method-chaining fluent API seen in json-schema libraries in other languages.
   #
   # An instance of this class is available through `JSONSchema.fluent`.
+  #
+  # ```
+  # require "jsonschema"
+  #
+  # js = JSONSchema.fluent
+  #
+  # validator = js.object do
+  #   prop "first_name", (js.string do
+  #     min_length 2
+  #     max_length 64
+  #   end)
+  #
+  #   prop "last_name", (js.string do
+  #     min_length 2
+  #     max_length 64
+  #   end)
+  #
+  #   prop "email", js.string { format "email" }
+  #
+  #   prop "address", (js.object do
+  #     prop "street", js.string
+  #     prop "city", js.string
+  #     prop "state", js.string
+  #     prop "zipcode", js.string
+  #   end)
+  #
+  #   prop "nicknames", (js.array do
+  #     min_items 1
+  #     items js.string
+  #   end)
+  # end
+  # ```
+  #
+  # As in the example above, it's recommended to create a shorter variable that references `JSONSchema.fluent`.
+  # This will improve readability and can be customized to the needs of your code (rather than `jsonschema` exposing a global method
+  # with a short name).
   class Fluent
     # Create a `JSONSchema::GenericValidator` using the fluent API. See `JSONSchema::FluentGenericValidator` for receiver methods.
     # Accepts a block to receive options for the validator.

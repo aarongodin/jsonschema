@@ -132,7 +132,7 @@ validator.validate(JSON.parse("...elided")) # => JSONSchema::ValidationResult(@s
 
 ### Create From Fluent API
 
-The fluent API is a DSL for concise syntax for generating `JSONSchema::Validator` objects. Here's an example that shows a complex schema represented using the fluent API.
+The fluent API is a DSL with a concise syntax for generating `JSONSchema::Validator` objects. See the [Fluent](https://aarongodin.github.io/jsonschema/JSONSchema/Fluent.html) class for full usage specification. Here's an example that shows a complex schema represented using the fluent API:
 
 ```crystal
 require "jsonschema"
