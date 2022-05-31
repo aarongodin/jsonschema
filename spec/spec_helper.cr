@@ -1,5 +1,5 @@
 require "spec"
-require "../src/json_schema"
+require "../src/jsonschema"
 
 def assert_validation_success(result : JSONSchema::ValidationResult)
   result.status.should eq(:success)
