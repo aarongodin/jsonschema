@@ -51,11 +51,6 @@
   <div class="types-list">
     <ul>
   
-  <li class=" " data-id="json-schema-cr/toplevel" data-name="top level namespace">
-      <a href="toplevel.html">Top Level Namespace</a>
-      
-    </li>
-  
   <li class="parent open current" data-id="json-schema-cr/JSONSchema" data-name="jsonschema">
       <a href="JSONSchema.html">JSONSchema</a>
       
@@ -136,13 +131,13 @@
       
     </li>
   
-</ul>
-
+  <li class=" " data-id="json-schema-cr/JSONSchema/ValidatorRender" data-name="jsonschema::validatorrender">
+      <a href="JSONSchema/ValidatorRender.html">ValidatorRender</a>
       
     </li>
   
-  <li class=" " data-id="json-schema-cr/ValidatorRender" data-name="validatorrender">
-      <a href="ValidatorRender.html">ValidatorRender</a>
+</ul>
+
       
     </li>
   
@@ -200,56 +195,56 @@
   </h2>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/define.cr#L7" target="_blank">
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/bb6a862dd612b1419bfa36cdacc395729b4d04ad/src/define.cr#L7" target="_blank">
         define.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/error.cr#L1" target="_blank">
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/bb6a862dd612b1419bfa36cdacc395729b4d04ad/src/error.cr#L1" target="_blank">
         error.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/format.cr#L14" target="_blank">
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/bb6a862dd612b1419bfa36cdacc395729b4d04ad/src/format.cr#L14" target="_blank">
         format.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/json_schema.cr#L5" target="_blank">
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/bb6a862dd612b1419bfa36cdacc395729b4d04ad/src/json_schema.cr#L5" target="_blank">
         json_schema.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/node_context.cr#L1" target="_blank">
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/bb6a862dd612b1419bfa36cdacc395729b4d04ad/src/node_context.cr#L1" target="_blank">
         node_context.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/process.cr#L8" target="_blank">
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/bb6a862dd612b1419bfa36cdacc395729b4d04ad/src/process.cr#L8" target="_blank">
         process.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/render.cr#L60" target="_blank">
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/bb6a862dd612b1419bfa36cdacc395729b4d04ad/src/render.cr#L41" target="_blank">
         render.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/validator.cr#L6" target="_blank">
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/bb6a862dd612b1419bfa36cdacc395729b4d04ad/src/validator.cr#L6" target="_blank">
         validator.cr
       </a>
     
@@ -292,7 +287,14 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#from_json%28node%3AJSON%3A%3AAny%29%3AValidator%3F-class-method" class="signature"><strong>.from_json</strong>(node : JSON::Any) : Validator?</a>
+        <a href="#from_json%28node%3AJSON%3A%3AAny%29%3AValidator-class-method" class="signature"><strong>.from_json</strong>(node : JSON::Any) : Validator</a>
+        
+          <div class="summary"><p>Generates a <code><a href="JSONSchema/Validator.html">Validator</a></code> object from the <code>JSON::Any</code> provided as input.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#from_json%3F%28node%3AJSON%3A%3AAny%29%3AValidator%3F-class-method" class="signature"><strong>.from_json?</strong>(node : JSON::Any) : Validator?</a>
         
           <div class="summary"><p>Generates a <code><a href="JSONSchema/Validator.html">Validator</a></code> object from the <code>JSON::Any</code> provided as input.</p></div>
         
@@ -360,12 +362,37 @@
     Class Method Detail
   </h2>
   
-    <div class="entry-detail" id="from_json(node:JSON::Any):Validator?-class-method">
+    <div class="entry-detail" id="from_json(node:JSON::Any):Validator-class-method">
       <div class="signature">
         
-        def self.<strong>from_json</strong>(node : JSON::Any) : <a href="JSONSchema/Validator.html">Validator</a>?
+        def self.<strong>from_json</strong>(node : JSON::Any) : <a href="JSONSchema/Validator.html">Validator</a>
 
-        <a class="method-permalink" href="#from_json%28node%3AJSON%3A%3AAny%29%3AValidator%3F-class-method">#</a>
+        <a class="method-permalink" href="#from_json%28node%3AJSON%3A%3AAny%29%3AValidator-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Generates a <code><a href="JSONSchema/Validator.html">Validator</a></code> object from the <code>JSON::Any</code> provided as input.
+Raises if the schema is not created due to invalid schema.
+To generate the schema at compile time, see the <code><a href="JSONSchema.html#create_validator%28filename%29-macro">JSONSchema#create_validator</a></code> macro.</p>
+<pre><code class="language-crystal">schema <span class="o">=</span> <span class="t">JSON</span>.parse(<span class="s">%&lt;{&quot;type&quot;: &quot;string&quot;}&gt;</span>)
+validator <span class="o">=</span> <span class="t">JSONSchema</span><span class="t">::</span><span class="t">Runtime</span>.create_validator schema</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/bb6a862dd612b1419bfa36cdacc395729b4d04ad/src/json_schema.cr#L61" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="from_json?(node:JSON::Any):Validator?-class-method">
+      <div class="signature">
+        
+        def self.<strong>from_json?</strong>(node : JSON::Any) : <a href="JSONSchema/Validator.html">Validator</a>?
+
+        <a class="method-permalink" href="#from_json%3F%28node%3AJSON%3A%3AAny%29%3AValidator%3F-class-method">#</a>
       </div>
       
         <div class="doc">
@@ -379,7 +406,7 @@ validator <span class="o">=</span> <span class="t">JSONSchema</span><span class=
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/json_schema.cr#L73" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/bb6a862dd612b1419bfa36cdacc395729b4d04ad/src/json_schema.cr#L73" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -395,7 +422,7 @@ validator <span class="o">=</span> <span class="t">JSONSchema</span><span class=
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/validator.cr#L36" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/bb6a862dd612b1419bfa36cdacc395729b4d04ad/src/validator.cr#L39" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -431,7 +458,7 @@ validator <span class="o">=</span> <span class="t">JSONSchema</span><span class=
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/json_schema.cr#L13" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/bb6a862dd612b1419bfa36cdacc395729b4d04ad/src/json_schema.cr#L13" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -458,7 +485,7 @@ b.validator <span class="c"># =&gt; #&lt;JSONSchema::ObjectValidator:...</span><
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/json_schema.cr#L27" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/bb6a862dd612b1419bfa36cdacc395729b4d04ad/src/json_schema.cr#L27" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -489,7 +516,7 @@ r.response_body_validator <span class="c"># =&gt; #&lt;JSONSchema::ObjectValidat
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/json_schema.cr#L47" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/bb6a862dd612b1419bfa36cdacc395729b4d04ad/src/json_schema.cr#L47" target="_blank">View source</a>]
         
       </div>
     </div>

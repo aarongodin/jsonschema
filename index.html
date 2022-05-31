@@ -51,11 +51,6 @@
   <div class="types-list">
     <ul>
   
-  <li class=" " data-id="json-schema-cr/toplevel" data-name="top level namespace">
-      <a href="toplevel.html">Top Level Namespace</a>
-      
-    </li>
-  
   <li class="parent " data-id="json-schema-cr/JSONSchema" data-name="jsonschema">
       <a href="JSONSchema.html">JSONSchema</a>
       
@@ -136,13 +131,13 @@
       
     </li>
   
-</ul>
-
+  <li class=" " data-id="json-schema-cr/JSONSchema/ValidatorRender" data-name="jsonschema::validatorrender">
+      <a href="JSONSchema/ValidatorRender.html">ValidatorRender</a>
       
     </li>
   
-  <li class=" " data-id="json-schema-cr/ValidatorRender" data-name="validatorrender">
-      <a href="ValidatorRender.html">ValidatorRender</a>
+</ul>
+
       
     </li>
   
@@ -261,9 +256,9 @@ result.errors[<span class="n">0</span>].context.to_s <span class="c"># =&gt; Str
   </svg>
 </a>Create From JSON Input</h3>
 <p>Use the <code>.from_json</code> method to create <code><a href="JSONSchema/Validator.html">JSONSchema::Validator</a></code> objects from any parsed JSON.</p>
-<pre><code class="language-crystal">validator = JSONSchema.from_json(JSON.parse(
-  &lt;&lt;-JSON
-    {
+<pre><code class="language-crystal">validator <span class="o">=</span> <span class="t">JSONSchema</span>.from_json(<span class="t">JSON</span>.parse(
+  <span class="s">&lt;&lt;-JSON</span>
+<span class="s">    {
       &quot;type&quot;: &quot;object&quot;,
       &quot;properties&quot;: {
         &quot;name&quot;: {
@@ -271,10 +266,10 @@ result.errors[<span class="n">0</span>].context.to_s <span class="c"># =&gt; Str
         }
       }
     }
-  &gt;&gt;
+  JSON</span>
 ))
 
-validator.validate(JSON.parse(&quot;...elided&quot;)) # =&gt; JSONSchema::ValidationResult(@status=:success, @errors=[])</code></pre>
+validator.validate(<span class="t">JSON</span>.parse(<span class="s">&quot;...elided&quot;</span>)) <span class="c"># =&gt; JSONSchema::ValidationResult(@status=:success, @errors=[])</span></code></pre>
 <h2><a id="json-schema-features" class="anchor" href="#json-schema-features">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
