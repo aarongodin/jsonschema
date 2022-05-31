@@ -47,7 +47,7 @@ module JSONSchema
       mapped = options.map do |prop, value|
         "#{var}.#{prop} = #{value}"
       end
-  
+
       return (
         <<-SCH
           (-> {
