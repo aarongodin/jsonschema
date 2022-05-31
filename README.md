@@ -1,10 +1,10 @@
-[![GitHub release](https://img.shields.io/github/release/aarongodin/json-schema-cr.svg)](https://github.com/aarongodin/json-schema-cr/releases)
-[![CI](https://github.com/aarongodin/json-schema-cr/actions/workflows/crystal.yml/badge.svg)](https://github.com/aarongodin/json-schema-cr/actions/workflows/crystal.yml)
-![GitHub](https://img.shields.io/github/license/aarongodin/json-schema-cr?style=plastic)
+[![GitHub release](https://img.shields.io/github/release/aarongodin/jsonschema.svg)](https://github.com/aarongodin/jsonschema/releases)
+[![CI](https://github.com/aarongodin/jsonschema/actions/workflows/crystal.yml/badge.svg)](https://github.com/aarongodin/jsonschema/actions/workflows/crystal.yml)
+![GitHub](https://img.shields.io/github/license/aarongodin/jsonschema?style=plastic)
 
-# json-schema-cr
+# jsonschema
 
-Comprehensive [JSON Schema](https://json-schema.org/) validation and generator for Crystal.
+Comprehensive [JSON Schema](https://json-schema.org/) validation and generator for Crystal. Read below for a high-level description of the API, or check out the [API Docs](https://aarongodin.github.io/jsonschema/) for full details.
 
 ## Installation
 
@@ -12,8 +12,8 @@ Comprehensive [JSON Schema](https://json-schema.org/) validation and generator f
 
    ```yaml
    dependencies:
-     json-schema-cr:
-       github: aarongodin/json-schema-cr
+     jsonschema:
+       github: aarongodin/jsonschema
    ```
 
 2. Run `shards install`
@@ -31,7 +31,7 @@ Comprehensive [JSON Schema](https://json-schema.org/) validation and generator f
 Generate code using the provided macros which output a reference to a `JSONSchema::Validator` object. You can assign the value to a variable or use it any place an expression can be used.
 
 ```crystal
-require "json-schema-cr"
+require "jsonschema"
 validator = JSONSchema.create_validator "my_schema.json"
 ```
 
@@ -79,7 +79,7 @@ Use the `#validate` method on any generated validator to receive a `JSONSchema::
 
 ```crystal
 require "json"
-require "json-schema-cr"
+require "jsonschema"
 
 class RequestBody
   JSONSchema.create_validator_method "my_schema.json"
@@ -135,7 +135,7 @@ validator.validate(JSON.parse("...elided")) # => JSONSchema::ValidationResult(@s
 The fluent API is a DSL for concise syntax for generating `JSONSchema::Validator` objects. Here's an example that shows a complex schema represented using the fluent API.
 
 ```crystal
-require "json-schema-cr"
+require "jsonschema"
 
 js = JSONSchema.fluent
 
