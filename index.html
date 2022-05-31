@@ -91,6 +91,11 @@
       
     </li>
   
+  <li class=" " data-id="json-schema-cr/JSONSchema/InvalidSchemaJSONError" data-name="jsonschema::invalidschemajsonerror">
+      <a href="JSONSchema/InvalidSchemaJSONError.html">InvalidSchemaJSONError</a>
+      
+    </li>
+  
   <li class=" " data-id="json-schema-cr/JSONSchema/NodeContext" data-name="jsonschema::nodecontext">
       <a href="JSONSchema/NodeContext.html">NodeContext</a>
       
@@ -136,6 +141,11 @@
       
     </li>
   
+  <li class=" " data-id="json-schema-cr/ValidatorRender" data-name="validatorrender">
+      <a href="ValidatorRender.html">ValidatorRender</a>
+      
+    </li>
+  
 </ul>
 
   </div>
@@ -151,10 +161,7 @@
     <use href="#octicon-link"/>
   </svg>
 </a>json-schema-cr</h1>
-<p>A compile-time generator of <a href="https://json-schema.org/">JSON Schema</a> validation for Crystal.</p>
-<blockquote>
-<p>This shard is still in beta. If you find any unexpected validation results, open an issue and it will be fixed as soon as possible.</p>
-</blockquote>
+<p>Comprehensive <a href="https://json-schema.org/">JSON Schema</a> validation and generator for Crystal.</p>
 <h2><a id="installation" class="anchor" href="#installation">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
@@ -176,7 +183,11 @@
     <use href="#octicon-link"/>
   </svg>
 </a>Overview</h2>
-<p>This library reads JSON files from your file system <strong>at compile time</strong> and generates Crystal code to convert a JSON Schema document to a <code><a href="JSONSchema/Validator.html">JSONSchema::Validator</a></code> object.</p>
+<ul>
+<li>Read JSON files from your file system <strong>at compile time</strong> and generate Crystal code to convert a JSON Schema document to a <code><a href="JSONSchema/Validator.html">JSONSchema::Validator</a></code> object.</li>
+<li>Create <code><a href="JSONSchema/Validator.html">JSONSchema::Validator</a></code> instances during runtime by providing JSON input to <code>JSONSchema.from_json()</code></li>
+<li>Build <code><a href="JSONSchema/Validator.html">JSONSchema::Validator</a></code> objects using a fluent API directly in your application code.</li>
+</ul>
 <h2><a id="usage" class="anchor" href="#usage">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
@@ -244,11 +255,31 @@ result.errors[<span class="n">0</span>].context.dig_into(input_json) <span class
 <p>You can get a string path with <code>NodeContext#to_s</code> similar to what <code>jq</code> (<a href="https://stedolan.github.io/jq/">ref</a>) uses for pathing.</p>
 <pre><code class="language-crystal">result <span class="o">=</span> validator.validate(input_json)
 result.errors[<span class="n">0</span>].context.to_s <span class="c"># =&gt; String such as &quot;.person.name&quot; or &quot;.example[2].title&quot;</span></code></pre>
-<h2><a id="features" class="anchor" href="#features">
+<h3><a id="create-from-json-input" class="anchor" href="#create-from-json-input">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
-</a>Features</h2>
+</a>Create From JSON Input</h3>
+<p>Use the <code>.from_json</code> method to create <code><a href="JSONSchema/Validator.html">JSONSchema::Validator</a></code> objects from any parsed JSON.</p>
+<pre><code class="language-crystal">validator = JSONSchema.from_json(JSON.parse(
+  &lt;&lt;-JSON
+    {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;properties&quot;: {
+        &quot;name&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        }
+      }
+    }
+  &gt;&gt;
+))
+
+validator.validate(JSON.parse(&quot;...elided&quot;)) # =&gt; JSONSchema::ValidationResult(@status=:success, @errors=[])</code></pre>
+<h2><a id="json-schema-features" class="anchor" href="#json-schema-features">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>json-schema Features</h2>
 <h3><a id="core-types" class="anchor" href="#core-types">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
@@ -285,8 +316,7 @@ result.errors[<span class="n">0</span>].context.to_s <span class="c"># =&gt; Str
     <use href="#octicon-link"/>
   </svg>
 </a>String Formats</h3>
-<p>JSON Schema provides a number of format keywords that require the validation to restrict the string to values matching the format. To make that a reality quickly in this module, I copied the regex's found in the <code>jsonschema</code> module found on <a href="https://www.npmjs.com/package/jsonschema">npm</a>.</p>
-<p>Based on issues existing on that module's GitHub, I have found that not all of them are &quot;perfect&quot;. I will be reviewing them before a future release to determine whether each format can be solved with regex, and replacing them with a lexer where needed.</p>
+<p>JSON Schema provides a number of format keywords that require the validation to restrict the string to values matching the format. This module pulls in <a href="https://github.com/Nicolab/crystal-validator">crystal-validator</a> to perform most of the validations, and relies on regex for the rest.</p>
 <h3><a id="illogical-schema" class="anchor" href="#illogical-schema">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
@@ -318,7 +348,6 @@ result.errors[<span class="n">0</span>].context.to_s <span class="c"># =&gt; Str
 <p>I would like to focus on these features beyond JSON schema that will make this library more useful in a variety of implementations:</p>
 <ol>
 <li><strong>Message customization/i18n</strong>: This module has a list of error messages that should be made customizable.</li>
-<li><strong>Runtime generation</strong>: Some implementations may want to create <code><a href="JSONSchema/Validator.html">JSONSchema::Validator</a></code> instances at runtime, without having to work with the underlying classes themselves.</li>
 </ol>
 <h2><a id="acknowledgements" class="anchor" href="#acknowledgements">
   <svg class="octicon-link" aria-hidden="true">

@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="json-schema-cr">
-  <title>JSONSchema::BooleanValidator - json-schema-cr main</title>
+  <title>JSONSchema::InvalidSchemaJSONError - json-schema-cr main</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -66,7 +66,7 @@
       
     </li>
   
-  <li class=" current" data-id="json-schema-cr/JSONSchema/BooleanValidator" data-name="jsonschema::booleanvalidator">
+  <li class=" " data-id="json-schema-cr/JSONSchema/BooleanValidator" data-name="jsonschema::booleanvalidator">
       <a href="../JSONSchema/BooleanValidator.html">BooleanValidator</a>
       
     </li>
@@ -91,7 +91,7 @@
       
     </li>
   
-  <li class=" " data-id="json-schema-cr/JSONSchema/InvalidSchemaJSONError" data-name="jsonschema::invalidschemajsonerror">
+  <li class=" current" data-id="json-schema-cr/JSONSchema/InvalidSchemaJSONError" data-name="jsonschema::invalidschemajsonerror">
       <a href="../JSONSchema/InvalidSchemaJSONError.html">InvalidSchemaJSONError</a>
       
     </li>
@@ -155,12 +155,12 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> JSONSchema::BooleanValidator
+  <span class="kind">class</span> JSONSchema::InvalidSchemaJSONError
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../JSONSchema/BooleanValidator.html">JSONSchema::BooleanValidator</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../JSONSchema/InvalidSchemaJSONError.html">JSONSchema::InvalidSchemaJSONError</a></li><li class="superclass">Exception</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
@@ -174,9 +174,8 @@
     Overview
   </h2>
 
-  <p>Validates schema where the <code>type</code> is <code>boolean</code>.</p>
-<p>This is a raw <code><a href="../JSONSchema/Validator.html">Validator</a></code> class that you most likely do not need to use directly.
-See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">JSONSchema#create_validator</a></code> macro for common usage of this shard.</p>
+  <p>Exception thrown at runtime for any invalid schema. A runtime schema can be invalid
+given the JSON does not describe a valid JSON Schema.</p>
 
 
 
@@ -201,15 +200,8 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
   </h2>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/render.cr#L295" target="_blank">
-        render.cr
-      </a>
-    
-    <br/>
-  
-    
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/validator.cr#L468" target="_blank">
-        validator.cr
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/error.cr#L19" target="_blank">
+        error.cr
       </a>
     
     <br/>
@@ -222,28 +214,6 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
 
 
 
-
-  <h2>
-    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Instance Method Summary
-  </h2>
-  <ul class="list-summary">
-    
-      <li class="entry-summary">
-        <a href="#to_cr-instance-method" class="signature"><strong>#to_cr</strong></a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#validate%28node%3AJSON%3A%3AAny%2Ccontext%3DNodeContext.new%29-instance-method" class="signature"><strong>#validate</strong>(node : JSON::Any, context = <span class="t">NodeContext</span>.<span class="k">new</span>)</a>
-        
-      </li>
-    
-  </ul>
 
 
 
@@ -271,54 +241,22 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
 
 
   
+    
+
+
+    
+
+
+    
+
+
+  
 </div>
 
 
 
 
 
-
-  <h2>
-    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Instance Method Detail
-  </h2>
-  
-    <div class="entry-detail" id="to_cr-instance-method">
-      <div class="signature">
-        
-        def <strong>to_cr</strong>
-
-        <a class="method-permalink" href="#to_cr-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/render.cr#L296" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="validate(node:JSON::Any,context=NodeContext.new)-instance-method">
-      <div class="signature">
-        
-        def <strong>validate</strong>(node : JSON::Any, context = <span class="t">NodeContext</span>.<span class="k">new</span>)
-
-        <a class="method-permalink" href="#validate%28node%3AJSON%3A%3AAny%2Ccontext%3DNodeContext.new%29-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/e0ae578fb51af0b6bea22ceea1641466fd1f8406/src/validator.cr#L469" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
 
 
 
