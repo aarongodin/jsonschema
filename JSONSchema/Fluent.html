@@ -207,6 +207,38 @@
   <p>Contains methods for creating <code><a href="../JSONSchema/Validator.html">JSONSchema::Validator</a></code> instances without interacting with the low-level domain objects. This class implements a
 DSL through block receivers rather than the standard method-chaining fluent API seen in json-schema libraries in other languages.</p>
 <p>An instance of this class is available through <code><a href="../JSONSchema.html#fluent%3AFluent-class-method">JSONSchema.fluent</a></code>.</p>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;jsonschema&quot;</span>
+
+js <span class="o">=</span> <span class="t">JSONSchema</span>.fluent
+
+validator <span class="o">=</span> js.object <span class="k">do</span>
+  prop <span class="s">&quot;first_name&quot;</span>, (js.string <span class="k">do</span>
+    min_length <span class="n">2</span>
+    max_length <span class="n">64</span>
+  <span class="k">end</span>)
+
+  prop <span class="s">&quot;last_name&quot;</span>, (js.string <span class="k">do</span>
+    min_length <span class="n">2</span>
+    max_length <span class="n">64</span>
+  <span class="k">end</span>)
+
+  prop <span class="s">&quot;email&quot;</span>, js.string { format <span class="s">&quot;email&quot;</span> }
+
+  prop <span class="s">&quot;address&quot;</span>, (js.object <span class="k">do</span>
+    prop <span class="s">&quot;street&quot;</span>, js.string
+    prop <span class="s">&quot;city&quot;</span>, js.string
+    prop <span class="s">&quot;state&quot;</span>, js.string
+    prop <span class="s">&quot;zipcode&quot;</span>, js.string
+  <span class="k">end</span>)
+
+  prop <span class="s">&quot;nicknames&quot;</span>, (js.array <span class="k">do</span>
+    min_items <span class="n">1</span>
+    items js.string
+  <span class="k">end</span>)
+<span class="k">end</span></code></pre>
+<p>As in the example above, it's recommended to create a shorter variable that references <code><a href="../JSONSchema.html#fluent%3AFluent-class-method">JSONSchema.fluent</a></code>.
+This will improve readability and can be customized to the needs of your code (rather than <code>jsonschema</code> exposing a global method
+with a short name).</p>
 
 
 
@@ -231,7 +263,7 @@ DSL through block receivers rather than the standard method-chaining fluent API 
   </h2>
   
     
-      <a href="https://github.com/aarongodin/jsonschema/blob/e17de3f0e892faa1e4505ec14e1d20d5655a6eb5/src/fluent.cr#L16" target="_blank">
+      <a href="https://github.com/aarongodin/jsonschema/blob/66e62169a66b0f14c74c4c85ae673b9c34751ef5/src/fluent.cr#L52" target="_blank">
         fluent.cr
       </a>
     
@@ -413,7 +445,7 @@ validator <span class="o">=</span> js.array <span class="k">do</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/e17de3f0e892faa1e4505ec14e1d20d5655a6eb5/src/fluent.cr#L70" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/66e62169a66b0f14c74c4c85ae673b9c34751ef5/src/fluent.cr#L106" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -434,7 +466,7 @@ validator <span class="o">=</span> js.array <span class="k">do</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/e17de3f0e892faa1e4505ec14e1d20d5655a6eb5/src/fluent.cr#L77" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/66e62169a66b0f14c74c4c85ae673b9c34751ef5/src/fluent.cr#L113" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -455,7 +487,7 @@ validator <span class="o">=</span> js.array <span class="k">do</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/e17de3f0e892faa1e4505ec14e1d20d5655a6eb5/src/fluent.cr#L153" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/66e62169a66b0f14c74c4c85ae673b9c34751ef5/src/fluent.cr#L189" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -484,7 +516,7 @@ validator <span class="o">=</span> js.generic <span class="k">do</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/e17de3f0e892faa1e4505ec14e1d20d5655a6eb5/src/fluent.cr#L30" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/66e62169a66b0f14c74c4c85ae673b9c34751ef5/src/fluent.cr#L66" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -511,7 +543,7 @@ validator <span class="o">=</span> js.integer <span class="k">do</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/e17de3f0e892faa1e4505ec14e1d20d5655a6eb5/src/fluent.cr#L133" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/66e62169a66b0f14c74c4c85ae673b9c34751ef5/src/fluent.cr#L169" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -532,7 +564,7 @@ validator <span class="o">=</span> js.integer <span class="k">do</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/e17de3f0e892faa1e4505ec14e1d20d5655a6eb5/src/fluent.cr#L141" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/66e62169a66b0f14c74c4c85ae673b9c34751ef5/src/fluent.cr#L177" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -553,7 +585,7 @@ validator <span class="o">=</span> js.integer <span class="k">do</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/e17de3f0e892faa1e4505ec14e1d20d5655a6eb5/src/fluent.cr#L148" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/66e62169a66b0f14c74c4c85ae673b9c34751ef5/src/fluent.cr#L184" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -580,7 +612,7 @@ validator <span class="o">=</span> js.number <span class="k">do</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/e17de3f0e892faa1e4505ec14e1d20d5655a6eb5/src/fluent.cr#L112" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/66e62169a66b0f14c74c4c85ae673b9c34751ef5/src/fluent.cr#L148" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -601,7 +633,7 @@ validator <span class="o">=</span> js.number <span class="k">do</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/e17de3f0e892faa1e4505ec14e1d20d5655a6eb5/src/fluent.cr#L119" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/66e62169a66b0f14c74c4c85ae673b9c34751ef5/src/fluent.cr#L155" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -631,7 +663,7 @@ validator <span class="o">=</span> js.object <span class="k">do</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/e17de3f0e892faa1e4505ec14e1d20d5655a6eb5/src/fluent.cr#L49" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/66e62169a66b0f14c74c4c85ae673b9c34751ef5/src/fluent.cr#L85" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -652,7 +684,7 @@ validator <span class="o">=</span> js.object <span class="k">do</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/e17de3f0e892faa1e4505ec14e1d20d5655a6eb5/src/fluent.cr#L56" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/66e62169a66b0f14c74c4c85ae673b9c34751ef5/src/fluent.cr#L92" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -679,7 +711,7 @@ validator <span class="o">=</span> js.string <span class="k">do</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/e17de3f0e892faa1e4505ec14e1d20d5655a6eb5/src/fluent.cr#L91" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/66e62169a66b0f14c74c4c85ae673b9c34751ef5/src/fluent.cr#L127" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -700,7 +732,7 @@ validator <span class="o">=</span> js.string <span class="k">do</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/e17de3f0e892faa1e4505ec14e1d20d5655a6eb5/src/fluent.cr#L98" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/66e62169a66b0f14c74c4c85ae673b9c34751ef5/src/fluent.cr#L134" target="_blank">View source</a>]
         
       </div>
     </div>
