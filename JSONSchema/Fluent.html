@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 1.2.2">
+<meta name="crystal_docs.project_version" content="main">
+<meta name="crystal_docs.project_name" content="json-schema-cr">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="json-schema-cr">
+  <title>JSONSchema::Fluent - json-schema-cr main</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          json-schema-cr
+        </a>
+      </h1>
+
+      <span class="project-version">
+        main
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="json-schema-cr/JSONSchema" data-name="jsonschema">
+      <a href="../JSONSchema.html">JSONSchema</a>
+      
+        <ul>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/ArrayValidator" data-name="jsonschema::arrayvalidator">
+      <a href="../JSONSchema/ArrayValidator.html">ArrayValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/BooleanValidator" data-name="jsonschema::booleanvalidator">
+      <a href="../JSONSchema/BooleanValidator.html">BooleanValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/CompositeValidator" data-name="jsonschema::compositevalidator">
+      <a href="../JSONSchema/CompositeValidator.html">CompositeValidator</a>
+      
+    </li>
+  
+  <li class=" current" data-id="json-schema-cr/JSONSchema/Fluent" data-name="jsonschema::fluent">
+      <a href="../JSONSchema/Fluent.html">Fluent</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/FluentArrayValidator" data-name="jsonschema::fluentarrayvalidator">
+      <a href="../JSONSchema/FluentArrayValidator.html">FluentArrayValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/FluentGenericValidator" data-name="jsonschema::fluentgenericvalidator">
+      <a href="../JSONSchema/FluentGenericValidator.html">FluentGenericValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/FluentNumberValidator" data-name="jsonschema::fluentnumbervalidator">
+      <a href="../JSONSchema/FluentNumberValidator.html">FluentNumberValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/FluentObjectValidator" data-name="jsonschema::fluentobjectvalidator">
+      <a href="../JSONSchema/FluentObjectValidator.html">FluentObjectValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/FluentStringValidator" data-name="jsonschema::fluentstringvalidator">
+      <a href="../JSONSchema/FluentStringValidator.html">FluentStringValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/FluentValidatorGenericProperties" data-name="jsonschema::fluentvalidatorgenericproperties">
+      <a href="../JSONSchema/FluentValidatorGenericProperties.html">FluentValidatorGenericProperties</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/Format" data-name="jsonschema::format">
+      <a href="../JSONSchema/Format.html">Format</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/GenericValidator" data-name="jsonschema::genericvalidator">
+      <a href="../JSONSchema/GenericValidator.html">GenericValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/InvalidSchemaError" data-name="jsonschema::invalidschemaerror">
+      <a href="../JSONSchema/InvalidSchemaError.html">InvalidSchemaError</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/InvalidSchemaJSONError" data-name="jsonschema::invalidschemajsonerror">
+      <a href="../JSONSchema/InvalidSchemaJSONError.html">InvalidSchemaJSONError</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/NodeContext" data-name="jsonschema::nodecontext">
+      <a href="../JSONSchema/NodeContext.html">NodeContext</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/NullValidator" data-name="jsonschema::nullvalidator">
+      <a href="../JSONSchema/NullValidator.html">NullValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/NumberValidator" data-name="jsonschema::numbervalidator">
+      <a href="../JSONSchema/NumberValidator.html">NumberValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/ObjectValidator" data-name="jsonschema::objectvalidator">
+      <a href="../JSONSchema/ObjectValidator.html">ObjectValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/StringValidator" data-name="jsonschema::stringvalidator">
+      <a href="../JSONSchema/StringValidator.html">StringValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/ValidationError" data-name="jsonschema::validationerror">
+      <a href="../JSONSchema/ValidationError.html">ValidationError</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/ValidationResult" data-name="jsonschema::validationresult">
+      <a href="../JSONSchema/ValidationResult.html">ValidationResult</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/Validator" data-name="jsonschema::validator">
+      <a href="../JSONSchema/Validator.html">Validator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/ValidatorRender" data-name="jsonschema::validatorrender">
+      <a href="../JSONSchema/ValidatorRender.html">ValidatorRender</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> JSONSchema::Fluent
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../JSONSchema/Fluent.html">JSONSchema::Fluent</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Contains methods for creating <code><a href="../JSONSchema/Validator.html">JSONSchema::Validator</a></code> instances without interacting with the low-level domain objects. This class implements a
+DSL through block receivers rather than the standard method-chaining fluent API seen in json-schema libraries in other languages.</p>
+<p>An instance of this class is available through <code><a href="../JSONSchema.html#fluent%3AFluent-class-method">JSONSchema.fluent</a></code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L16" target="_blank">
+        fluent.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#array%28%26%29%3AArrayValidator-instance-method" class="signature"><strong>#array</strong>(&) : ArrayValidator</a>
+        
+          <div class="summary"><p>Create a <code><a href="../JSONSchema/ArrayValidator.html">JSONSchema::ArrayValidator</a></code> using the fluent API.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#array%3AArrayValidator-instance-method" class="signature"><strong>#array</strong> : ArrayValidator</a>
+        
+          <div class="summary"><p>Convenience method for creating a new <code><a href="../JSONSchema/ArrayValidator.html">JSONSchema::ArrayValidator</a></code> without options.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#boolean-instance-method" class="signature"><strong>#boolean</strong></a>
+        
+          <div class="summary"><p>Convenience method for creating a new <code><a href="../JSONSchema/BooleanValidator.html">JSONSchema::BooleanValidator</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#generic%28%26%29%3AGenericValidator-instance-method" class="signature"><strong>#generic</strong>(&) : GenericValidator</a>
+        
+          <div class="summary"><p>Create a <code><a href="../JSONSchema/GenericValidator.html">JSONSchema::GenericValidator</a></code> using the fluent API.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#integer%28%26%29%3ANumberValidator-instance-method" class="signature"><strong>#integer</strong>(&) : NumberValidator</a>
+        
+          <div class="summary"><p>Create a <code><a href="../JSONSchema/NumberValidator.html">JSONSchema::NumberValidator</a></code> with the integer constraint set using the fluent API.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#integer%3ANumberValidator-instance-method" class="signature"><strong>#integer</strong> : NumberValidator</a>
+        
+          <div class="summary"><p>Convenience method for creating a new <code><a href="../JSONSchema/NumberValidator.html">JSONSchema::NumberValidator</a></code> with the integer constraint set (and not other options).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#null-instance-method" class="signature"><strong>#null</strong></a>
+        
+          <div class="summary"><p>Convenience method for creating a new <code><a href="../JSONSchema/NullValidator.html">JSONSchema::NullValidator</a></code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#number%28%26%29%3ANumberValidator-instance-method" class="signature"><strong>#number</strong>(&) : NumberValidator</a>
+        
+          <div class="summary"><p>Create a <code><a href="../JSONSchema/NumberValidator.html">JSONSchema::NumberValidator</a></code> using the fluent API.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#number%3ANumberValidator-instance-method" class="signature"><strong>#number</strong> : NumberValidator</a>
+        
+          <div class="summary"><p>Convenience method for creating a new <code>JSONScheam::NumberValidator</code> without options.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#object%28%26%29%3AObjectValidator-instance-method" class="signature"><strong>#object</strong>(&) : ObjectValidator</a>
+        
+          <div class="summary"><p>Create a <code><a href="../JSONSchema/ObjectValidator.html">JSONSchema::ObjectValidator</a></code> using the fluent API.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#object%3AObjectValidator-instance-method" class="signature"><strong>#object</strong> : ObjectValidator</a>
+        
+          <div class="summary"><p>Convenience method for creating a new <code><a href="../JSONSchema/ObjectValidator.html">JSONSchema::ObjectValidator</a></code> without options.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#string%28%26%29%3AStringValidator-instance-method" class="signature"><strong>#string</strong>(&) : StringValidator</a>
+        
+          <div class="summary"><p>Create a <code><a href="../JSONSchema/StringValidator.html">JSONSchema::StringValidator</a></code> using the fluent API.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#string%3AStringValidator-instance-method" class="signature"><strong>#string</strong> : StringValidator</a>
+        
+          <div class="summary"><p>Convenience method for creating a new <code><a href="../JSONSchema/StringValidator.html">JSONSchema::StringValidator</a></code> without options.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="array(&amp;):ArrayValidator-instance-method">
+      <div class="signature">
+        
+        def <strong>array</strong>(&) : <a href="../JSONSchema/ArrayValidator.html">ArrayValidator</a>
+
+        <a class="method-permalink" href="#array%28%26%29%3AArrayValidator-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Create a <code><a href="../JSONSchema/ArrayValidator.html">JSONSchema::ArrayValidator</a></code> using the fluent API. See <code><a href="../JSONSchema/FluentArrayValidator.html">JSONSchema::FluentArrayValidator</a></code> for receiver methods.</p>
+<pre><code class="language-crystal">js <span class="o">=</span> <span class="t">JSONSchema</span>.fluent
+
+validator <span class="o">=</span> js.array <span class="k">do</span>
+  unique_items
+  validator js.string
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L70" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="array:ArrayValidator-instance-method">
+      <div class="signature">
+        
+        def <strong>array</strong> : <a href="../JSONSchema/ArrayValidator.html">ArrayValidator</a>
+
+        <a class="method-permalink" href="#array%3AArrayValidator-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Convenience method for creating a new <code><a href="../JSONSchema/ArrayValidator.html">JSONSchema::ArrayValidator</a></code> without options.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L77" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="boolean-instance-method">
+      <div class="signature">
+        
+        def <strong>boolean</strong>
+
+        <a class="method-permalink" href="#boolean-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Convenience method for creating a new <code><a href="../JSONSchema/BooleanValidator.html">JSONSchema::BooleanValidator</a></code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L153" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="generic(&amp;):GenericValidator-instance-method">
+      <div class="signature">
+        
+        def <strong>generic</strong>(&) : <a href="../JSONSchema/GenericValidator.html">GenericValidator</a>
+
+        <a class="method-permalink" href="#generic%28%26%29%3AGenericValidator-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Create a <code><a href="../JSONSchema/GenericValidator.html">JSONSchema::GenericValidator</a></code> using the fluent API. See <code><a href="../JSONSchema/FluentGenericValidator.html">JSONSchema::FluentGenericValidator</a></code> for receiver methods.
+Accepts a block to receive options for the validator.</p>
+<p>This method does not have a corresponding non-block-accepting method because a generic validator must
+have options to be a valid schema.</p>
+<pre><code class="language-crystal">js <span class="o">=</span> <span class="t">JSONSchema</span>.fluent
+
+validator <span class="o">=</span> js.generic <span class="k">do</span>
+  enum_list <span class="s">&quot;one&quot;</span>, <span class="s">&quot;two&quot;</span>, <span class="s">&quot;three&quot;</span>
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L30" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="integer(&amp;):NumberValidator-instance-method">
+      <div class="signature">
+        
+        def <strong>integer</strong>(&) : <a href="../JSONSchema/NumberValidator.html">NumberValidator</a>
+
+        <a class="method-permalink" href="#integer%28%26%29%3ANumberValidator-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Create a <code><a href="../JSONSchema/NumberValidator.html">JSONSchema::NumberValidator</a></code> with the integer constraint set using the fluent API. See <code><a href="../JSONSchema/FluentNumberValidator.html">JSONSchema::FluentNumberValidator</a></code> for receiver methods.</p>
+<pre><code class="language-crystal">js <span class="o">=</span> <span class="t">JSONSchema</span>.fluent
+
+validator <span class="o">=</span> js.integer <span class="k">do</span>
+  minimum <span class="n">0</span>
+  multiple_of <span class="n">5</span>
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L133" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="integer:NumberValidator-instance-method">
+      <div class="signature">
+        
+        def <strong>integer</strong> : <a href="../JSONSchema/NumberValidator.html">NumberValidator</a>
+
+        <a class="method-permalink" href="#integer%3ANumberValidator-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Convenience method for creating a new <code><a href="../JSONSchema/NumberValidator.html">JSONSchema::NumberValidator</a></code> with the integer constraint set (and not other options).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L141" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="null-instance-method">
+      <div class="signature">
+        
+        def <strong>null</strong>
+
+        <a class="method-permalink" href="#null-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Convenience method for creating a new <code><a href="../JSONSchema/NullValidator.html">JSONSchema::NullValidator</a></code>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L148" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="number(&amp;):NumberValidator-instance-method">
+      <div class="signature">
+        
+        def <strong>number</strong>(&) : <a href="../JSONSchema/NumberValidator.html">NumberValidator</a>
+
+        <a class="method-permalink" href="#number%28%26%29%3ANumberValidator-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Create a <code><a href="../JSONSchema/NumberValidator.html">JSONSchema::NumberValidator</a></code> using the fluent API. See <code><a href="../JSONSchema/FluentNumberValidator.html">JSONSchema::FluentNumberValidator</a></code> for receiver methods.</p>
+<pre><code class="language-crystal">js <span class="o">=</span> <span class="t">JSONSchema</span>.fluent
+
+validator <span class="o">=</span> js.number <span class="k">do</span>
+  minimum <span class="n">0</span>
+  maximum <span class="n">100</span>
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L112" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="number:NumberValidator-instance-method">
+      <div class="signature">
+        
+        def <strong>number</strong> : <a href="../JSONSchema/NumberValidator.html">NumberValidator</a>
+
+        <a class="method-permalink" href="#number%3ANumberValidator-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Convenience method for creating a new <code>JSONScheam::NumberValidator</code> without options.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L119" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="object(&amp;):ObjectValidator-instance-method">
+      <div class="signature">
+        
+        def <strong>object</strong>(&) : <a href="../JSONSchema/ObjectValidator.html">ObjectValidator</a>
+
+        <a class="method-permalink" href="#object%28%26%29%3AObjectValidator-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Create a <code><a href="../JSONSchema/ObjectValidator.html">JSONSchema::ObjectValidator</a></code> using the fluent API. See <code><a href="../JSONSchema/FluentObjectValidator.html">JSONSchema::FluentObjectValidator</a></code> for receiver methods.</p>
+<pre><code class="language-crystal">js <span class="o">=</span> <span class="t">JSONSchema</span>.fluent
+
+validator <span class="o">=</span> js.object <span class="k">do</span>
+  prop <span class="s">&quot;name&quot;</span>, js.string
+  prop <span class="s">&quot;age&quot;</span>, (js.integer <span class="k">do</span>
+    minimum <span class="n">0</span>
+  <span class="k">end</span>)
+  required <span class="s">&quot;name&quot;</span>, <span class="s">&quot;age&quot;</span>
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L49" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="object:ObjectValidator-instance-method">
+      <div class="signature">
+        
+        def <strong>object</strong> : <a href="../JSONSchema/ObjectValidator.html">ObjectValidator</a>
+
+        <a class="method-permalink" href="#object%3AObjectValidator-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Convenience method for creating a new <code><a href="../JSONSchema/ObjectValidator.html">JSONSchema::ObjectValidator</a></code> without options.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L56" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="string(&amp;):StringValidator-instance-method">
+      <div class="signature">
+        
+        def <strong>string</strong>(&) : <a href="../JSONSchema/StringValidator.html">StringValidator</a>
+
+        <a class="method-permalink" href="#string%28%26%29%3AStringValidator-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Create a <code><a href="../JSONSchema/StringValidator.html">JSONSchema::StringValidator</a></code> using the fluent API. See <code><a href="../JSONSchema/FluentStringValidator.html">JSONSchema::FluentStringValidator</a></code> for receiver methods.</p>
+<pre><code class="language-crystal">js <span class="o">=</span> <span class="t">JSONSchema</span>.fluent
+
+validator <span class="o">=</span> js.string <span class="k">do</span>
+  min_length <span class="n">10</span>
+  pattern <span class="s">/^[a-z0-9-_]$/</span>
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L91" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="string:StringValidator-instance-method">
+      <div class="signature">
+        
+        def <strong>string</strong> : <a href="../JSONSchema/StringValidator.html">StringValidator</a>
+
+        <a class="method-permalink" href="#string%3AStringValidator-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Convenience method for creating a new <code><a href="../JSONSchema/StringValidator.html">JSONSchema::StringValidator</a></code> without options.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L98" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

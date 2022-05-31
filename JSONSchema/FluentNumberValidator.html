@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="json-schema-cr">
-  <title>JSONSchema::GenericValidator - json-schema-cr main</title>
+  <title>JSONSchema::FluentNumberValidator - json-schema-cr main</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -86,7 +86,7 @@
       
     </li>
   
-  <li class=" " data-id="json-schema-cr/JSONSchema/FluentNumberValidator" data-name="jsonschema::fluentnumbervalidator">
+  <li class=" current" data-id="json-schema-cr/JSONSchema/FluentNumberValidator" data-name="jsonschema::fluentnumbervalidator">
       <a href="../JSONSchema/FluentNumberValidator.html">FluentNumberValidator</a>
       
     </li>
@@ -111,7 +111,7 @@
       
     </li>
   
-  <li class=" current" data-id="json-schema-cr/JSONSchema/GenericValidator" data-name="jsonschema::genericvalidator">
+  <li class=" " data-id="json-schema-cr/JSONSchema/GenericValidator" data-name="jsonschema::genericvalidator">
       <a href="../JSONSchema/GenericValidator.html">GenericValidator</a>
       
     </li>
@@ -185,12 +185,12 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> JSONSchema::GenericValidator
+  <span class="kind">class</span> JSONSchema::FluentNumberValidator
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../JSONSchema/GenericValidator.html">JSONSchema::GenericValidator</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../JSONSchema/FluentNumberValidator.html">JSONSchema::FluentNumberValidator</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
@@ -204,10 +204,7 @@
     Overview
   </h2>
 
-  <p>Validates schema that has no type. Allows for constraints such as <code>enum</code>, <code><a href="../JSONSchema/GenericValidator.html#const%3AJSON%3A%3AAny%3F-instance-method">#const</a></code> or
-composite schemas that do not require a <code>type</code> keyword (<code>enum</code> is also available on typed schemas).</p>
-<p>This is a raw <code><a href="../JSONSchema/Validator.html">Validator</a></code> class that you most likely do not need to use directly.
-See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">JSONSchema#create_validator</a></code> macro, <code><a href="../JSONSchema.html#from_json%28node%3AJSON%3A%3AAny%29%3AValidator-class-method">JSONSchema#from_json</a></code>, or <code><a href="../JSONSchema.html#fluent%3AFluent-class-method">JSONSchema.fluent</a></code> for common usage of this shard.</p>
+  <p>A fluent API for creating instances of <code><a href="../JSONSchema/NumberValidator.html">JSONSchema::NumberValidator</a></code>.</p>
 
 
 
@@ -223,7 +220,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
   </h2>
   <ul class="other-types-list">
     
-      <li class="other-type"><a href="../JSONSchema/ValidatorRender.html">JSONSchema::ValidatorRender</a></li>
+      <li class="other-type"><a href="../JSONSchema/FluentValidatorGenericProperties.html">JSONSchema::FluentValidatorGenericProperties</a></li>
     
   </ul>
 
@@ -246,15 +243,8 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
   </h2>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/render.cr#L63" target="_blank">
-        render.cr
-      </a>
-    
-    <br/>
-  
-    
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/validator.cr#L62" target="_blank">
-        validator.cr
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L385" target="_blank">
+        fluent.cr
       </a>
     
     <br/>
@@ -279,42 +269,49 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#composites%3AArray%28CompositeValidator%29-instance-method" class="signature"><strong>#composites</strong> : Array(CompositeValidator)</a>
+        <a href="#exclusive_maximum%28value%3AInt32%29-instance-method" class="signature"><strong>#exclusive_maximum</strong>(value : Int32)</a>
+        
+          <div class="summary"><p>Sets <code><a href="../JSONSchema/FluentNumberValidator.html#exclusive_maximum%28value%3AInt32%29-instance-method">#exclusive_maximum</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#composites%3D%28composites%3AArray%28CompositeValidator%29%29-instance-method" class="signature"><strong>#composites=</strong>(composites : Array(CompositeValidator))</a>
+        <a href="#exclusive_minimum%28value%3AInt32%29-instance-method" class="signature"><strong>#exclusive_minimum</strong>(value : Int32)</a>
+        
+          <div class="summary"><p>Sets <code><a href="../JSONSchema/FluentNumberValidator.html#exclusive_minimum%28value%3AInt32%29-instance-method">#exclusive_minimum</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#const%3AJSON%3A%3AAny%3F-instance-method" class="signature"><strong>#const</strong> : JSON::Any?</a>
+        <a href="#has_integer_constraint-instance-method" class="signature"><strong>#has_integer_constraint</strong></a>
+        
+          <div class="summary"><p>Sets the constraint for requiring the number to be an integer.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#const%3D%28const%3AJSON%3A%3AAny%3F%29-instance-method" class="signature"><strong>#const=</strong>(const : JSON::Any?)</a>
+        <a href="#maximum%28value%3AInt32%29-instance-method" class="signature"><strong>#maximum</strong>(value : Int32)</a>
+        
+          <div class="summary"><p>Sets <code><a href="../JSONSchema/FluentNumberValidator.html#maximum%28value%3AInt32%29-instance-method">#maximum</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#enum_list%3AArray%28JSON%3A%3AAny%29-instance-method" class="signature"><strong>#enum_list</strong> : Array(JSON::Any)</a>
+        <a href="#minimum%28value%3AInt32%29-instance-method" class="signature"><strong>#minimum</strong>(value : Int32)</a>
+        
+          <div class="summary"><p>Sets <code><a href="../JSONSchema/FluentNumberValidator.html#minimum%28value%3AInt32%29-instance-method">#minimum</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#enum_list%3D%28enum_list%3AArray%28JSON%3A%3AAny%29%29-instance-method" class="signature"><strong>#enum_list=</strong>(enum_list : Array(JSON::Any))</a>
+        <a href="#multiple_of%28value%3AInt32%29-instance-method" class="signature"><strong>#multiple_of</strong>(value : Int32)</a>
+        
+          <div class="summary"><p>Sets <code><a href="../JSONSchema/FluentNumberValidator.html#multiple_of%28value%3AInt32%29-instance-method">#multiple_of</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#to_cr-instance-method" class="signature"><strong>#to_cr</strong></a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#validate%28node%3AJSON%3A%3AAny%2Ccontext%3DNodeContext.new%29-instance-method" class="signature"><strong>#validate</strong>(node : JSON::Any, context = <span class="t">NodeContext</span>.<span class="k">new</span>)</a>
+        <a href="#validator%3AJSONSchema%3A%3ANumberValidator-instance-method" class="signature"><strong>#validator</strong> : JSONSchema::NumberValidator</a>
         
       </li>
     
@@ -327,6 +324,35 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
 <div class="methods-inherited">
   
     
+
+  <h3>Instance methods inherited from module <code><a href="../JSONSchema/FluentValidatorGenericProperties.html">JSONSchema::FluentValidatorGenericProperties</a></code></h3>
+  
+  
+    <a href="../JSONSchema/FluentValidatorGenericProperties.html#all_of%28%2Achildren%29-instance-method" class="tooltip">
+      <span>all_of(*children)</span>
+    all_of</a>, 
+    
+  
+    <a href="../JSONSchema/FluentValidatorGenericProperties.html#any_of%28%2Achildren%29-instance-method" class="tooltip">
+      <span>any_of(*children)</span>
+    any_of</a>, 
+    
+  
+    <a href="../JSONSchema/FluentValidatorGenericProperties.html#enum_list%28%2Avalues%29-instance-method" class="tooltip">
+      <span>enum_list(*values)</span>
+    enum_list</a>, 
+    
+  
+    <a href="../JSONSchema/FluentValidatorGenericProperties.html#not%28%2Achildren%29-instance-method" class="tooltip">
+      <span>not(*children)</span>
+    not</a>, 
+    
+  
+    <a href="../JSONSchema/FluentValidatorGenericProperties.html#oneOf%28%2Achildren%29-instance-method" class="tooltip">
+      <span>oneOf(*children)</span>
+    oneOf</a>
+    
+  
 
 
     
@@ -372,130 +398,144 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="composites:Array(CompositeValidator)-instance-method">
+    <div class="entry-detail" id="exclusive_maximum(value:Int32)-instance-method">
       <div class="signature">
         
-        def <strong>composites</strong> : Array(<a href="../JSONSchema/CompositeValidator.html">CompositeValidator</a>)
+        def <strong>exclusive_maximum</strong>(value : Int32)
 
-        <a class="method-permalink" href="#composites%3AArray%28CompositeValidator%29-instance-method">#</a>
+        <a class="method-permalink" href="#exclusive_maximum%28value%3AInt32%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Sets <code><a href="../JSONSchema/FluentNumberValidator.html#exclusive_maximum%28value%3AInt32%29-instance-method">#exclusive_maximum</a></code>. See <a href="https://json-schema.org/understanding-json-schema/reference/numeric.html#range">Range</a></p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/validator.cr#L65" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L415" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="composites=(composites:Array(CompositeValidator))-instance-method">
+    <div class="entry-detail" id="exclusive_minimum(value:Int32)-instance-method">
       <div class="signature">
         
-        def <strong>composites=</strong>(composites : Array(<a href="../JSONSchema/CompositeValidator.html">CompositeValidator</a>))
+        def <strong>exclusive_minimum</strong>(value : Int32)
 
-        <a class="method-permalink" href="#composites%3D%28composites%3AArray%28CompositeValidator%29%29-instance-method">#</a>
+        <a class="method-permalink" href="#exclusive_minimum%28value%3AInt32%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Sets <code><a href="../JSONSchema/FluentNumberValidator.html#exclusive_minimum%28value%3AInt32%29-instance-method">#exclusive_minimum</a></code>. See <a href="https://json-schema.org/understanding-json-schema/reference/numeric.html#range">Range</a></p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/validator.cr#L65" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L410" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="const:JSON::Any?-instance-method">
+    <div class="entry-detail" id="has_integer_constraint-instance-method">
       <div class="signature">
         
-        def <strong>const</strong> : JSON::Any?
+        def <strong>has_integer_constraint</strong>
 
-        <a class="method-permalink" href="#const%3AJSON%3A%3AAny%3F-instance-method">#</a>
+        <a class="method-permalink" href="#has_integer_constraint-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Sets the constraint for requiring the number to be an integer.</p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/validator.cr#L64" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L390" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="const=(const:JSON::Any?)-instance-method">
+    <div class="entry-detail" id="maximum(value:Int32)-instance-method">
       <div class="signature">
         
-        def <strong>const=</strong>(const : JSON::Any?)
+        def <strong>maximum</strong>(value : Int32)
 
-        <a class="method-permalink" href="#const%3D%28const%3AJSON%3A%3AAny%3F%29-instance-method">#</a>
+        <a class="method-permalink" href="#maximum%28value%3AInt32%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Sets <code><a href="../JSONSchema/FluentNumberValidator.html#maximum%28value%3AInt32%29-instance-method">#maximum</a></code>. See <a href="https://json-schema.org/understanding-json-schema/reference/numeric.html#range">Range</a></p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/validator.cr#L64" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L405" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="enum_list:Array(JSON::Any)-instance-method">
+    <div class="entry-detail" id="minimum(value:Int32)-instance-method">
       <div class="signature">
         
-        def <strong>enum_list</strong> : Array(JSON::Any)
+        def <strong>minimum</strong>(value : Int32)
 
-        <a class="method-permalink" href="#enum_list%3AArray%28JSON%3A%3AAny%29-instance-method">#</a>
+        <a class="method-permalink" href="#minimum%28value%3AInt32%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Sets <code><a href="../JSONSchema/FluentNumberValidator.html#minimum%28value%3AInt32%29-instance-method">#minimum</a></code>. See <a href="https://json-schema.org/understanding-json-schema/reference/numeric.html#range">Range</a></p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/validator.cr#L63" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L400" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="enum_list=(enum_list:Array(JSON::Any))-instance-method">
+    <div class="entry-detail" id="multiple_of(value:Int32)-instance-method">
       <div class="signature">
         
-        def <strong>enum_list=</strong>(enum_list : Array(JSON::Any))
+        def <strong>multiple_of</strong>(value : Int32)
 
-        <a class="method-permalink" href="#enum_list%3D%28enum_list%3AArray%28JSON%3A%3AAny%29%29-instance-method">#</a>
+        <a class="method-permalink" href="#multiple_of%28value%3AInt32%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Sets <code><a href="../JSONSchema/FluentNumberValidator.html#multiple_of%28value%3AInt32%29-instance-method">#multiple_of</a></code>. See <a href="https://json-schema.org/understanding-json-schema/reference/numeric.html#multiples">Multiples</a></p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/validator.cr#L63" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L395" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="to_cr-instance-method">
+    <div class="entry-detail" id="validator:JSONSchema::NumberValidator-instance-method">
       <div class="signature">
         
-        def <strong>to_cr</strong>
+        def <strong>validator</strong> : <a href="../JSONSchema/NumberValidator.html">JSONSchema::NumberValidator</a>
 
-        <a class="method-permalink" href="#to_cr-instance-method">#</a>
+        <a class="method-permalink" href="#validator%3AJSONSchema%3A%3ANumberValidator-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/render.cr#L66" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="validate(node:JSON::Any,context=NodeContext.new)-instance-method">
-      <div class="signature">
-        
-        def <strong>validate</strong>(node : JSON::Any, context = <span class="t">NodeContext</span>.<span class="k">new</span>)
-
-        <a class="method-permalink" href="#validate%28node%3AJSON%3A%3AAny%2Ccontext%3DNodeContext.new%29-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/validator.cr#L67" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L387" target="_blank">View source</a>]
         
       </div>
     </div>

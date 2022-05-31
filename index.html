@@ -71,6 +71,41 @@
       
     </li>
   
+  <li class=" " data-id="json-schema-cr/JSONSchema/Fluent" data-name="jsonschema::fluent">
+      <a href="JSONSchema/Fluent.html">Fluent</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/FluentArrayValidator" data-name="jsonschema::fluentarrayvalidator">
+      <a href="JSONSchema/FluentArrayValidator.html">FluentArrayValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/FluentGenericValidator" data-name="jsonschema::fluentgenericvalidator">
+      <a href="JSONSchema/FluentGenericValidator.html">FluentGenericValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/FluentNumberValidator" data-name="jsonschema::fluentnumbervalidator">
+      <a href="JSONSchema/FluentNumberValidator.html">FluentNumberValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/FluentObjectValidator" data-name="jsonschema::fluentobjectvalidator">
+      <a href="JSONSchema/FluentObjectValidator.html">FluentObjectValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/FluentStringValidator" data-name="jsonschema::fluentstringvalidator">
+      <a href="JSONSchema/FluentStringValidator.html">FluentStringValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/FluentValidatorGenericProperties" data-name="jsonschema::fluentvalidatorgenericproperties">
+      <a href="JSONSchema/FluentValidatorGenericProperties.html">FluentValidatorGenericProperties</a>
+      
+    </li>
+  
   <li class=" " data-id="json-schema-cr/JSONSchema/Format" data-name="jsonschema::format">
       <a href="JSONSchema/Format.html">Format</a>
       
@@ -270,6 +305,41 @@ result.errors[<span class="n">0</span>].context.to_s <span class="c"># =&gt; Str
 ))
 
 validator.validate(<span class="t">JSON</span>.parse(<span class="s">&quot;...elided&quot;</span>)) <span class="c"># =&gt; JSONSchema::ValidationResult(@status=:success, @errors=[])</span></code></pre>
+<h3><a id="create-from-fluent-api" class="anchor" href="#create-from-fluent-api">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Create From Fluent API</h3>
+<p>The fluent API is a DSL for a clean syntax to generate <code><a href="JSONSchema/Validator.html">JSONSchema::Validator</a></code> objects. Here's an example that shows a complex schema represented using the fluent API.</p>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;json-schema-cr&quot;</span>
+
+js <span class="o">=</span> <span class="t">JSONSchema</span>.fluent
+
+validator <span class="o">=</span> js.object <span class="k">do</span>
+  prop <span class="s">&quot;first_name&quot;</span>, (js.string <span class="k">do</span>
+    min_length <span class="n">2</span>
+    max_length <span class="n">64</span>
+  <span class="k">end</span>)
+
+  prop <span class="s">&quot;last_name&quot;</span>, (js.string <span class="k">do</span>
+    min_length <span class="n">2</span>
+    max_length <span class="n">64</span>
+  <span class="k">end</span>)
+
+  prop <span class="s">&quot;email&quot;</span>, js.string { format <span class="s">&quot;email&quot;</span> }
+
+  prop <span class="s">&quot;address&quot;</span>, (js.object <span class="k">do</span>
+    prop <span class="s">&quot;street&quot;</span>, js.string
+    prop <span class="s">&quot;city&quot;</span>, js.string
+    prop <span class="s">&quot;state&quot;</span>, js.string
+    prop <span class="s">&quot;zipcode&quot;</span>, js.string
+  <span class="k">end</span>)
+
+  prop <span class="s">&quot;nicknames&quot;</span>, (js.array <span class="k">do</span>
+    min_items <span class="n">1</span>
+    items js.string
+  <span class="k">end</span>)
+<span class="k">end</span></code></pre>
 <h2><a id="json-schema-features" class="anchor" href="#json-schema-features">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>

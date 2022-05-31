@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="json-schema-cr">
-  <title>JSONSchema::BooleanValidator - json-schema-cr main</title>
+  <title>JSONSchema::FluentGenericValidator - json-schema-cr main</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -61,7 +61,7 @@
       
     </li>
   
-  <li class=" current" data-id="json-schema-cr/JSONSchema/BooleanValidator" data-name="jsonschema::booleanvalidator">
+  <li class=" " data-id="json-schema-cr/JSONSchema/BooleanValidator" data-name="jsonschema::booleanvalidator">
       <a href="../JSONSchema/BooleanValidator.html">BooleanValidator</a>
       
     </li>
@@ -81,7 +81,7 @@
       
     </li>
   
-  <li class=" " data-id="json-schema-cr/JSONSchema/FluentGenericValidator" data-name="jsonschema::fluentgenericvalidator">
+  <li class=" current" data-id="json-schema-cr/JSONSchema/FluentGenericValidator" data-name="jsonschema::fluentgenericvalidator">
       <a href="../JSONSchema/FluentGenericValidator.html">FluentGenericValidator</a>
       
     </li>
@@ -185,12 +185,12 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> JSONSchema::BooleanValidator
+  <span class="kind">class</span> JSONSchema::FluentGenericValidator
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../JSONSchema/BooleanValidator.html">JSONSchema::BooleanValidator</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../JSONSchema/FluentGenericValidator.html">JSONSchema::FluentGenericValidator</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
@@ -204,13 +204,25 @@
     Overview
   </h2>
 
-  <p>Validates schema where the <code>type</code> is <code>boolean</code>.</p>
-<p>This is a raw <code><a href="../JSONSchema/Validator.html">Validator</a></code> class that you most likely do not need to use directly.
-See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">JSONSchema#create_validator</a></code> macro, <code><a href="../JSONSchema.html#from_json%28node%3AJSON%3A%3AAny%29%3AValidator-class-method">JSONSchema#from_json</a></code>, or <code><a href="../JSONSchema.html#fluent%3AFluent-class-method">JSONSchema.fluent</a></code> for common usage of this shard.</p>
+  <p>A fluent API for creating instances of <code><a href="../JSONSchema/GenericValidator.html">JSONSchema::GenericValidator</a></code>.</p>
 
 
 
 
+
+  <h2>
+    <a id="included-modules" class="anchor" href="#included-modules">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Included Modules
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../JSONSchema/FluentValidatorGenericProperties.html">JSONSchema::FluentValidatorGenericProperties</a></li>
+    
+  </ul>
 
 
 
@@ -231,15 +243,8 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
   </h2>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/render.cr#L297" target="_blank">
-        render.cr
-      </a>
-    
-    <br/>
-  
-    
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/validator.cr#L472" target="_blank">
-        validator.cr
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L194" target="_blank">
+        fluent.cr
       </a>
     
     <br/>
@@ -264,12 +269,14 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#to_cr-instance-method" class="signature"><strong>#to_cr</strong></a>
+        <a href="#const%28value%3AJSON%3A%3AAny%3A%3AType%29-instance-method" class="signature"><strong>#const</strong>(value : JSON::Any::Type)</a>
+        
+          <div class="summary"><p>Sets <code><a href="../JSONSchema/GenericValidator.html#const%3AJSON%3A%3AAny%3F-instance-method">JSONSchema::GenericValidator#const</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#validate%28node%3AJSON%3A%3AAny%2Ccontext%3DNodeContext.new%29-instance-method" class="signature"><strong>#validate</strong>(node : JSON::Any, context = <span class="t">NodeContext</span>.<span class="k">new</span>)</a>
+        <a href="#validator%3AJSONSchema%3A%3AGenericValidator-instance-method" class="signature"><strong>#validator</strong> : JSONSchema::GenericValidator</a>
         
       </li>
     
@@ -280,6 +287,45 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
 
 
 <div class="methods-inherited">
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../JSONSchema/FluentValidatorGenericProperties.html">JSONSchema::FluentValidatorGenericProperties</a></code></h3>
+  
+  
+    <a href="../JSONSchema/FluentValidatorGenericProperties.html#all_of%28%2Achildren%29-instance-method" class="tooltip">
+      <span>all_of(*children)</span>
+    all_of</a>, 
+    
+  
+    <a href="../JSONSchema/FluentValidatorGenericProperties.html#any_of%28%2Achildren%29-instance-method" class="tooltip">
+      <span>any_of(*children)</span>
+    any_of</a>, 
+    
+  
+    <a href="../JSONSchema/FluentValidatorGenericProperties.html#enum_list%28%2Avalues%29-instance-method" class="tooltip">
+      <span>enum_list(*values)</span>
+    enum_list</a>, 
+    
+  
+    <a href="../JSONSchema/FluentValidatorGenericProperties.html#not%28%2Achildren%29-instance-method" class="tooltip">
+      <span>not(*children)</span>
+    not</a>, 
+    
+  
+    <a href="../JSONSchema/FluentValidatorGenericProperties.html#oneOf%28%2Achildren%29-instance-method" class="tooltip">
+      <span>oneOf(*children)</span>
+    oneOf</a>
+    
+  
+
+
+    
+
+
+    
+
+
   
     
 
@@ -317,34 +363,42 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="to_cr-instance-method">
+    <div class="entry-detail" id="const(value:JSON::Any::Type)-instance-method">
       <div class="signature">
         
-        def <strong>to_cr</strong>
+        def <strong>const</strong>(value : JSON::Any::Type)
 
-        <a class="method-permalink" href="#to_cr-instance-method">#</a>
+        <a class="method-permalink" href="#const%28value%3AJSON%3A%3AAny%3A%3AType%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Sets <code><a href="../JSONSchema/GenericValidator.html#const%3AJSON%3A%3AAny%3F-instance-method">JSONSchema::GenericValidator#const</a></code>. Learn about <a href="https://json-schema.org/understanding-json-schema/reference/generic.html#constant-values">const</a>.</p>
+<pre><code class="language-crystal">validator <span class="o">=</span> <span class="t">JSONSchema</span>.generic <span class="k">do</span>
+  const <span class="s">&quot;United States&quot;</span>
+<span class="k">end</span></code></pre>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/render.cr#L298" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L205" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="validate(node:JSON::Any,context=NodeContext.new)-instance-method">
+    <div class="entry-detail" id="validator:JSONSchema::GenericValidator-instance-method">
       <div class="signature">
         
-        def <strong>validate</strong>(node : JSON::Any, context = <span class="t">NodeContext</span>.<span class="k">new</span>)
+        def <strong>validator</strong> : <a href="../JSONSchema/GenericValidator.html">JSONSchema::GenericValidator</a>
 
-        <a class="method-permalink" href="#validate%28node%3AJSON%3A%3AAny%2Ccontext%3DNodeContext.new%29-instance-method">#</a>
+        <a class="method-permalink" href="#validator%3AJSONSchema%3A%3AGenericValidator-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/validator.cr#L473" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L196" target="_blank">View source</a>]
         
       </div>
     </div>

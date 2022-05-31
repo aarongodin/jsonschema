@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="json-schema-cr">
-  <title>JSONSchema::BooleanValidator - json-schema-cr main</title>
+  <title>JSONSchema::FluentValidatorGenericProperties - json-schema-cr main</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -61,7 +61,7 @@
       
     </li>
   
-  <li class=" current" data-id="json-schema-cr/JSONSchema/BooleanValidator" data-name="jsonschema::booleanvalidator">
+  <li class=" " data-id="json-schema-cr/JSONSchema/BooleanValidator" data-name="jsonschema::booleanvalidator">
       <a href="../JSONSchema/BooleanValidator.html">BooleanValidator</a>
       
     </li>
@@ -101,7 +101,7 @@
       
     </li>
   
-  <li class=" " data-id="json-schema-cr/JSONSchema/FluentValidatorGenericProperties" data-name="jsonschema::fluentvalidatorgenericproperties">
+  <li class=" current" data-id="json-schema-cr/JSONSchema/FluentValidatorGenericProperties" data-name="jsonschema::fluentvalidatorgenericproperties">
       <a href="../JSONSchema/FluentValidatorGenericProperties.html">FluentValidatorGenericProperties</a>
       
     </li>
@@ -185,12 +185,10 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> JSONSchema::BooleanValidator
+  <span class="kind">module</span> JSONSchema::FluentValidatorGenericProperties
 
 </h1>
 
-
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../JSONSchema/BooleanValidator.html">JSONSchema::BooleanValidator</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
@@ -204,9 +202,8 @@
     Overview
   </h2>
 
-  <p>Validates schema where the <code>type</code> is <code>boolean</code>.</p>
-<p>This is a raw <code><a href="../JSONSchema/Validator.html">Validator</a></code> class that you most likely do not need to use directly.
-See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">JSONSchema#create_validator</a></code> macro, <code><a href="../JSONSchema.html#from_json%28node%3AJSON%3A%3AAny%29%3AValidator-class-method">JSONSchema#from_json</a></code>, or <code><a href="../JSONSchema.html#fluent%3AFluent-class-method">JSONSchema.fluent</a></code> for common usage of this shard.</p>
+  <p>Contains fluent methods for interfacing with generic json-schema properties such as <a href="https://json-schema.org/understanding-json-schema/reference/generic.html#enumerated-values">enum</a>
+and <a href="https://json-schema.org/understanding-json-schema/reference/combining.html">composite schemas</a>.</p>
 
 
 
@@ -217,6 +214,28 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
 
 
 
+
+  <h2>
+    <a id="direct-including-types" class="anchor" href="#direct-including-types">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Direct including types
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../JSONSchema/FluentArrayValidator.html">JSONSchema::FluentArrayValidator</a></li>
+    
+      <li class="other-type"><a href="../JSONSchema/FluentGenericValidator.html">JSONSchema::FluentGenericValidator</a></li>
+    
+      <li class="other-type"><a href="../JSONSchema/FluentNumberValidator.html">JSONSchema::FluentNumberValidator</a></li>
+    
+      <li class="other-type"><a href="../JSONSchema/FluentObjectValidator.html">JSONSchema::FluentObjectValidator</a></li>
+    
+      <li class="other-type"><a href="../JSONSchema/FluentStringValidator.html">JSONSchema::FluentStringValidator</a></li>
+    
+  </ul>
 
 
 
@@ -231,15 +250,8 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
   </h2>
   
     
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/render.cr#L297" target="_blank">
-        render.cr
-      </a>
-    
-    <br/>
-  
-    
-      <a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/validator.cr#L472" target="_blank">
-        validator.cr
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L160" target="_blank">
+        fluent.cr
       </a>
     
     <br/>
@@ -264,12 +276,37 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#to_cr-instance-method" class="signature"><strong>#to_cr</strong></a>
+        <a href="#all_of%28%2Achildren%29-instance-method" class="signature"><strong>#all_of</strong>(*children)</a>
+        
+          <div class="summary"><p>Constraint that <em>all</em> of the passed schemas must be valid given the input JSON.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#validate%28node%3AJSON%3A%3AAny%2Ccontext%3DNodeContext.new%29-instance-method" class="signature"><strong>#validate</strong>(node : JSON::Any, context = <span class="t">NodeContext</span>.<span class="k">new</span>)</a>
+        <a href="#any_of%28%2Achildren%29-instance-method" class="signature"><strong>#any_of</strong>(*children)</a>
+        
+          <div class="summary"><p>Constraint that <em>at least one</em> of the passed schemas must be valid given the input JSON.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#enum_list%28%2Avalues%29-instance-method" class="signature"><strong>#enum_list</strong>(*values)</a>
+        
+          <div class="summary"><p>Set a list of values that are allowed for this schema.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#not%28%2Achildren%29-instance-method" class="signature"><strong>#not</strong>(*children)</a>
+        
+          <div class="summary"><p>Constraint that the passed schema is not valid given the input JSON.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#oneOf%28%2Achildren%29-instance-method" class="signature"><strong>#oneOf</strong>(*children)</a>
+        
+          <div class="summary"><p>Constraint that <em>only one</em> of the passed schemas is valid given the input JSON.</p></div>
         
       </li>
     
@@ -280,26 +317,6 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
 
 
 <div class="methods-inherited">
-  
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
   
 </div>
 
@@ -317,34 +334,110 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="to_cr-instance-method">
+    <div class="entry-detail" id="all_of(*children)-instance-method">
       <div class="signature">
         
-        def <strong>to_cr</strong>
+        def <strong>all_of</strong>(*children)
 
-        <a class="method-permalink" href="#to_cr-instance-method">#</a>
+        <a class="method-permalink" href="#all_of%28%2Achildren%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Constraint that <em>all</em> of the passed schemas must be valid given the input JSON. Accepts any number of children as <code><a href="../JSONSchema/Validator.html">JSONSchema::Validator</a></code> objects.</p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/render.cr#L298" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L173" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="validate(node:JSON::Any,context=NodeContext.new)-instance-method">
+    <div class="entry-detail" id="any_of(*children)-instance-method">
       <div class="signature">
         
-        def <strong>validate</strong>(node : JSON::Any, context = <span class="t">NodeContext</span>.<span class="k">new</span>)
+        def <strong>any_of</strong>(*children)
 
-        <a class="method-permalink" href="#validate%28node%3AJSON%3A%3AAny%2Ccontext%3DNodeContext.new%29-instance-method">#</a>
+        <a class="method-permalink" href="#any_of%28%2Achildren%29-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Constraint that <em>at least one</em> of the passed schemas must be valid given the input JSON. Accepts any number of children as <code><a href="../JSONSchema/Validator.html">JSONSchema::Validator</a></code> objects.</p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/validator.cr#L473" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L178" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="enum_list(*values)-instance-method">
+      <div class="signature">
+        
+        def <strong>enum_list</strong>(*values)
+
+        <a class="method-permalink" href="#enum_list%28%2Avalues%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Set a list of values that are allowed for this schema. This method is not called <code>enum</code> to avoid conflicting with the <code>enum</code> keyword.</p>
+<pre><code class="language-crystal">validator <span class="o">=</span> <span class="t">JSONSchema</span>.generic <span class="k">do</span>
+  enum_list <span class="s">&quot;one&quot;</span>, <span class="s">&quot;two&quot;</span>, <span class="s">&quot;three&quot;</span>
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L168" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="not(*children)-instance-method">
+      <div class="signature">
+        
+        def <strong>not</strong>(*children)
+
+        <a class="method-permalink" href="#not%28%2Achildren%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Constraint that the passed schema is not valid given the input JSON. Accepts any number of children as <code><a href="../JSONSchema/Validator.html">JSONSchema::Validator</a></code> objects.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L188" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="oneOf(*children)-instance-method">
+      <div class="signature">
+        
+        def <strong>oneOf</strong>(*children)
+
+        <a class="method-permalink" href="#oneOf%28%2Achildren%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Constraint that <em>only one</em> of the passed schemas is valid given the input JSON. Accepts any number of children as <code><a href="../JSONSchema/Validator.html">JSONSchema::Validator</a></code> objects.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L183" target="_blank">View source</a>]
         
       </div>
     </div>

@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 1.2.2">
+<meta name="crystal_docs.project_version" content="main">
+<meta name="crystal_docs.project_name" content="json-schema-cr">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="json-schema-cr">
+  <title>JSONSchema::FluentObjectValidator - json-schema-cr main</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          json-schema-cr
+        </a>
+      </h1>
+
+      <span class="project-version">
+        main
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="json-schema-cr/JSONSchema" data-name="jsonschema">
+      <a href="../JSONSchema.html">JSONSchema</a>
+      
+        <ul>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/ArrayValidator" data-name="jsonschema::arrayvalidator">
+      <a href="../JSONSchema/ArrayValidator.html">ArrayValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/BooleanValidator" data-name="jsonschema::booleanvalidator">
+      <a href="../JSONSchema/BooleanValidator.html">BooleanValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/CompositeValidator" data-name="jsonschema::compositevalidator">
+      <a href="../JSONSchema/CompositeValidator.html">CompositeValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/Fluent" data-name="jsonschema::fluent">
+      <a href="../JSONSchema/Fluent.html">Fluent</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/FluentArrayValidator" data-name="jsonschema::fluentarrayvalidator">
+      <a href="../JSONSchema/FluentArrayValidator.html">FluentArrayValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/FluentGenericValidator" data-name="jsonschema::fluentgenericvalidator">
+      <a href="../JSONSchema/FluentGenericValidator.html">FluentGenericValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/FluentNumberValidator" data-name="jsonschema::fluentnumbervalidator">
+      <a href="../JSONSchema/FluentNumberValidator.html">FluentNumberValidator</a>
+      
+    </li>
+  
+  <li class=" current" data-id="json-schema-cr/JSONSchema/FluentObjectValidator" data-name="jsonschema::fluentobjectvalidator">
+      <a href="../JSONSchema/FluentObjectValidator.html">FluentObjectValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/FluentStringValidator" data-name="jsonschema::fluentstringvalidator">
+      <a href="../JSONSchema/FluentStringValidator.html">FluentStringValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/FluentValidatorGenericProperties" data-name="jsonschema::fluentvalidatorgenericproperties">
+      <a href="../JSONSchema/FluentValidatorGenericProperties.html">FluentValidatorGenericProperties</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/Format" data-name="jsonschema::format">
+      <a href="../JSONSchema/Format.html">Format</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/GenericValidator" data-name="jsonschema::genericvalidator">
+      <a href="../JSONSchema/GenericValidator.html">GenericValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/InvalidSchemaError" data-name="jsonschema::invalidschemaerror">
+      <a href="../JSONSchema/InvalidSchemaError.html">InvalidSchemaError</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/InvalidSchemaJSONError" data-name="jsonschema::invalidschemajsonerror">
+      <a href="../JSONSchema/InvalidSchemaJSONError.html">InvalidSchemaJSONError</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/NodeContext" data-name="jsonschema::nodecontext">
+      <a href="../JSONSchema/NodeContext.html">NodeContext</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/NullValidator" data-name="jsonschema::nullvalidator">
+      <a href="../JSONSchema/NullValidator.html">NullValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/NumberValidator" data-name="jsonschema::numbervalidator">
+      <a href="../JSONSchema/NumberValidator.html">NumberValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/ObjectValidator" data-name="jsonschema::objectvalidator">
+      <a href="../JSONSchema/ObjectValidator.html">ObjectValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/StringValidator" data-name="jsonschema::stringvalidator">
+      <a href="../JSONSchema/StringValidator.html">StringValidator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/ValidationError" data-name="jsonschema::validationerror">
+      <a href="../JSONSchema/ValidationError.html">ValidationError</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/ValidationResult" data-name="jsonschema::validationresult">
+      <a href="../JSONSchema/ValidationResult.html">ValidationResult</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/Validator" data-name="jsonschema::validator">
+      <a href="../JSONSchema/Validator.html">Validator</a>
+      
+    </li>
+  
+  <li class=" " data-id="json-schema-cr/JSONSchema/ValidatorRender" data-name="jsonschema::validatorrender">
+      <a href="../JSONSchema/ValidatorRender.html">ValidatorRender</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> JSONSchema::FluentObjectValidator
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../JSONSchema/FluentObjectValidator.html">JSONSchema::FluentObjectValidator</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>A fluent API for creating instances of <code><a href="../JSONSchema/ObjectValidator.html">JSONSchema::ObjectValidator</a></code>.</p>
+
+
+
+
+
+  <h2>
+    <a id="included-modules" class="anchor" href="#included-modules">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Included Modules
+  </h2>
+  <ul class="other-types-list">
+    
+      <li class="other-type"><a href="../JSONSchema/FluentValidatorGenericProperties.html">JSONSchema::FluentValidatorGenericProperties</a></li>
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L211" target="_blank">
+        fluent.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#additional_properties%28v%3AValidator%29-instance-method" class="signature"><strong>#additional_properties</strong>(v : Validator)</a>
+        
+          <div class="summary"><p>Set the validator for any additional properties not in the properties definition.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#dependent_required%28name%3AString%2Cvalues%3AArray%28String%29%29-instance-method" class="signature"><strong>#dependent_required</strong>(name : String, values : Array(String))</a>
+        
+          <div class="summary"><p>Set a single dependent required property by name.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#dependent_required%28value%3AHash%28String%2CArray%28String%29%29%29-instance-method" class="signature"><strong>#dependent_required</strong>(value : Hash(String, Array(String)))</a>
+        
+          <div class="summary"><p>Set the list of dependent required properties.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#has_disabled_additional_properties-instance-method" class="signature"><strong>#has_disabled_additional_properties</strong></a>
+        
+          <div class="summary"><p>Set the constraint for disabling additional properties.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#max_properties%28value%3AInt32%29-instance-method" class="signature"><strong>#max_properties</strong>(value : Int32)</a>
+        
+          <div class="summary"><p>Set a validator for the minimum number of properties that must be on the object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#min_properties%28value%3AInt32%29-instance-method" class="signature"><strong>#min_properties</strong>(value : Int32)</a>
+        
+          <div class="summary"><p>Set a validator for the minimum number of properties that must be on the object.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pattern_property%28pattern%3ARegex%2Cv%3AValidator%29-instance-method" class="signature"><strong>#pattern_property</strong>(pattern : Regex, v : Validator)</a>
+        
+          <div class="summary"><p>Set the validator for a given <code>Regex</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#prop%28name%3AString%2Cv%3AValidator%29-instance-method" class="signature"><strong>#prop</strong>(name : String, v : Validator)</a>
+        
+          <div class="summary"><p>Set the validator for a property by name.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#property_names%28v%3AValidator%29-instance-method" class="signature"><strong>#property_names</strong>(v : Validator)</a>
+        
+          <div class="summary"><p>Set a validator for all property names.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#required%28%2Aproperties%29-instance-method" class="signature"><strong>#required</strong>(*properties)</a>
+        
+          <div class="summary"><p>Set the list of required properties as any number of strings.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#validator%3AJSONSchema%3A%3AObjectValidator-instance-method" class="signature"><strong>#validator</strong> : JSONSchema::ObjectValidator</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+  <h3>Instance methods inherited from module <code><a href="../JSONSchema/FluentValidatorGenericProperties.html">JSONSchema::FluentValidatorGenericProperties</a></code></h3>
+  
+  
+    <a href="../JSONSchema/FluentValidatorGenericProperties.html#all_of%28%2Achildren%29-instance-method" class="tooltip">
+      <span>all_of(*children)</span>
+    all_of</a>, 
+    
+  
+    <a href="../JSONSchema/FluentValidatorGenericProperties.html#any_of%28%2Achildren%29-instance-method" class="tooltip">
+      <span>any_of(*children)</span>
+    any_of</a>, 
+    
+  
+    <a href="../JSONSchema/FluentValidatorGenericProperties.html#enum_list%28%2Avalues%29-instance-method" class="tooltip">
+      <span>enum_list(*values)</span>
+    enum_list</a>, 
+    
+  
+    <a href="../JSONSchema/FluentValidatorGenericProperties.html#not%28%2Achildren%29-instance-method" class="tooltip">
+      <span>not(*children)</span>
+    not</a>, 
+    
+  
+    <a href="../JSONSchema/FluentValidatorGenericProperties.html#oneOf%28%2Achildren%29-instance-method" class="tooltip">
+      <span>oneOf(*children)</span>
+    oneOf</a>
+    
+  
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="additional_properties(v:Validator)-instance-method">
+      <div class="signature">
+        
+        def <strong>additional_properties</strong>(v : <a href="../JSONSchema/Validator.html">Validator</a>)
+
+        <a class="method-permalink" href="#additional_properties%28v%3AValidator%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Set the validator for any additional properties not in the properties definition. See <a href="https://json-schema.org/understanding-json-schema/reference/object.html#additional-properties">Additional Properties</a>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L231" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="dependent_required(name:String,values:Array(String))-instance-method">
+      <div class="signature">
+        
+        def <strong>dependent_required</strong>(name : String, values : Array(String))
+
+        <a class="method-permalink" href="#dependent_required%28name%3AString%2Cvalues%3AArray%28String%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Set a single dependent required property by name. See <a href="https://json-schema.org/understanding-json-schema/reference/conditionals.html#dependentrequired">Dependent Required</a>.</p>
+<pre><code class="language-crystal">validator <span class="o">=</span> <span class="t">JSONSchema</span>.fluent.object <span class="k">do</span>
+  dependent_required <span class="s">&quot;creditCard&quot;</span>, [<span class="s">&quot;billingAddress&quot;</span>]
+  dependent_required <span class="s">&quot;couponCode&quot;</span>, [<span class="s">&quot;source&quot;</span>]
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L267" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="dependent_required(value:Hash(String,Array(String)))-instance-method">
+      <div class="signature">
+        
+        def <strong>dependent_required</strong>(value : Hash(String, Array(String)))
+
+        <a class="method-permalink" href="#dependent_required%28value%3AHash%28String%2CArray%28String%29%29%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Set the list of dependent required properties. See <a href="https://json-schema.org/understanding-json-schema/reference/conditionals.html#dependentrequired">Dependent Required</a>.</p>
+<pre><code class="language-crystal">validator <span class="o">=</span> <span class="t">JSONSchema</span>.fluent.object <span class="k">do</span>
+  dependent_required({
+    <span class="s">&quot;creditCard&quot;</span> =&gt; [<span class="s">&quot;billingAddress&quot;</span>],
+  })
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L255" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="has_disabled_additional_properties-instance-method">
+      <div class="signature">
+        
+        def <strong>has_disabled_additional_properties</strong>
+
+        <a class="method-permalink" href="#has_disabled_additional_properties-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Set the constraint for disabling additional properties. See <a href="https://json-schema.org/understanding-json-schema/reference/object.html#additional-properties">Addiitonal Properties</a>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L226" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="max_properties(value:Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>max_properties</strong>(value : Int32)
+
+        <a class="method-permalink" href="#max_properties%28value%3AInt32%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Set a validator for the minimum number of properties that must be on the object.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L282" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="min_properties(value:Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>min_properties</strong>(value : Int32)
+
+        <a class="method-permalink" href="#min_properties%28value%3AInt32%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Set a validator for the minimum number of properties that must be on the object.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L277" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="pattern_property(pattern:Regex,v:Validator)-instance-method">
+      <div class="signature">
+        
+        def <strong>pattern_property</strong>(pattern : Regex, v : <a href="../JSONSchema/Validator.html">Validator</a>)
+
+        <a class="method-permalink" href="#pattern_property%28pattern%3ARegex%2Cv%3AValidator%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Set the validator for a given <code>Regex</code>. See <a href="https://json-schema.org/understanding-json-schema/reference/object.html#pattern-properties">Pattern Properties</a>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L221" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="prop(name:String,v:Validator)-instance-method">
+      <div class="signature">
+        
+        def <strong>prop</strong>(name : String, v : <a href="../JSONSchema/Validator.html">Validator</a>)
+
+        <a class="method-permalink" href="#prop%28name%3AString%2Cv%3AValidator%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Set the validator for a property by name. This method is named <code><a href="../JSONSchema/FluentObjectValidator.html#prop%28name%3AString%2Cv%3AValidator%29-instance-method">#prop</a></code> to not conflict with the global <code>property</code> macro.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L216" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="property_names(v:Validator)-instance-method">
+      <div class="signature">
+        
+        def <strong>property_names</strong>(v : <a href="../JSONSchema/Validator.html">Validator</a>)
+
+        <a class="method-permalink" href="#property_names%28v%3AValidator%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Set a validator for all property names. See <a href="https://json-schema.org/understanding-json-schema/reference/object.html#property-names">Property names</a>.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L272" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="required(*properties)-instance-method">
+      <div class="signature">
+        
+        def <strong>required</strong>(*properties)
+
+        <a class="method-permalink" href="#required%28%2Aproperties%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Set the list of required properties as any number of strings.</p>
+<pre><code class="language-crystal">validator <span class="o">=</span> <span class="t">JSONSchema</span>.fluent.object <span class="k">do</span>
+  required <span class="s">&quot;name&quot;</span>, <span class="s">&quot;age&quot;</span>
+<span class="k">end</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L242" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="validator:JSONSchema::ObjectValidator-instance-method">
+      <div class="signature">
+        
+        def <strong>validator</strong> : <a href="../JSONSchema/ObjectValidator.html">JSONSchema::ObjectValidator</a>
+
+        <a class="method-permalink" href="#validator%3AJSONSchema%3A%3AObjectValidator-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/json-schema-cr/blob/71a24358f77eb48a13c896033b2045e54ac3b41a/src/fluent.cr#L213" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
