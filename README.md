@@ -124,7 +124,7 @@ validator = JSONSchema.from_json(JSON.parse(
         }
       }
     }
-  >>
+  JSON
 ))
 
 validator.validate(JSON.parse("...elided")) # => JSONSchema::ValidationResult(@status=:success, @errors=[])
