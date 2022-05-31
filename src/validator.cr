@@ -36,7 +36,8 @@ module JSONSchema
                     GenericValidator |
                     CompositeValidator
 
-  def self.validate_enum(value : JSON::Any, enum_list : Array(JSON::Any), context : NodeContext) : ValidationError?
+  # :nodoc:
+  private def self.validate_enum(value : JSON::Any, enum_list : Array(JSON::Any), context : NodeContext) : ValidationError?
     found_match = false
     item_iterator = enum_list.each.take_while { |item| !found_match }
     current_item = item_iterator.next
@@ -57,7 +58,7 @@ module JSONSchema
   # composite schemas that do not require a `type` keyword (`enum` is also available on typed schemas).
   #
   # This is a raw `Validator` class that you most likely do not need to use directly.
-  # See the `JSONSchema#create_validator` macro for common usage of this shard.
+  # See the `JSONSchema#create_validator` macro, `JSONSchema#from_json`, or `JSONSchema.fluent` for common usage of this shard.
   class GenericValidator
     property enum_list : Array(JSON::Any) = [] of JSON::Any
     property const : JSON::Any?
@@ -93,7 +94,7 @@ module JSONSchema
   # Validates schema where the `type` is `object`.
   #
   # This is a raw `Validator` class that you most likely do not need to use directly.
-  # See the `JSONSchema#create_validator` macro for common usage of this shard.
+  # See the `JSONSchema#create_validator` macro, `JSONSchema#from_json`, or `JSONSchema.fluent` for common usage of this shard.
   class ObjectValidator
     property properties : Hash(String, Validator) = Hash(String, Validator).new
     property pattern_properties : Hash(Regex, Validator) = Hash(Regex, Validator).new
@@ -209,7 +210,7 @@ module JSONSchema
   # Validates schema where the `type` is `array`.
   #
   # This is a raw `Validator` class that you most likely do not need to use directly.
-  # See the `JSONSchema#create_validator` macro for common usage of this shard.
+  # See the `JSONSchema#create_validator` macro, `JSONSchema#from_json`, or `JSONSchema.fluent` for common usage of this shard.
   class ArrayValidator
     property items : Validator?
     property prefix_items : Array(Validator) = [] of Validator
@@ -322,7 +323,7 @@ module JSONSchema
   # Validates schema where the `type` is `string`.
   #
   # This is a raw `Validator` class that you most likely do not need to use directly.
-  # See the `JSONSchema#create_validator` macro for common usage of this shard.
+  # See the `JSONSchema#create_validator` macro, `JSONSchema#from_json`, or `JSONSchema.fluent` for common usage of this shard.
   class StringValidator
     property min_length : Int32?
     property max_length : Int32?
@@ -386,7 +387,7 @@ module JSONSchema
   # Validates schema where the `type` is `number` or `integer`.
   #
   # This is a raw `Validator` class that you most likely do not need to use directly.
-  # See the `JSONSchema#create_validator` macro for common usage of this shard.
+  # See the `JSONSchema#create_validator` macro, `JSONSchema#from_json`, or `JSONSchema.fluent` for common usage of this shard.
   class NumberValidator
     property has_integer_constraint = false
     property multiple_of : Int32?
@@ -456,7 +457,7 @@ module JSONSchema
   # Validates schema where the `type` is `null`.
   #
   # This is a raw `Validator` class that you most likely do not need to use directly.
-  # See the `JSONSchema#create_validator` macro for common usage of this shard.
+  # See the `JSONSchema#create_validator` macro, `JSONSchema#from_json`, or `JSONSchema.fluent` for common usage of this shard.
   class NullValidator
     def validate(node : JSON::Any, context = NodeContext.new)
       node.as_nil rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be null", context)])
@@ -467,7 +468,7 @@ module JSONSchema
   # Validates schema where the `type` is `boolean`.
   #
   # This is a raw `Validator` class that you most likely do not need to use directly.
-  # See the `JSONSchema#create_validator` macro for common usage of this shard.
+  # See the `JSONSchema#create_validator` macro, `JSONSchema#from_json`, or `JSONSchema.fluent` for common usage of this shard.
   class BooleanValidator
     def validate(node : JSON::Any, context = NodeContext.new)
       node.as_bool rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be a boolean", context)])
@@ -479,7 +480,7 @@ module JSONSchema
   # set as a property. The possible keywords are `allOf`, `anyOf`, `oneOf`, and `not`.
   #
   # This is a raw `Validator` class that you most likely do not need to use directly.
-  # See the `JSONSchema#create_validator` macro for common usage of this shard.
+  # See the `JSONSchema#create_validator` macro, `JSONSchema#from_json`, or `JSONSchema.fluent` for common usage of this shard.
   class CompositeValidator
     property keyword : String
     property children : Array(Validator)

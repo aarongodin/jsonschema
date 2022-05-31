@@ -130,6 +130,42 @@ validator = JSONSchema.from_json(JSON.parse(
 validator.validate(JSON.parse("...elided")) # => JSONSchema::ValidationResult(@status=:success, @errors=[])
 ```
 
+### Create From Fluent API
+
+The fluent API is a DSL for a clean syntax to generate `JSONSchema::Validator` objects. Here's an example that shows a complex schema represented using the fluent API.
+
+```crystal
+require "json-schema-cr"
+
+js = JSONSchema.fluent
+
+validator = js.object do
+  prop "first_name", (js.string do
+    min_length 2
+    max_length 64
+  end)
+
+  prop "last_name", (js.string do
+    min_length 2
+    max_length 64
+  end)
+
+  prop "email", js.string { format "email" }
+
+  prop "address", (js.object do
+    prop "street", js.string
+    prop "city", js.string
+    prop "state", js.string
+    prop "zipcode", js.string
+  end)
+
+  prop "nicknames", (js.array do
+    min_items 1
+    items js.string
+  end)
+end
+```
+
 ## json-schema Features
 
 ### Core Types

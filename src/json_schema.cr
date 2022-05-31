@@ -1,6 +1,7 @@
 require "./define"
 require "./validator"
 require "./error"
+require "./fluent"
 
 module JSONSchema
   VERSION = "0.1.0"
