@@ -13,4 +13,9 @@ module JSONSchema
       super(full_msg, cause)
     end
   end
+
+  # Exception thrown at runtime for any invalid schema. A runtime schema can be invalid
+  # given the JSON does not describe a valid JSON Schema.
+  class InvalidSchemaJSONError < Exception
+  end
 end

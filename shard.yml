@@ -7,3 +7,7 @@ authors:
 crystal: 1.3.1
 
 license: MIT
+
+dependencies:
+  validator:
+    github: nicolab/crystal-validator

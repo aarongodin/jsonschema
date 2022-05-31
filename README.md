@@ -4,9 +4,7 @@
 
 # json-schema-cr
 
-A compile-time generator of [JSON Schema](https://json-schema.org/) validation for Crystal.
-
-> This shard is still in beta. If you find any unexpected validation results, open an issue and it will be fixed as soon as possible.
+Comprehensive [JSON Schema](https://json-schema.org/) validation and generator for Crystal.
 
 ## Installation
 
@@ -22,7 +20,9 @@ A compile-time generator of [JSON Schema](https://json-schema.org/) validation f
 
 ## Overview
 
-This library reads JSON files from your file system **at compile time** and generates Crystal code to convert a JSON Schema document to a `JSONSchema::Validator` object.
+* Read JSON files from your file system **at compile time** and generate Crystal code to convert a JSON Schema document to a `JSONSchema::Validator` object.
+* Create `JSONSchema::Validator` instances during runtime by providing JSON input to `JSONSchema.from_json()`
+* Build `JSONSchema::Validator` objects using a fluent API directly in your application code.
 
 ## Usage
 
@@ -109,7 +109,28 @@ result = validator.validate(input_json)
 result.errors[0].context.to_s # => String such as ".person.name" or ".example[2].title"
 ```
 
-## Features
+### Create From JSON Input
+
+Use the `.from_json` method to create `JSONSchema::Validator` objects from any parsed JSON.
+
+```crystal
+validator = JSONSchema.from_json(JSON.parse(
+  <<-JSON
+    {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    }
+  >>
+))
+
+validator.validate(JSON.parse("...elided")) # => JSONSchema::ValidationResult(@status=:success, @errors=[])
+```
+
+## json-schema Features
 
 ### Core Types
 
@@ -137,9 +158,7 @@ Using `dependentRequired`, `dependentSchemas` and `if-then-else` _are_ supported
 
 ### String Formats
 
-JSON Schema provides a number of format keywords that require the validation to restrict the string to values matching the format. To make that a reality quickly in this module, I copied the regex's found in the `jsonschema` module found on [npm](https://www.npmjs.com/package/jsonschema).
-
-Based on issues existing on that module's GitHub, I have found that not all of them are "perfect". I will be reviewing them before a future release to determine whether each format can be solved with regex, and replacing them with a lexer where needed.
+JSON Schema provides a number of format keywords that require the validation to restrict the string to values matching the format. This module pulls in [crystal-validator](https://github.com/Nicolab/crystal-validator) to perform most of the validations, and relies on regex for the rest.
 
 ### Illogical Schema
 
@@ -163,7 +182,6 @@ The latest revision of this shard only supports the latest revision of JSON Sche
 I would like to focus on these features beyond JSON schema that will make this library more useful in a variety of implementations:
 
 1. **Message customization/i18n**: This module has a list of error messages that should be made customizable.
-2. **Runtime generation**: Some implementations may want to create `JSONSchema::Validator` instances at runtime, without having to work with the underlying classes themselves.
 
 ## Acknowledgements
 
