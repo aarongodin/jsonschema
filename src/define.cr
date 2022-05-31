@@ -132,7 +132,7 @@ module JSONSchema
 
   private def define_string_validator(schema : Hash(String, JSON::Any))
     v = StringValidator.new
-    
+
     if schema.has_key?("minLength")
       v.min_length = schema["minLength"].as_i
     end

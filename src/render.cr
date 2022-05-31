@@ -44,7 +44,7 @@ module ValidatorRender
     mapped = options.map do |prop, value|
       "#{var}.#{prop} = #{value}"
     end
-  
+
     return (
       <<-SCH
         (-> {
@@ -63,7 +63,7 @@ module JSONSchema
 
     def to_cr
       options = {} of String => String
-      
+
       unless @enum_list.size == 0
         options["enum_list"] = stringify_enum_list(@enum_list)
       end
@@ -75,7 +75,7 @@ module JSONSchema
       unless @composites.size == 0
         options["composites"] = "[#{@composites.join(", ", &.to_cr)}]"
       end
-    
+
       create_instance options
     end
   end
@@ -113,7 +113,7 @@ module JSONSchema
       unless @dependent_required.size == 0
         options["dependent_required"] = @dependent_required.to_s
       end
-   
+
       unless @properties.size == 0
         options["properties"] = String.build do |str|
           str << "{\n"
@@ -134,7 +134,7 @@ module JSONSchema
           str << "{\n"
           i = 0
           @pattern_properties.each do |pattern, validator|
-            str << "\/#{pattern.source}\/ => #{validator.to_cr}"
+            str << "/#{pattern.source}/ => #{validator.to_cr}"
             unless i >= @pattern_properties.size
               str << ",\n"
             end
@@ -151,14 +151,14 @@ module JSONSchema
       unless @enum_list.size == 0
         options["enum_list"] = stringify_enum_list(@enum_list)
       end
-    
+
       create_instance options
     end
   end
 
   class ArrayValidator
     include ValidatorRender
-  
+
     def to_cr
       options = {} of String => String
 
@@ -303,10 +303,9 @@ module JSONSchema
 
     def to_cr
       create_instance({
-        "keyword" => @keyword,
-        "children" => "[#{@children.join(", ", &.to_cr)}]"
+        "keyword"  => @keyword,
+        "children" => "[#{@children.join(", ", &.to_cr)}]",
       })
     end
   end
 end
-
