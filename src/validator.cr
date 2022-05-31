@@ -37,7 +37,7 @@ module JSONSchema
                     CompositeValidator
 
   # :nodoc:
-  private def self.validate_enum(value : JSON::Any, enum_list : Array(JSON::Any), context : NodeContext) : ValidationError?
+  def self.validate_enum(value : JSON::Any, enum_list : Array(JSON::Any), context : NodeContext) : ValidationError?
     found_match = false
     item_iterator = enum_list.each.take_while { |item| !found_match }
     current_item = item_iterator.next
