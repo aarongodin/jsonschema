@@ -6,8 +6,10 @@ require "./node_context"
 module JSONSchema
   # Captures an error message and the corresponding path to the value where the error occurred.
   struct ValidationError
-    property message : String
-    property context : NodeContext
+    # Description of what error occurred.
+    getter message : String
+    #  Provides a reference to where this error occurred in the input JSON. See `JSONSchema::NodeContext` for more information.
+    getter context : NodeContext
 
     def initialize(@message, @context)
     end
@@ -15,8 +17,9 @@ module JSONSchema
 
   # Captures result of validation, including a status and any number of corresponding errors
   struct ValidationResult
-    property status : Symbol
-    property errors : Array(ValidationError)
+    # Either `:success` or `:error`
+    getter status : Symbol
+    getter errors : Array(ValidationError)
 
     def initialize(@status, @errors = [] of ValidationError)
     end

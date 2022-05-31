@@ -38,26 +38,28 @@ private module NextVar
   end
 end
 
-module ValidatorRender
-  private def create_instance(options : Hash(String, String))
-    var = NextVar.get
-    mapped = options.map do |prop, value|
-      "#{var}.#{prop} = #{value}"
-    end
-
-    return (
-      <<-SCH
-        (-> {
-          #{var} = #{self.class.to_s}.new
-          #{mapped.join("\n")}
-          return #{var}
-        }).call
-      SCH
-    ).strip
-  end
-end
-
 module JSONSchema
+  # Shared module to provide render capability to Validator classes.
+  # This module is private and intended to only be used by the macros in this library.
+  module ValidatorRender
+    private def create_instance(options : Hash(String, String))
+      var = NextVar.get
+      mapped = options.map do |prop, value|
+        "#{var}.#{prop} = #{value}"
+      end
+  
+      return (
+        <<-SCH
+          (-> {
+            #{var} = #{self.class.to_s}.new
+            #{mapped.join("\n")}
+            return #{var}
+          }).call
+        SCH
+      ).strip
+    end
+  end
+
   class GenericValidator
     include ValidatorRender
 

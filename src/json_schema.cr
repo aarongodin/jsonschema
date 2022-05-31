@@ -70,7 +70,7 @@ module JSONSchema
   # schema = JSON.parse(%<{"type": "string"}>)
   # validator = JSONSchema::Runtime.create_validator schema
   # ```
-  def self.from_json(node : JSON::Any) : Validator?
+  def self.from_json?(node : JSON::Any) : Validator?
     begin
       define_schema(node)
     rescue
