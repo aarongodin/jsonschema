@@ -216,7 +216,7 @@ module JSONSchema
     end
 
     # Constraint that _only one_ of the passed schemas is valid given the input JSON. Accepts any number of children as `JSONSchema::Validator` objects.
-    def oneOf(*children)
+    def one_of(*children)
       validator.composites << CompositeValidator.new("oneOf", children.to_a.map &.as(Validator))
     end
 
@@ -254,12 +254,12 @@ module JSONSchema
     end
 
     # Set the validator for a given `Regex`. See [Pattern Properties](https://json-schema.org/understanding-json-schema/reference/object.html#pattern-properties).
-    def pattern_property(pattern : Regex, v : Validator)
+    def pattern_prop(pattern : Regex, v : Validator)
       validator.pattern_properties[pattern] = v
     end
 
     # Set the constraint for disabling additional properties. See [Addiitonal Properties](https://json-schema.org/understanding-json-schema/reference/object.html#additional-properties).
-    def has_disabled_additional_properties
+    def disable_additional_properties
       validator.has_disabled_additional_properties = true
     end
 
@@ -355,8 +355,9 @@ module JSONSchema
       validator.prefix_items = validators.to_a.map &.as(Validator)
     end
 
-    # Set the constraint that the array does not allow additional items beyond those specified in `prefix_items`. See [Additional Items](https://json-schema.org/understanding-json-schema/reference/array.html#additional-items).
-    def has_disabled_additional_items
+    # Set the constraint that the array does not allow additional items beyond those specified in `prefix_items`.
+    # See [Additional Items](https://json-schema.org/understanding-json-schema/reference/array.html#additional-items).
+    def disable_additional_items
       validator.has_disabled_additional_items = true
     end
 
