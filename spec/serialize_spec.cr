@@ -12,7 +12,7 @@ describe JSONSchema::Validator do
           min_length 2
           max_length 64
         end)
-  
+
         prop "age", js.integer
         prop "likes", (js.array {
           min_items 3
@@ -20,21 +20,21 @@ describe JSONSchema::Validator do
           items js.string { min_length 3 }
           unique_items
         })
-  
+
         prop "is_registered", js.boolean
         prop "address", (js.generic {
           any_of(
             js.object {
               prop "street", js.string
               prop "city", js.string
-              prop "state", js.generic { enum_list *STATES } 
+              prop "state", js.generic { enum_list *STATES }
               prop "zipcode", js.string
             },
             js.null
           )
         })
       end
-  
+
       validator.to_json.should eq(File.read("spec/fixtures/serialize_result.json"))
     end
   end
