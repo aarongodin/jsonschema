@@ -245,21 +245,21 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
   </h2>
   
     
-      <a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/render.cr#L85" target="_blank">
+      <a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/render.cr#L85" target="_blank">
         render.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/serialize.cr#L26" target="_blank">
+      <a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/serialize.cr#L26" target="_blank">
         serialize.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L97" target="_blank">
+      <a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L97" target="_blank">
         validator.cr
       </a>
     
@@ -311,6 +311,16 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
     
       <li class="entry-summary">
         <a href="#dependent_required%3D%28dependent_required%3AHash%28String%2CArray%28String%29%29%29-instance-method" class="signature"><strong>#dependent_required=</strong>(dependent_required : Hash(String, Array(String)))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#dependent_schemas%3AHash%28String%2CObjectValidator%29-instance-method" class="signature"><strong>#dependent_schemas</strong> : Hash(String, ObjectValidator)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#dependent_schemas%3D%28dependent_schemas%3AHash%28String%2CObjectValidator%29%29-instance-method" class="signature"><strong>#dependent_schemas=</strong>(dependent_schemas : Hash(String, ObjectValidator))</a>
         
       </li>
     
@@ -476,7 +486,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L101" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L101" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -492,7 +502,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L101" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L101" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -508,7 +518,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L108" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L109" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -524,7 +534,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L108" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L109" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -540,7 +550,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L103" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L103" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -556,7 +566,39 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L103" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L103" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="dependent_schemas:Hash(String,ObjectValidator)-instance-method">
+      <div class="signature">
+        
+        def <strong>dependent_schemas</strong> : Hash(String, <a href="../JSONSchema/ObjectValidator.html">ObjectValidator</a>)
+
+        <a class="method-permalink" href="#dependent_schemas%3AHash%28String%2CObjectValidator%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L104" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="dependent_schemas=(dependent_schemas:Hash(String,ObjectValidator))-instance-method">
+      <div class="signature">
+        
+        def <strong>dependent_schemas=</strong>(dependent_schemas : Hash(String, <a href="../JSONSchema/ObjectValidator.html">ObjectValidator</a>))
+
+        <a class="method-permalink" href="#dependent_schemas%3D%28dependent_schemas%3AHash%28String%2CObjectValidator%29%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L104" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -572,7 +614,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L107" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L108" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -588,7 +630,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L107" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L108" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -604,7 +646,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L100" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L100" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -620,7 +662,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L100" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L100" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -636,7 +678,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L106" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L107" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -652,7 +694,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L106" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L107" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -668,7 +710,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L105" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L106" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -684,7 +726,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L105" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L106" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -700,7 +742,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L99" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L99" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -716,7 +758,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L99" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L99" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -732,7 +774,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L98" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L98" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -748,7 +790,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L98" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L98" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -764,7 +806,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L104" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L105" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -780,7 +822,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L104" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L105" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -796,7 +838,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L102" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L102" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -812,7 +854,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L102" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L102" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -828,7 +870,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/render.cr#L88" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/render.cr#L88" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -856,7 +898,7 @@ validator.to_json <span class="c"># =&gt; {&quot;type&quot;:&quot;object&quot;,&
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/serialize.cr#L38" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/serialize.cr#L38" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -872,7 +914,7 @@ validator.to_json <span class="c"># =&gt; {&quot;type&quot;:&quot;object&quot;,&
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/834e9ee86bf5a066a02151db37ac9836f5d3c86b/src/validator.cr#L110" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/001bd2b93300665e92ad40784d953c18b0efa825/src/validator.cr#L111" target="_blank">View source</a>]
         
       </div>
     </div>
