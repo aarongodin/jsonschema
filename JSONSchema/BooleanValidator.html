@@ -231,14 +231,21 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
   </h2>
   
     
-      <a href="https://github.com/aarongodin/jsonschema/blob/e01286fe4a0a8b21dcf3aa4d3df24f1be883aef2/src/render.cr#L297" target="_blank">
+      <a href="https://github.com/aarongodin/jsonschema/blob/11904d29377db034654c3245e501665f61e7217f/src/render.cr#L297" target="_blank">
         render.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/aarongodin/jsonschema/blob/e01286fe4a0a8b21dcf3aa4d3df24f1be883aef2/src/validator.cr#L472" target="_blank">
+      <a href="https://github.com/aarongodin/jsonschema/blob/11904d29377db034654c3245e501665f61e7217f/src/serialize.cr#L185" target="_blank">
+        serialize.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/aarongodin/jsonschema/blob/11904d29377db034654c3245e501665f61e7217f/src/validator.cr#L471" target="_blank">
         validator.cr
       </a>
     
@@ -265,6 +272,13 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
     
       <li class="entry-summary">
         <a href="#to_cr-instance-method" class="signature"><strong>#to_cr</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_json%28json%3AJSON%3A%3ABuilder%29-instance-method" class="signature"><strong>#to_json</strong>(json : JSON::Builder)</a>
+        
+          <div class="summary"><p>Serialize the validator into its string representation.</p></div>
         
       </li>
     
@@ -328,7 +342,31 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/e01286fe4a0a8b21dcf3aa4d3df24f1be883aef2/src/render.cr#L298" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/11904d29377db034654c3245e501665f61e7217f/src/render.cr#L298" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_json(json:JSON::Builder)-instance-method">
+      <div class="signature">
+        
+        def <strong>to_json</strong>(json : JSON::Builder)
+
+        <a class="method-permalink" href="#to_json%28json%3AJSON%3A%3ABuilder%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Serialize the validator into its string representation.</p>
+<pre><code class="language-crystal">js <span class="o">=</span> <span class="t">JSONSchema</span>.fluent
+validator <span class="o">=</span> js.boolean
+validator.to_json <span class="c"># =&gt; {&quot;type&quot;:&quot;boolean&quot;}</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/jsonschema/blob/11904d29377db034654c3245e501665f61e7217f/src/serialize.cr#L193" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -344,7 +382,7 @@ See the <code><a href="../JSONSchema.html#create_validator%28filename%29-macro">
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/e01286fe4a0a8b21dcf3aa4d3df24f1be883aef2/src/validator.cr#L473" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/11904d29377db034654c3245e501665f61e7217f/src/validator.cr#L472" target="_blank">View source</a>]
         
       </div>
     </div>

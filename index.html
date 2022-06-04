@@ -290,7 +290,7 @@ result.errors[<span class="n">0</span>].context.to_s <span class="c"># =&gt; Str
     <use href="#octicon-link"/>
   </svg>
 </a>Create From JSON Input</h3>
-<p>Use the <code>.from_json</code> method to create <code><a href="JSONSchema/Validator.html">JSONSchema::Validator</a></code> objects from any parsed JSON.</p>
+<p>Use the <code>#from_json</code> method to create <code><a href="JSONSchema/Validator.html">JSONSchema::Validator</a></code> objects from any parsed JSON. This is a runtime method and can raise an exception for any invalid schema. To return <code>nil</code> instead of raising, use <code>#from_json?</code>.</p>
 <pre><code class="language-crystal">validator <span class="o">=</span> <span class="t">JSONSchema</span>.from_json(<span class="t">JSON</span>.parse(
   <span class="s">&lt;&lt;-JSON</span>
 <span class="s">    {
@@ -304,7 +304,7 @@ result.errors[<span class="n">0</span>].context.to_s <span class="c"># =&gt; Str
   JSON</span>
 ))
 
-validator.validate(<span class="t">JSON</span>.parse(<span class="s">&quot;...elided&quot;</span>)) <span class="c"># =&gt; JSONSchema::ValidationResult(@status=:success, @errors=[])</span></code></pre>
+validator.validate(<span class="t">JSON</span>.parse(<span class="s">&quot;...&quot;</span>)) <span class="c"># =&gt; JSONSchema::ValidationResult(@status=:success, @errors=[])</span></code></pre>
 <h3><a id="create-from-fluent-api" class="anchor" href="#create-from-fluent-api">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
@@ -340,6 +340,22 @@ validator <span class="o">=</span> js.object <span class="k">do</span>
     items js.string
   <span class="k">end</span>)
 <span class="k">end</span></code></pre>
+<h3><a id="serialize" class="anchor" href="#serialize">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Serialize</h3>
+<p>You can serialize a validator to its string representation through the standard <code>#to_json</code> methods:</p>
+<pre><code class="language-crystal">js <span class="o">=</span> <span class="t">JSONSchema</span>.fluent
+
+validator <span class="o">=</span> js.generic <span class="k">do</span>
+  any_of(
+    js.string,
+    js.number
+  )
+<span class="k">end</span>
+
+puts validator.to_json <span class="c"># {&quot;anyOf&quot;:[{&quot;type&quot;:&quot;string&quot;},{&quot;type&quot;:&quot;number&quot;}]}</span></code></pre>
 <h2><a id="json-schema-features" class="anchor" href="#json-schema-features">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
