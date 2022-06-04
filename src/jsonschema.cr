@@ -1,5 +1,6 @@
 require "./define"
 require "./validator"
+require "./serialize"
 require "./error"
 require "./fluent"
 

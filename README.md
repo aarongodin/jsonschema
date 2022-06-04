@@ -111,7 +111,7 @@ result.errors[0].context.to_s # => String such as ".person.name" or ".example[2]
 
 ### Create From JSON Input
 
-Use the `.from_json` method to create `JSONSchema::Validator` objects from any parsed JSON.
+Use the `#from_json` method to create `JSONSchema::Validator` objects from any parsed JSON. This is a runtime method and can raise an exception for any invalid schema. To return `nil` instead of raising, use `#from_json?`.
 
 ```crystal
 validator = JSONSchema.from_json(JSON.parse(
@@ -127,7 +127,7 @@ validator = JSONSchema.from_json(JSON.parse(
   JSON
 ))
 
-validator.validate(JSON.parse("...elided")) # => JSONSchema::ValidationResult(@status=:success, @errors=[])
+validator.validate(JSON.parse("...")) # => JSONSchema::ValidationResult(@status=:success, @errors=[])
 ```
 
 ### Create From Fluent API
@@ -164,6 +164,23 @@ validator = js.object do
     items js.string
   end)
 end
+```
+
+### Serialize
+
+You can serialize a validator to its string representation through the standard `#to_json` methods:
+
+```crystal
+js = JSONSchema.fluent
+
+validator = js.generic do
+  any_of(
+    js.string,
+    js.number
+  )
+end
+
+puts validator.to_json # {"anyOf":[{"type":"string"},{"type":"number"}]}
 ```
 
 ## json-schema Features

@@ -3,6 +3,7 @@ require "json"
 require "./validator"
 
 private COMPOSITE_KEYS = ["allOf", "anyOf", "oneOf", "not"]
+private GENERIC_KEYS   = COMPOSITE_KEYS + ["enum", "const"]
 
 module JSONSchema
   extend self
@@ -35,7 +36,7 @@ module JSONSchema
   end
 
   private def is_generic_schema(schema : Hash(String, JSON::Any))
-    (schema.keys & (COMPOSITE_KEYS + ["enum", "const"])).size > 0
+    (schema.keys & (GENERIC_KEYS)).size > 0
   end
 
   private def define_object_validator(schema : Hash(String, JSON::Any)) : ObjectValidator

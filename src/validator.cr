@@ -33,8 +33,7 @@ module JSONSchema
                     NumberValidator |
                     NullValidator |
                     BooleanValidator |
-                    GenericValidator |
-                    CompositeValidator
+                    GenericValidator
 
   # :nodoc:
   def self.validate_enum(value : JSON::Any, enum_list : Array(JSON::Any), context : NodeContext) : ValidationError?
@@ -55,7 +54,7 @@ module JSONSchema
   end
 
   # Validates schema that has no type. Allows for constraints such as `enum`, `const` or
-  # composite schemas that do not require a `type` keyword (`enum` is also available on typed schemas).
+  # composite schemas that do not require a `type` keyword.
   #
   # This is a raw `Validator` class that you most likely do not need to use directly.
   # See the `JSONSchema#create_validator` macro, `JSONSchema#from_json`, or `JSONSchema.fluent` for common usage of this shard.
