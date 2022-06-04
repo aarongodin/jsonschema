@@ -116,6 +116,21 @@ module JSONSchema
         options["dependent_required"] = @dependent_required.to_s
       end
 
+      unless @dependent_schemas.size == 0
+        options["dependent_schemas"] = String.build do |str|
+          str << "{\n"
+          i = 0
+          @dependent_schemas.each do |prop, subschema|
+            str << "\"#{prop}\" => #{subschema.to_cr}"
+            unless i >= @dependent_schemas.size
+              str << ",\n"
+            end
+            i = i + 1
+          end
+          str << "} of String => JSONSchema::ObjectValidator"
+        end
+      end
+
       unless @properties.size == 0
         options["properties"] = String.build do |str|
           str << "{\n"

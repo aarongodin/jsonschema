@@ -304,6 +304,23 @@ module JSONSchema
       validator.dependent_required[name] = values
     end
 
+    # Set a single dependent schema property by name. See [Dependent Schemas](https://json-schema.org/understanding-json-schema/reference/conditionals.html#dependentschemas).
+    # This method accepts a block, unlike many fluent methods. Since we know an `dependent_schema` value must be
+    # a `JSONSchema::ObjectValidator`, we accept a block and use `JSONSchema::FluentObjectValidator` as the receiver.
+    # ```
+    # # Validates that "prop1" is both present and a number, given "prop1" is present
+    # validator = JSONSchema.fluent.object do
+    #   dependent_schema "prop1" do
+    #     prop "prop2", JSONSchema.fluent.number
+    #     required "prop2"
+    #   end
+    # end
+    def dependent_schema(name : String, &block)
+      fluent = FluentObjectValidator.new
+      with fluent yield
+      validator.dependent_schemas[name] = fluent.validator
+    end
+
     # Set a validator for all property names. See [Property names](https://json-schema.org/understanding-json-schema/reference/object.html#property-names).
     def property_names(v : Validator)
       validator.property_names = v

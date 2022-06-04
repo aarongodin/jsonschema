@@ -22,6 +22,9 @@ describe JSONSchema::Fluent do
             "creditCard" => ["billingAddress"],
           })
           dependent_required "couponCode", ["source"]
+          dependent_schema "name" do
+            prop "age", f.number
+          end
           property_names f.string { min_length 10 }
           min_properties 1
           max_properties 5
@@ -35,6 +38,8 @@ describe JSONSchema::Fluent do
         validator.required.should eq(["one", "two", "three"])
         validator.dependent_required["creditCard"].should eq(["billingAddress"])
         validator.dependent_required["couponCode"].should eq(["source"])
+        validator.dependent_schemas["name"].should be_a(JSONSchema::ObjectValidator)
+        validator.dependent_schemas["name"].properties["age"].should be_a(JSONSchema::NumberValidator)
         validator.property_names.should be_a(JSONSchema::StringValidator)
         validator.min_properties.should eq(1)
         validator.max_properties.should eq(5)

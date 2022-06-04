@@ -142,6 +142,32 @@ object_dependent_required = JSON.parse(
   JSON
 )
 
+object_dependent_schemas = JSON.parse(
+  <<-JSON
+    {
+      "schema1": "Test",
+      "schema2": 100
+    }
+  JSON
+)
+
+object_dependent_schemas_invalid1 = JSON.parse(
+  <<-JSON
+    {
+      "schema1": "Test"
+    }
+  JSON
+)
+
+object_dependent_schemas_invalid2 = JSON.parse(
+  <<-JSON
+    {
+      "schema1": "Test",
+      "schema2": "asdf"
+    }
+  JSON
+)
+
 object_property_names = JSON.parse(
   <<-JSON
     {
@@ -282,6 +308,19 @@ describe JSONSchema::ObjectValidator do
 
       it "has an error of the dependent property is not present" do
         assert_validation_error validator.validate(object_required_invalid), %{Expected required property "schema2" to be set when "schema1" is set}
+      end
+    end
+
+    context "given dependent schemas are set" do
+      validator = JSONSchema.create_validator "spec/fixtures/object_dependent_schemas"
+
+      it "is successful for valid input" do
+        assert_validation_success validator.validate(object_dependent_schemas)
+      end
+
+      it "has an error if the dependent schema is invalid" do
+        assert_validation_error validator.validate(object_dependent_schemas_invalid1), %{Expected required property "schema2" to be set}
+        assert_validation_error validator.validate(object_dependent_schemas_invalid2), %{Expected value to be a number}
       end
     end
 

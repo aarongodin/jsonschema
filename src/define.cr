@@ -73,6 +73,12 @@ module JSONSchema
       end
     end
 
+    if schema.has_key?("dependentSchemas")
+      schema["dependentSchemas"].as_h.each do |prop_name, subschema|
+        v.dependent_schemas[prop_name] = define_object_validator(subschema.as_h)
+      end
+    end
+
     if schema.has_key?("properties")
       schema["properties"].as_h.each do |prop_name, prop|
         v.properties[prop_name] = define_schema(prop)

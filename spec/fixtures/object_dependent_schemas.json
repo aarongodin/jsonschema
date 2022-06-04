@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "dependentSchemas": {
+    "schema1": {
+      "properties": {
+        "schema2": {
+          "type": "number"
+        }
+      },
+      "required": ["schema2"]
+    }
+  }
+}

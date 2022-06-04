@@ -101,6 +101,7 @@ module JSONSchema
     property additional_properties : Validator?
     property required : Array(String)?
     property dependent_required : Hash(String, Array(String)) = Hash(String, Array(String)).new
+    property dependent_schemas : Hash(String, ObjectValidator) = Hash(String, ObjectValidator).new
     property property_names : StringValidator?
     property min_properties : Int32?
     property max_properties : Int32?
@@ -122,6 +123,17 @@ module JSONSchema
         @dependent_required.each do |dependent_prop, required_props|
           required_props.each do |required_prop|
             errors.push(ValidationError.new(%{Expected required property "#{required_prop}" to be set when "#{dependent_prop}" is set}, context)) unless value.has_key?(required_prop)
+          end
+        end
+      end
+
+      unless @dependent_schemas.size == 0
+        @dependent_schemas.each do |dependent_prop, subschema|
+          if value.has_key?(dependent_prop)
+            result = subschema.validate(node, context)
+            if result.status == :error
+              errors.concat(result.errors)
+            end
           end
         end
       end
