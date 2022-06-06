@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="jsonschema">
-  <title>JSONSchema::InvalidSchemaError - jsonschema main</title>
+  <title>JSONSchema::I18N - jsonschema main</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -116,12 +116,12 @@
       
     </li>
   
-  <li class=" " data-id="jsonschema/JSONSchema/I18N" data-name="jsonschema::i18n">
+  <li class=" current" data-id="jsonschema/JSONSchema/I18N" data-name="jsonschema::i18n">
       <a href="../JSONSchema/I18N.html">I18N</a>
       
     </li>
   
-  <li class=" current" data-id="jsonschema/JSONSchema/InvalidSchemaError" data-name="jsonschema::invalidschemaerror">
+  <li class=" " data-id="jsonschema/JSONSchema/InvalidSchemaError" data-name="jsonschema::invalidschemaerror">
       <a href="../JSONSchema/InvalidSchemaError.html">InvalidSchemaError</a>
       
     </li>
@@ -200,12 +200,12 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> JSONSchema::InvalidSchemaError
+  <span class="kind">class</span> JSONSchema::I18N
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../JSONSchema/InvalidSchemaError.html">JSONSchema::InvalidSchemaError</a></li><li class="superclass">Exception</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../JSONSchema/I18N.html">JSONSchema::I18N</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
@@ -219,10 +219,18 @@
     Overview
   </h2>
 
-  <p>Exception thrown at compile-time for any invalid schema. A schema may be invalid if the file cannot be read,
-the JSON string in the file is not valid JSON (cannot be parsed), or if the resulting JSON has invalid
-definitions for JSON Schema. Compile-time checks will throw this error if your schema cannot be turned into valid Crystal code,
-or to protect your application from runtime errors related to a schema that would not make logical sense.</p>
+  <p>Allows translation of generated messages (mostly exceptions). Generally you do not need
+to interact with this class, other than to set the lang to a custom configuration.</p>
+<p>To create your own translation, copy the value <code>EN_US</code> <a href="https://github.com/aarongodin/jsonschema/blob/main/src/i18n.cr">from the source</a> and define it in your
+application (with a different constant name). Translate the strings, ensuring that the keys are not changed. Then, call <code><a href="../JSONSchema/I18N.html#set_lang%28lang%3ALang%29-instance-method">#set_lang</a></code>:</p>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;jsonschema&quot;</span>
+
+<span class="t">LANG</span> <span class="o">=</span> {
+  <span class="n">0</span> =&gt; <span class="s">&quot;..&quot;</span>,
+  <span class="c"># ...etc</span>
+}
+
+<span class="t">JSONSchema</span>.i18n.set_lang(<span class="t">LANG</span>)</code></pre>
 
 
 
@@ -247,8 +255,8 @@ or to protect your application from runtime errors related to a schema that woul
   </h2>
   
     
-      <a href="https://github.com/aarongodin/jsonschema/blob/43ca23d96796ccc9815ae2b2d9186ea32e8d3e0b/src/error.cr#L8" target="_blank">
-        error.cr
+      <a href="https://github.com/aarongodin/jsonschema/blob/43ca23d96796ccc9815ae2b2d9186ea32e8d3e0b/src/i18n.cr#L87" target="_blank">
+        i18n.cr
       </a>
     
     <br/>
@@ -258,26 +266,40 @@ or to protect your application from runtime errors related to a schema that woul
 
 
 
+
+
+
+
   <h2>
-    <a id="constructors" class="anchor" href="#constructors">
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Constructors
+    Instance Method Summary
   </h2>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new%28message%3AString%3F%2Ccause%3AException%3F%2Cfilename%3AString%3F%29-class-method" class="signature"><strong>.new</strong>(message : String?, cause : Exception?, filename : String?)</a>
+        <a href="#get%28key%29-instance-method" class="signature"><strong>#get</strong>(key)</a>
+        
+          <div class="summary"><p>Used internally to display translated messages.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get%28key%2C%2Astrings%29-instance-method" class="signature"><strong>#get</strong>(key, *strings)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_lang%28lang%3ALang%29-instance-method" class="signature"><strong>#set_lang</strong>(lang : Lang)</a>
+        
+          <div class="summary"><p>Set a user-created lang.</p></div>
         
       </li>
     
   </ul>
-
-
-
-
 
 
 
@@ -305,48 +327,82 @@ or to protect your application from runtime errors related to a schema that woul
 
 
   
-    
-
-
-    
-
-
-    
-
-
-  
 </div>
 
 
+
+
+
+
   <h2>
-    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Constructor Detail
+    Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="new(message:String?,cause:Exception?,filename:String?)-class-method">
+    <div class="entry-detail" id="get(key)-instance-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(message : String?, cause : Exception?, filename : String?)
+        def <strong>get</strong>(key)
 
-        <a class="method-permalink" href="#new%28message%3AString%3F%2Ccause%3AException%3F%2Cfilename%3AString%3F%29-class-method">#</a>
+        <a class="method-permalink" href="#get%28key%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Used internally to display translated messages.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/jsonschema/blob/43ca23d96796ccc9815ae2b2d9186ea32e8d3e0b/src/i18n.cr#L91" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get(key,*strings)-instance-method">
+      <div class="signature">
+        
+        def <strong>get</strong>(key, *strings)
+
+        <a class="method-permalink" href="#get%28key%2C%2Astrings%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/aarongodin/jsonschema/blob/43ca23d96796ccc9815ae2b2d9186ea32e8d3e0b/src/error.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/aarongodin/jsonschema/blob/43ca23d96796ccc9815ae2b2d9186ea32e8d3e0b/src/i18n.cr#L101" target="_blank">View source</a>]
         
       </div>
     </div>
   
+    <div class="entry-detail" id="set_lang(lang:Lang)-instance-method">
+      <div class="signature">
+        
+        def <strong>set_lang</strong>(lang : <a href="../JSONSchema/Lang.html">Lang</a>)
 
-
-
-
+        <a class="method-permalink" href="#set_lang%28lang%3ALang%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Set a user-created lang. A <code>lang</code> is just a <code>Hash</code> where the keys of the Hash
+are identical to the expected keys for the lang.</p>
+<p>See the constant value <code>EN_US</code> for a reference.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/aarongodin/jsonschema/blob/43ca23d96796ccc9815ae2b2d9186ea32e8d3e0b/src/i18n.cr#L114" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
 
 
 

@@ -13,7 +13,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="jsonschema">
-  <title>JSONSchema::InvalidSchemaError - jsonschema main</title>
+  <title>JSONSchema::Translator - jsonschema main</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -121,7 +121,7 @@
       
     </li>
   
-  <li class=" current" data-id="jsonschema/JSONSchema/InvalidSchemaError" data-name="jsonschema::invalidschemaerror">
+  <li class=" " data-id="jsonschema/JSONSchema/InvalidSchemaError" data-name="jsonschema::invalidschemaerror">
       <a href="../JSONSchema/InvalidSchemaError.html">InvalidSchemaError</a>
       
     </li>
@@ -161,7 +161,7 @@
       
     </li>
   
-  <li class=" " data-id="jsonschema/JSONSchema/Translator" data-name="jsonschema::translator">
+  <li class=" current" data-id="jsonschema/JSONSchema/Translator" data-name="jsonschema::translator">
       <a href="../JSONSchema/Translator.html">Translator</a>
       
     </li>
@@ -200,31 +200,25 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> JSONSchema::InvalidSchemaError
+  <span class="kind">alias</span> JSONSchema::Translator
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../JSONSchema/InvalidSchemaError.html">JSONSchema::InvalidSchemaError</a></li><li class="superclass">Exception</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
 
 
 
 
   <h2>
-    <a id="overview" class="anchor" href="#overview">
+    <a id="alias-definition" class="anchor" href="#alias-definition">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Overview
+    Alias Definition
   </h2>
-
-  <p>Exception thrown at compile-time for any invalid schema. A schema may be invalid if the file cannot be read,
-the JSON string in the file is not valid JSON (cannot be parsed), or if the resulting JSON has invalid
-definitions for JSON Schema. Compile-time checks will throw this error if your schema cannot be turned into valid Crystal code,
-or to protect your application from runtime errors related to a schema that would not make logical sense.</p>
-
-
+  <code>Array(String) -> String</code>
 
 
 
@@ -247,8 +241,8 @@ or to protect your application from runtime errors related to a schema that woul
   </h2>
   
     
-      <a href="https://github.com/aarongodin/jsonschema/blob/43ca23d96796ccc9815ae2b2d9186ea32e8d3e0b/src/error.cr#L8" target="_blank">
-        error.cr
+      <a href="https://github.com/aarongodin/jsonschema/blob/43ca23d96796ccc9815ae2b2d9186ea32e8d3e0b/src/i18n.cr#L2" target="_blank">
+        i18n.cr
       </a>
     
     <br/>
@@ -257,23 +251,6 @@ or to protect your application from runtime errors related to a schema that woul
 
 
 
-
-  <h2>
-    <a id="constructors" class="anchor" href="#constructors">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Constructors
-  </h2>
-  <ul class="list-summary">
-    
-      <li class="entry-summary">
-        <a href="#new%28message%3AString%3F%2Ccause%3AException%3F%2Cfilename%3AString%3F%29-class-method" class="signature"><strong>.new</strong>(message : String?, cause : Exception?, filename : String?)</a>
-        
-      </li>
-    
-  </ul>
 
 
 
@@ -285,64 +262,8 @@ or to protect your application from runtime errors related to a schema that woul
 
 <div class="methods-inherited">
   
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
-  
 </div>
 
-
-  <h2>
-    <a id="constructor-detail" class="anchor" href="#constructor-detail">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Constructor Detail
-  </h2>
-  
-    <div class="entry-detail" id="new(message:String?,cause:Exception?,filename:String?)-class-method">
-      <div class="signature">
-        
-        def self.<strong>new</strong>(message : String?, cause : Exception?, filename : String?)
-
-        <a class="method-permalink" href="#new%28message%3AString%3F%2Ccause%3AException%3F%2Cfilename%3AString%3F%29-class-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/aarongodin/jsonschema/blob/43ca23d96796ccc9815ae2b2d9186ea32e8d3e0b/src/error.cr#L9" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
 
 
 
