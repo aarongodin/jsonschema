@@ -8,7 +8,9 @@ path = Path.new ARGV[0]
 module JSONSchema
   # :nodoc:
   def self.process_file(filename : String) : String
-    define_schema(JSON.parse(File.read(filename))).to_cr rescue raise InvalidSchemaError.new(ex.message, ex, filename)
+    define_schema(JSON.parse(File.read(filename))).to_cr
+  rescue ex
+    raise InvalidSchemaError.new(ex.message, ex, filename)
   end
 end
 

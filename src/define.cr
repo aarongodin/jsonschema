@@ -11,6 +11,10 @@ module JSONSchema
   private def define_schema(node : JSON::Any)
     schema = node.as_h
 
+    if is_generic_schema(schema)
+      return define_generic_validator(schema)
+    end
+
     case schema["type"]?
     when "object"
       define_object_validator(schema)
@@ -27,16 +31,12 @@ module JSONSchema
     when "boolean"
       BooleanValidator.new
     else
-      if is_generic_schema(schema)
-        define_generic_validator(schema)
-      end
-
       raise "Schema did not provide any known constraints"
     end
   end
 
   private def is_generic_schema(schema : Hash(String, JSON::Any))
-    (schema.keys & (GENERIC_KEYS)).size > 0
+    !schema.has_key?("type") && (schema.keys & (GENERIC_KEYS)).size > 0
   end
 
   private def define_object_validator(schema : Hash(String, JSON::Any)) : ObjectValidator
