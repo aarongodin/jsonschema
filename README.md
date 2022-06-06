@@ -230,11 +230,9 @@ These features of JSON Schema are not yet supported, but will be supported in a 
 
 The latest revision of this shard only supports the latest revision of JSON Schema (2020-12). There is not yet support for using a different dialect.
 
-## Roadmap
+### i18n/Translation
 
-I would like to focus on these features beyond JSON schema that will make this library more useful in a variety of implementations:
-
-1. **Message customization/i18n**: This module has a list of error messages that should be made customizable.
+You may provide a translation to this module through `JSONSchema.i18n`. Please [see the API docs](https://aarongodin.github.io/jsonschema/JSONSchema/I18N.html) for documentation.
 
 ## Acknowledgements
 

@@ -3,6 +3,7 @@ require "./validator"
 require "./serialize"
 require "./error"
 require "./fluent"
+require "./i18n"
 
 module JSONSchema
   VERSION = "0.1.0"
@@ -61,7 +62,7 @@ module JSONSchema
   # validator = JSONSchema::Runtime.create_validator schema
   # ```
   def self.from_json(node : JSON::Any) : Validator
-    node.as_h rescue raise InvalidSchemaJSONError.new("root node must be an object")
+    node.as_h rescue raise InvalidSchemaJSONError.new(i18n.get(1))
     define_schema(node)
   end
 

@@ -51,7 +51,7 @@ module JSONSchema
       end
 
       if (accessors.size == 0)
-        raise "Cannot dig on root node context"
+        return input
       end
 
       accessors.reverse!

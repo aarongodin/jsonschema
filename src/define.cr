@@ -1,6 +1,7 @@
 require "json"
 
 require "./validator"
+require "./i18n"
 
 private COMPOSITE_KEYS = ["allOf", "anyOf", "oneOf", "not"]
 private GENERIC_KEYS   = COMPOSITE_KEYS + ["enum", "const"]
@@ -31,7 +32,7 @@ module JSONSchema
     when "boolean"
       BooleanValidator.new
     else
-      raise "Schema did not provide any known constraints"
+      raise i18n.get(0)
     end
   end
 

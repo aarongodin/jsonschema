@@ -2,6 +2,7 @@ require "json"
 
 require "./format"
 require "./node_context"
+require "./i18n"
 
 module JSONSchema
   # Captures an error message and the corresponding path to the value where the error occurred.
@@ -50,7 +51,7 @@ module JSONSchema
       return nil
     end
 
-    ValidationError.new "Expected value to be equal to the enum", context
+    ValidationError.new i18n.get(10), context
   end
 
   # Validates schema that has no type. Allows for constraints such as `enum`, `const` or
@@ -76,7 +77,7 @@ module JSONSchema
 
       unless @const.nil?
         unless node == @const
-          errors.push ValidationError.new("Expected value to be #{@const}", context)
+          errors.push ValidationError.new("#{JSONSchema.i18n.get(11)} #{@const}", context)
         end
       end
 
@@ -109,20 +110,20 @@ module JSONSchema
     property composites : Array(CompositeValidator) = [] of CompositeValidator
 
     def validate(node : JSON::Any, context = NodeContext.new("."))
-      value = node.as_h rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be an object", context)])
+      value = node.as_h rescue return ValidationResult.new(:error, [ValidationError.new(JSONSchema.i18n.get(20), context)])
 
       errors = [] of ValidationError
 
       unless @required.nil?
         @required.as(Array(String)).each do |required_prop|
-          errors.push(ValidationError.new(%{Expected required property "#{required_prop}" to be set}, context)) unless value.has_key?(required_prop)
+          errors.push(ValidationError.new(JSONSchema.i18n.get(21, required_prop), context)) unless value.has_key?(required_prop)
         end
       end
 
       unless @dependent_required.size == 0
         @dependent_required.each do |dependent_prop, required_props|
           required_props.each do |required_prop|
-            errors.push(ValidationError.new(%{Expected required property "#{required_prop}" to be set when "#{dependent_prop}" is set}, context)) unless value.has_key?(required_prop)
+            errors.push(ValidationError.new(JSONSchema.i18n.get(22, required_prop, dependent_prop), context)) unless value.has_key?(required_prop)
           end
         end
       end
@@ -149,13 +150,13 @@ module JSONSchema
 
       unless @min_properties.nil?
         unless value.keys.size >= @min_properties.as(Int32)
-          errors.push(ValidationError.new("Expected object to have at least #{@min_properties} properties", context))
+          errors.push(ValidationError.new(JSONSchema.i18n.get(23, @min_properties.to_s), context))
         end
       end
 
       unless @max_properties.nil?
         if value.keys.size > @max_properties.as(Int32)
-          errors.push(ValidationError.new("Expected object to have at most #{@max_properties} properties", context))
+          errors.push(ValidationError.new(JSONSchema.i18n.get(24, @max_properties.to_s), context))
         end
       end
 
@@ -187,7 +188,7 @@ module JSONSchema
 
       if @has_disabled_additional_properties
         if additional_keys.size > 0
-          errors.push(ValidationError.new("Expected object not to have additional properties", context))
+          errors.push(ValidationError.new(JSONSchema.i18n.get(25), context))
         end
       else
         unless @additional_properties.nil?
@@ -236,7 +237,7 @@ module JSONSchema
     property composites : Array(CompositeValidator) = [] of CompositeValidator
 
     def validate(node : JSON::Any, context = NodeContext.new)
-      value = node.as_a rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be an array", context)])
+      value = node.as_a rescue return ValidationResult.new(:error, [ValidationError.new(JSONSchema.i18n.get(30), context)])
       errors = [] of ValidationError
 
       unless @items.nil?
@@ -257,7 +258,7 @@ module JSONSchema
         end
 
         if @has_disabled_additional_items && value.size > @prefix_items.size
-          errors.push(ValidationError.new("Expected array to be tuple of length #{@prefix_items.size}", context))
+          errors.push(ValidationError.new(JSONSchema.i18n.get(31, @prefix_items.size.to_s), context))
         end
       end
 
@@ -267,13 +268,13 @@ module JSONSchema
 
           unless @min_contains.nil?
             if value_contains_results.size < @min_contains.as(Int32)
-              errors.push(ValidationError.new("Expected array to contain at least #{@min_contains} matched items", context))
+              errors.push(ValidationError.new(JSONSchema.i18n.get(32, @min_contains.to_s), context))
             end
           end
 
           unless @max_contains.nil?
             if value_contains_results.size > @max_contains.as(Int32)
-              errors.push(ValidationError.new("Expected array to contain at most #{@max_contains} matched items", context))
+              errors.push(ValidationError.new(JSONSchema.i18n.get(33, @max_contains.to_s), context))
             end
           end
         else
@@ -290,26 +291,26 @@ module JSONSchema
           end
 
           if !found_contains
-            errors.push(ValidationError.new("Expected array to contain at least 1 matched item", context))
+            errors.push(ValidationError.new(JSONSchema.i18n.get(34), context))
           end
         end
       end
 
       unless @min_items.nil?
         if value.size < @min_items.as(Int32)
-          errors.push(ValidationError.new("Expected array length to be at least #{@min_items}", context))
+          errors.push(ValidationError.new(JSONSchema.i18n.get(35, @min_items.to_s), context))
         end
       end
 
-      unless @min_items.nil?
+      unless @max_items.nil?
         if value.size > @max_items.as(Int32)
-          errors.push(ValidationError.new("Expected array length to be at most #{@max_items}", context))
+          errors.push(ValidationError.new(JSONSchema.i18n.get(36, @max_items.to_s), context))
         end
       end
 
       if @unique_items
         if value.uniq.size != value.size
-          errors.push(ValidationError.new("Expected array items to be unique", context))
+          errors.push(ValidationError.new(JSONSchema.i18n.get(37), context))
         end
       end
 
@@ -344,24 +345,24 @@ module JSONSchema
     property composites : Array(CompositeValidator) = [] of CompositeValidator
 
     def validate(node : JSON::Any, context = NodeContext.new)
-      value = node.as_s rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be a string", context)])
+      value = node.as_s rescue return ValidationResult.new(:error, [ValidationError.new(JSONSchema.i18n.get(40), context)])
       errors = [] of ValidationError
 
       unless @min_length.nil?
         if @min_length.as(Int32) > value.size
-          errors.push(ValidationError.new("Expected string to have a minimum length of #{@min_length}", context))
+          errors.push(ValidationError.new(JSONSchema.i18n.get(41, @min_length.to_s), context))
         end
       end
 
       unless @max_length.nil?
         if value.size > @max_length.as(Int32)
-          errors.push(ValidationError.new("Expected string to have a maximum length of #{@max_length}", context))
+          errors.push(ValidationError.new(JSONSchema.i18n.get(42, @max_length.to_s), context))
         end
       end
 
       unless @pattern.nil?
         if (@pattern =~ value).nil?
-          errors.push(ValidationError.new("Expected string to match pattern /#{@pattern.as(Regex).source}/", context))
+          errors.push(ValidationError.new(JSONSchema.i18n.get(43, @pattern.as(Regex).source), context))
         end
       end
 
@@ -390,7 +391,7 @@ module JSONSchema
 
     private def check_format(format : String, matched_format : Bool, errors : Array(ValidationError), context : NodeContext)
       if !matched_format
-        errors.push(ValidationError.new(%{Expected string to match format "#{format}"}, context))
+        errors.push(ValidationError.new(JSONSchema.i18n.get(44, format), context))
       end
     end
   end
@@ -410,40 +411,40 @@ module JSONSchema
     property composites : Array(CompositeValidator) = [] of CompositeValidator
 
     def validate(node : JSON::Any, context = NodeContext.new)
-      value = node.as_f rescue node.as_i rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be a number", context)])
+      value = node.as_f rescue node.as_i rescue return ValidationResult.new(:error, [ValidationError.new(JSONSchema.i18n.get(50), context)])
       errors = [] of ValidationError
 
       if @has_integer_constraint && (value % 1 != 0)
-        errors.push(ValidationError.new("Expected numeric value to be an integer", context))
+        errors.push(ValidationError.new(JSONSchema.i18n.get(51), context))
       end
 
       unless @minimum.nil?
         unless @minimum.as(Int32) <= value
-          errors.push(ValidationError.new("Expected numeric value be greater than or equal to #{@minimum}", context))
+          errors.push(ValidationError.new(JSONSchema.i18n.get(52, @minimum.to_s), context))
         end
       end
 
       unless @maximum.nil?
         unless value <= @maximum.as(Int32)
-          errors.push(ValidationError.new("Expected numeric value be less than or equal to #{@maximum}", context))
+          errors.push(ValidationError.new(JSONSchema.i18n.get(53, @maximum.to_s), context))
         end
       end
 
       unless @exclusive_minimum.nil?
         unless @exclusive_minimum.as(Int32) < value
-          errors.push(ValidationError.new("Expected numeric value be greater than #{@exclusive_minimum}", context))
+          errors.push(ValidationError.new(JSONSchema.i18n.get(54, @exclusive_minimum.to_s), context))
         end
       end
 
       unless @exclusive_maximum.nil?
         unless value < @exclusive_maximum.as(Int32)
-          errors.push(ValidationError.new("Expected numeric value be less than #{@exclusive_maximum}", context))
+          errors.push(ValidationError.new(JSONSchema.i18n.get(55, @exclusive_maximum.to_s), context))
         end
       end
 
       unless @multiple_of.nil?
         unless value % multiple_of.as(Int32) == 0
-          errors.push(ValidationError.new("Expected numeric value to be multiple of #{@multiple_of}", context))
+          errors.push(ValidationError.new(JSONSchema.i18n.get(56, @multiple_of.to_s), context))
         end
       end
 
@@ -471,7 +472,7 @@ module JSONSchema
   # See the `JSONSchema#create_validator` macro, `JSONSchema#from_json`, or `JSONSchema.fluent` for common usage of this shard.
   class NullValidator
     def validate(node : JSON::Any, context = NodeContext.new)
-      node.as_nil rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be null", context)])
+      node.as_nil rescue return ValidationResult.new(:error, [ValidationError.new(JSONSchema.i18n.get(60), context)])
       ValidationResult.new(:success)
     end
   end
@@ -482,7 +483,7 @@ module JSONSchema
   # See the `JSONSchema#create_validator` macro, `JSONSchema#from_json`, or `JSONSchema.fluent` for common usage of this shard.
   class BooleanValidator
     def validate(node : JSON::Any, context = NodeContext.new)
-      node.as_bool rescue return ValidationResult.new(:error, [ValidationError.new("Expected value to be a boolean", context)])
+      node.as_bool rescue return ValidationResult.new(:error, [ValidationError.new(JSONSchema.i18n.get(70), context)])
       ValidationResult.new(:success)
     end
   end
@@ -509,19 +510,19 @@ module JSONSchema
       case @keyword
       when "allOf"
         if results_with_errors.size > 0
-          return ValidationResult.new(:error, [ValidationError.new("Expected value to match all schemas", context)])
+          return ValidationResult.new(:error, [ValidationError.new(JSONSchema.i18n.get(80), context)])
         end
       when "anyOf"
         unless results.size - results_with_errors.size > 0
-          return ValidationResult.new(:error, [ValidationError.new("Expected value to match any of the schemas", context)])
+          return ValidationResult.new(:error, [ValidationError.new(JSONSchema.i18n.get(81), context)])
         end
       when "oneOf"
         unless results.size - results_with_errors.size == 1
-          return ValidationResult.new(:error, [ValidationError.new("Expected value to match only one of the schemas", context)])
+          return ValidationResult.new(:error, [ValidationError.new(JSONSchema.i18n.get(82), context)])
         end
       when "not"
         unless results.size == results_with_errors.size
-          return ValidationResult.new(:error, [ValidationError.new("Expected value not to match any of the schemas", context)])
+          return ValidationResult.new(:error, [ValidationError.new(JSONSchema.i18n.get(83), context)])
         end
       end
 
