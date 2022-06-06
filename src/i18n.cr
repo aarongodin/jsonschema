@@ -9,7 +9,7 @@ module JSONSchema
     1 => "root node must be an object",
     2 => ->(strings : Array(String)) { %{Could not get a valid JSON Schema from "#{strings[0]}"} },
 
-    #--- Validation errors ---
+    # --- Validation errors ---
     # GenericValidator
     10 => "Expected value to be equal to the enum",
     11 => "Expected value to be", # "const" value validation
@@ -90,16 +90,20 @@ module JSONSchema
     # Used internally to display translated messages.
     def get(key)
       translated = if @lang.has_key?(key)
-        @lang[key]
-      else
-        EN_US[key]
-      end
+                     @lang[key]
+                   else
+                     EN_US[key]
+                   end
 
       translated.as(String)
     end
 
     def get(key, *strings)
-      translator = if @lang.has_key?(key) @lang[key] else EN_US[key] end
+      translator = if @lang.has_key?(key)
+                     @lang[key]
+                   else
+                     EN_US[key]
+                   end
       translator.as(Translator).call(strings.to_a)
     end
 
