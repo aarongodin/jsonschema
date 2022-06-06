@@ -73,10 +73,6 @@ module JSONSchema
   # validator = JSONSchema::Runtime.create_validator schema
   # ```
   def self.from_json?(node : JSON::Any) : Validator?
-    begin
-      define_schema(node)
-    rescue
-      nil
-    end
+    define_schema(node) rescue nil
   end
 end

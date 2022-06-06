@@ -38,7 +38,7 @@ module JSONSchema
   # :nodoc:
   def self.validate_enum(value : JSON::Any, enum_list : Array(JSON::Any), context : NodeContext) : ValidationError?
     found_match = false
-    item_iterator = enum_list.each.take_while { |item| !found_match }
+    item_iterator = enum_list.each.take_while { |_| !found_match }
     current_item = item_iterator.next
 
     while current_item.is_a?(JSON::Any)
@@ -240,7 +240,7 @@ module JSONSchema
       errors = [] of ValidationError
 
       unless @items.nil?
-        value.each_with_index do |item, i|
+        value.each do |item|
           result = @items.as(Validator).validate(item)
           if (result.status == :error)
             errors.concat(result.errors)
@@ -278,7 +278,7 @@ module JSONSchema
           end
         else
           found_contains = false
-          item_iterator = value.each.take_while { |item| !found_contains }
+          item_iterator = value.each.take_while { |_| !found_contains }
           current_item = item_iterator.next
 
           while current_item.is_a?(JSON::Any)
@@ -534,7 +534,7 @@ end
 # when validated against the given node.
 private def validate_composites(composites : Array(JSONSchema::CompositeValidator), node : JSON::Any, errors : Array(JSONSchema::ValidationError))
   unless composites.size == 0
-    composite_results = composites.map { |composite| composite.validate(node) }.each do |composite_result|
+    composites.map(&.validate(node)).each do |composite_result|
       if composite_result.status == :error
         errors.concat(composite_result.errors)
       end

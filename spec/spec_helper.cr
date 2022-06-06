@@ -20,8 +20,8 @@ def assert_validation_errors(result : JSONSchema::ValidationResult, messages : A
   end
 end
 
-def assert_validation_error_context(result : JSONSchema::ValidationResult, contextPath : String)
+def assert_validation_error_context(result : JSONSchema::ValidationResult, context_path : String)
   result.status.should eq(:error)
   result.errors.size.should eq(1)
-  result.errors[0].context.to_s.should eq(contextPath)
+  result.errors[0].context.to_s.should eq(context_path)
 end

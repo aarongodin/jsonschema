@@ -48,10 +48,10 @@ module JSONSchema
         "#{var}.#{prop} = #{value}"
       end
 
-      return (
+      (
         <<-SCH
           (-> {
-            #{var} = #{self.class.to_s}.new
+            #{var} = #{self.class}.new
             #{mapped.join("\n")}
             return #{var}
           }).call

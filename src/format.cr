@@ -1,33 +1,33 @@
 require "validator"
 
-date_time = /^\d{4}-(?:0[0-9]{1}|1[0-2]{1})-(3[01]|0[1-9]|[12][0-9])[tT ](2[0-4]|[01][0-9]):([0-5][0-9]):(60|[0-5][0-9])(\.\d+)?([zZ]|[+-]([0-5][0-9]):(60|[0-5][0-9]))$/
-date = /^\d{4}-(?:0[0-9]{1}|1[0-2]{1})-(3[01]|0[1-9]|[12][0-9])$/
-time = /^(2[0-4]|[01][0-9]):([0-5][0-9]):(60|[0-5][0-9])$/
-duration = /P(T\d+(H(\d+M(\d+S)?)?|M(\d+S)?|S)|\d+(D|M(\d+D)?|Y(\d+M(\d+D)?)?)(T\d+(H(\d+M(\d+S)?)?|M(\d+S)?|S))?|\d+W)/i
+private DATE_TIME = /^\d{4}-(?:0[0-9]{1}|1[0-2]{1})-(3[01]|0[1-9]|[12][0-9])[tT ](2[0-4]|[01][0-9]):([0-5][0-9]):(60|[0-5][0-9])(\.\d+)?([zZ]|[+-]([0-5][0-9]):(60|[0-5][0-9]))$/
+private DATE = /^\d{4}-(?:0[0-9]{1}|1[0-2]{1})-(3[01]|0[1-9]|[12][0-9])$/
+private TIME = /^(2[0-4]|[01][0-9]):([0-5][0-9]):(60|[0-5][0-9])$/
+private DURATION = /P(T\d+(H(\d+M(\d+S)?)?|M(\d+S)?|S)|\d+(D|M(\d+D)?|Y(\d+M(\d+D)?)?)(T\d+(H(\d+M(\d+S)?)?|M(\d+S)?|S))?|\d+W)/i
 
-json_pointer = /^(\/([\x00-\x2e0-@\[-}\x7f]|~[01])*)*$/i
-relative_json_pointer = /^\d+(#|(\/([\x00-\x2e0-@\[-}\x7f]|~[01])*)*)$/i
+private JSON_POINTER = /^(\/([\x00-\x2e0-@\[-}\x7f]|~[01])*)*$/i
+private RELATIVE_JSON_POINTER = /^\d+(#|(\/([\x00-\x2e0-@\[-}\x7f]|~[01])*)*)$/i
 
-hostname = /^(?=.{1,255}$)[0-9A-Za-z](?:(?:[0-9A-Za-z]|-){0,61}[0-9A-Za-z])?(?:\.[0-9A-Za-z](?:(?:[0-9A-Za-z]|-){0,61}[0-9A-Za-z])?)*\.?$/
+private HOSTNAME = /^(?=.{1,255}$)[0-9A-Za-z](?:(?:[0-9A-Za-z]|-){0,61}[0-9A-Za-z])?(?:\.[0-9A-Za-z](?:(?:[0-9A-Za-z]|-){0,61}[0-9A-Za-z])?)*\.?$/
 
 # Provides string format validations for any allowed `format` keyword.
 module JSONSchema::Format
   extend self
 
   def is_date_time(value : String)
-    !(date_time =~ value).nil?
+    !(DATE_TIME =~ value).nil?
   end
 
   def is_time(value : String)
-    !(time =~ value).nil?
+    !(TIME =~ value).nil?
   end
 
   def is_date(value : String)
-    !(date =~ value).nil?
+    !(DATE =~ value).nil?
   end
 
   def is_duration(value : String)
-    !(duration =~ value).nil?
+    !(DURATION =~ value).nil?
   end
 
   def is_email(value : String)
@@ -39,7 +39,7 @@ module JSONSchema::Format
   end
 
   def is_hostname(value : String)
-    !(hostname =~ value).nil?
+    !(HOSTNAME =~ value).nil?
   end
 
   def is_idn_hostname(value : String)
@@ -76,11 +76,11 @@ module JSONSchema::Format
   end
 
   def is_json_pointer(value : String)
-    !(json_pointer =~ value).nil?
+    !(JSON_POINTER =~ value).nil?
   end
 
   def is_relative_json_pointer(value : String)
-    !(relative_json_pointer =~ value).nil?
+    !(RELATIVE_JSON_POINTER =~ value).nil?
   end
 
   def is_regex(value : String)

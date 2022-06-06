@@ -13,22 +13,22 @@ module JSONSchema
 
     case schema["type"]?
     when "object"
-      return define_object_validator(schema)
+      define_object_validator(schema)
     when "array"
-      return define_array_validator(schema)
+      define_array_validator(schema)
     when "string"
-      return define_string_validator(schema)
+      define_string_validator(schema)
     when "number"
-      return define_number_validator(schema)
+      define_number_validator(schema)
     when "integer"
-      return define_number_validator(schema, true)
+      define_number_validator(schema, true)
     when "null"
-      return NullValidator.new
+      NullValidator.new
     when "boolean"
-      return BooleanValidator.new
+      BooleanValidator.new
     else
       if is_generic_schema(schema)
-        return define_generic_validator(schema)
+        define_generic_validator(schema)
       end
 
       raise "Schema did not provide any known constraints"
@@ -96,7 +96,7 @@ module JSONSchema
     end
 
     v.composites = define_composite_validators(schema)
-    return v
+    v
   end
 
   private def define_array_validator(schema : Hash(String, JSON::Any))
@@ -134,7 +134,7 @@ module JSONSchema
     end
 
     v.composites = define_composite_validators(schema)
-    return v
+    v
   end
 
   private def define_string_validator(schema : Hash(String, JSON::Any))
@@ -164,7 +164,7 @@ module JSONSchema
     end
 
     v.composites = define_composite_validators(schema)
-    return v
+    v
   end
 
   private def define_number_validator(schema : Hash(String, JSON::Any), has_integer_constraint = false)
@@ -181,7 +181,7 @@ module JSONSchema
     end
 
     v.composites = define_composite_validators(schema)
-    return v
+    v
   end
 
   private def define_generic_validator(schema : Hash(String, JSON::Any))
@@ -196,7 +196,7 @@ module JSONSchema
     end
 
     v.composites = define_composite_validators(schema)
-    return v
+    v
   end
 
   private def define_composite_validators(schema : Hash(String, JSON::Any))
@@ -209,6 +209,6 @@ module JSONSchema
       end
     end
 
-    return composites
+    composites
   end
 end
