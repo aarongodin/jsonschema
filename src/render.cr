@@ -93,7 +93,7 @@ module JSONSchema
       end
 
       unless @required.nil?
-        options["required"] = @required.to_s
+        options["required"] = @required.to_s + " of String"
       end
 
       unless @property_names.nil?
